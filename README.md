@@ -7,47 +7,71 @@ As a user, I would like to improve my health by doing workouts. You can select, 
  
 ## User Stories
 
-- **404** 
+**404** 
 - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
-- 
-- **500** 
+
+**500** 
 - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 
-- **landing** - Landing page displays information about application and navigation to authentication screens
+**landing** 
+- Landing page displays information about application and navigation to authentication screens
 
-- **sign up** 
+**sign up** 
 - As a user I want to sign up on the webpage so that I can see all the events that I could attend
 - User can set profile information in the signup-flow
 
-- **login** 
+**login** 
 - As a user I want to be able to log in on the webpage so that I can get back to my account
 
+**logout** 
+- As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
 
-- **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
-- **events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
-- 
-- **events create** - As a user I want to create an event so that I can invite others to attend
-- **events detail** - As a user I want to see the event details and attendee list of one event so that I can decide if I want to attend 
-- **event attend** - As a user I want to be able to attend to event so that the organizers can count me in
+**My Workouts** 
+- Users can see their workouts with general information and information about all the exercises
+- Users can add their workouts to their workout to-do
+- Users can add their previous workouts to their workout to-do
+
+**Workout Library**
+- User can search for workouts in the workout library
+- User can do advanced search by searching for various workout properties
+- User can see more information on the workout
+
+**Workout creation**
+- User can create workouts
+- User can add exercises to each workout
+- User can create new exercises
+
+**Profile**
+- User can see profile page
+- User can set a profile image
+- User can modify profile information
 
 ## Backlog
+**Achievements & Statistics**
+- User can earn achievements for reaching certain milestones
+- User can see statistics on workout progresssions
 
-List of other features outside of the MVPs scope
+**Workout Library**
+- User can manually edit the amount of sets and reps for each exercise
+- The search results are paginated
 
-User profile:
-- see my profile
-- upload my profile picture
-- see other users profile
-- list of events created by the user
-- list events the user is attending
+**My Workouts** 
+- User receives personalized workout suggestions
 
-Geo Location:
-- add geolocation to events when creating
-- show event in a map in event detail page
-- show all events in a map in the event list page
+**Responsive UI**
+- UI is responsive to desktop, tablet and mobile
 
-Homepage
-- ...
+**CRUD ADMIN**
+- Special admins ('trainers') can CRUD exercises and workouts that are created by users
+- Therefore we would have multiple admin roles
+- Admin role would be able to asign the trainer-role to existing user
+
+**Multilingual**
+- Static content is translatable from admin
+- Dynamic content is auto-translated
+
+**Schedule workouts**
+- User can schedule workouts for specific dates
 
 
 ## ROUTES:
