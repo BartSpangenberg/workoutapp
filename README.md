@@ -76,45 +76,77 @@ As a user, I would like to improve my health by doing workouts. You can select, 
 
 ## ROUTES:
 
-- GET / 
-  - renders the homepage
-- GET /auth/signup
+GET / 
+  - renders the landingpage
+GET /signup
   - redirects to / if user logged in
   - renders the signup form (with flash msg)
-- POST /auth/signup
+POST /auth/signup
   - redirects to / if user logged in
   - body:
     - username
     - email
-    - password
-- GET /auth/login
+GET /login
   - redirects to / if user logged in
   - renders the login form (with flash msg)
-- POST /auth/login
+POST /login
   - redirects to / if user logged in
   - body:
     - username
     - password
-- POST /auth/logout
+POST /auth/logout
   - body: (empty)
 
-- GET /events
-  - renders the event list + the create form
-- POST /events/create 
-  - redirects to / if user is anonymous
-  - body: 
-    - name
-    - date
-    - location
-    - description
-- GET /events/:id
-  - renders the event detail page
-  - includes the list of attendees
-  - attend button if user not attending yet
-- POST /events/:id/attend 
-  - redirects to / if user is anonymous
-  - body: (empty - the user is already stored in the session)
+POST : /signup/athlete
+ - Redirect and store data temporary & redirect to next page --> same for all pages in signup flow
+POST : /signup/body
+POST : /signup/birthday
+POST : /signup/goals
+POST : /signup/journey
+POST : /signup/profile-created
+ - Create signup in the databse
 
+GET: /myworkouts/:user
+- Renders myworkouts page for specific user
+
+GET: /myworkouts/workout-information/:workout
+
+GET: /library/search
+
+GET: /library/search
+POST: /library/search 
+- Display search results 
+
+GET: /library/workout-information/:workout
+POST: /library/workout-information/:workout
+- Modify reps and sets & store database in user object
+
+GET: /library/search/advanced
+POST: /library/search/advanced
+- Display search results 
+
+GET: /library/create-workout
+POST: /library/create-workout
+
+GET: /library/create-exercise
+POST: /library/create-exercise
+
+GET: /profile/:user
+
+GET: /achievements/:user
+
+GET:  /profile/:user/edit-username
+POST: /profile/:user/edit-username
+GET:  /profile/:user/edit-goals
+POST: /profile/:user/edit-goals
+GET:  /profile/:user/edit-athlete
+POST: /profile/:user/edit-athlete
+GET:  /profile/:user/edit-body
+POST: /profile/:user/edit-body
+GET:  /profile/:user/edit-birthdate
+POST: /profile/:user/edit-birthdate
+GET:  /profile/:user/edit-password
+POST: /profile/:user/edit-password
 
 ## Models
 
