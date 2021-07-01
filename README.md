@@ -149,24 +149,41 @@ GET:  /profile/:user/edit-password
 POST: /profile/:user/edit-password
 
 ## Models
-
-User model
- 
 ```
+User model (mvp version) 
 username: String
 password: String
+email: String
+athleteLevel: String
+height: Number
+weight: Number
+goals: Array of strings
+birthday: Timestamp
+isFirstTimeLogin: Boolean
+workouts: Array of objects
 ```
 
-Event model
-
 ```
-owner: ObjectId<User>
+Workout model (mvp version) 
 name: String
 description: String
-date: Date
-location: String
-attendees: [ObjectId<User>]
+goals: Array of strings
+type: String
+athleteLevel: String
+duration: Number
+intensity: String
+amountOfTimesSelected: Number
+createdBy: ObjectId<User>
+exercises: Array of ofbjects (ObjectId<Exercise>, repUnit, reps, sets)
 ``` 
+
+```
+Exercise model
+name: String
+description: String
+Equipment: String
+image_url: String
+```
 
 ## Links
 
