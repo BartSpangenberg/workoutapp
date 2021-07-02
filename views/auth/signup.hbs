@@ -1,0 +1,32 @@
+<h1>Welcome to our WorkoutApp !</h1>
+
+{{! To improve : button }}
+
+<form method="POST" action="/signup">
+  <div class="mb-3">
+    <label class="form-label" for="email"></label>
+    <input
+      placeholder="Enter your email"
+      class="form-control"
+      type="text"
+      name="email"
+      value="email"
+    />
+
+    <br />
+
+    <label class="form-label" for="password"></label>
+    <input
+      placeholder="Enter your password"
+      class="form-control"
+      type="text"
+      name="password"
+      value="email"
+    />
+    <br />
+
+    <a class="privacyPolicy" href="/link">I agree with the privacy Policy</a>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+  </div>
+</form>
