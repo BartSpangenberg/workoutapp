@@ -46,30 +46,32 @@
         <option value="High">High</option>
         </select>
     </div>
+    <section id="add-exercises">
+        <article class="new-exercise">
+            <input
+                type="exerciseSearch"
+                id="exericse-search"
+                placeholder="Search for exercise"
+            />
 
-    <div class="new-exercise">
-        <input
-            type="exerciseSearch"
-            id="exericse-search"
-            placeholder="Search for exercise"
-        />
+            <input type="reps" id="reps" value="1" />
 
-        <input type="reps" id="reps" value="1" />
+            <input type="restBetweenReps" id="restBetweenReps" value="30" />
+            <span>Seconds</span>
 
-        <input type="restBetweenReps" id="restBetweenReps" value="30" />
-        <span>Seconds</span>
+            <input type="unitType" id="exericse-search" placeholder="Unit" />
 
-        <input type="unitType" id="exericse-search" placeholder="Unit" />
+            <input type="sets" id="sets" value="1" />
 
-        <input type="sets" id="sets" value="1" />
+            <span>Sets</span>
+            <input type="restBetweenSets" id="restBetweenSets" value="30" />
+            <span>Seconds</span>
 
-        <span>Sets</span>
-        <input type="restBetweenSets" id="restBetweenSets" value="30" />
-        <span>Seconds</span>
+        </article>
 
-    </div>
+    </section>
 
-    <button type="button">+</button>
+    <button id="add-row" type="button">+</button>
 
     <p>Cannot find your exercise? Create it yourself!</p>
 
@@ -78,3 +80,5 @@
     <button type="submit">Create workout</button>
 
 </form>
+
+<script src="/js/library/create-workout.js"></script>
