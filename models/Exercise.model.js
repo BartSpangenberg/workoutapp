@@ -11,7 +11,6 @@ const { Schema, model } = require("mongoose");
 //     default: 'none'
 // })
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const exerciseSchema = new Schema({
     name: {
     type: String,
