@@ -13,7 +13,7 @@ const nestedExerciseSchema = new Schema({
     sets: Number,
     restBetweenReps: Number,
     restBetweenSets: Number
-})
+});
 
 const workoutSchema = new Schema({
   name: {
