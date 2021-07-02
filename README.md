@@ -5,6 +5,7 @@ WorkoutApp
 ## Description
 
 As a user, I would like to improve my health by doing workouts. You can select, create an track workouts and see valuable statistics.
+motivation
 
 ## User Stories
 
