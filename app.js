@@ -17,6 +17,9 @@ const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+// The ./config/session.config exports a function that takes app as an argument
+// This function creates the session and cookie
+require('./config/session.config')(app);
 
 // default value for title local
 const projectName = "workoutapp";
