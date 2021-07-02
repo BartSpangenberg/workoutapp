@@ -1,0 +1,7 @@
+  {
+    name: 'Bentover Dumbbell Rows',
+    description: '<p>With dumbbells in hand, bend at the hip until hands hang just below the knees (similar to straight-legged-deadlift starting position). Keep upper body angle constant while contracting your lats to pull you ellbows back pinching the shoulder blades at the top. Try not to stand up with every rep, check hands go below knees on every rep.</p>',
+    equipmentNumbers: [ 3 ],
+    exerciseImageNumber: 81,
+    musclesNumbers: [ 12 ]
+  },
