@@ -7,7 +7,7 @@ const nestedExerciseSchema = new Schema({
     },
     unitType: {
         type: String,
-        enum: ['minutes', 'reps', 'meters', 'km']
+        enum: ['Minutes', 'Reps', 'Meters', 'Km']
     },
     reps: Number,
     sets: Number,
@@ -42,7 +42,7 @@ const workoutSchema = new Schema({
   exercises: [nestedExerciseSchema]
 });
 
-const workoutModel = model("Workout", workoutSchema);
+const WorkoutModel = model("Workout", workoutSchema);
 
-module.exports = workoutModel;
+module.exports = WorkoutModel;
 

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const ExerciseModel = require('../models/Exercise.model');
+const WorkoutModel = require('../models/Workout.model');
 
 let types = ["Bodyweight", "Gym", "Outdoor", "Athlete", "Mobility", "Endurance"]; 
 let levels = ["Lannister / Targaryan", "Beginner", "Advanced", "Pro", "Stark"];
@@ -29,9 +30,28 @@ router.post('/library/create-workout', (req, res, next) => {
 
     // After that the post request is handled based on the type of button click
     if (req.body.button === 'create-workout') {
-        // console.log(req.session.workout)
-        res.send('Redirect to My Workouts');
+        const {name, description, duration, type, level, goals, intensity, exercises} = req.session.workout;
+        let newWorkout = {
+            name,
+            description,
+            duration: +duration,
+            type: extractWorkoutDataFromSession(type),
+            athleteLevel: extractWorkoutDataFromSession(level),
+            goals: [extractWorkoutDataFromSession(goals)],
+            intensity: extractWorkoutDataFromSession(intensity),
+            exercises
+        }
 
+        WorkoutModel.create(newWorkout)
+            .then((createdWorkout) => {
+                req.session.isCreatingWorkout = false;
+                res.send('Redirect to My Workouts');
+
+
+            }).catch((err) => {
+                console.log("Something went wrong while creating a new workout", err)
+                res.redirect('/library/create-workout')
+            });
     }
     else if (req.body.button === 'search-for-exercise') {
         const { findExercise: searchWord } = req.body
@@ -230,6 +250,7 @@ function createArrayOfNotSelectedItems(array, selectedItem) {
 }
 
 function resetSessionWorkoutData(req, res, next) {
+    console.log("I RUN", req.session.isCreatingWorkout)
     if (!req.session.isCreatingWorkout) {
         req.session.workout = {};
         req.session.workout.name = '';
@@ -276,5 +297,9 @@ function convertCheckboxData(object, array) {
     }
     return newArr;
 }
+
+function extractWorkoutDataFromSession(object) {
+    return object.Selected
+}  
 
 module.exports = router;
