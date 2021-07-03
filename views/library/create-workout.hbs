@@ -1,51 +1,37 @@
 <a href="/library/search">Go back to search</a>
 <form method="POST" action="/library/create-workout">
   <label for="name">Workout name</label>
-  <input type="text" id="name" name="name" value={{workoutObj.name}}/>
+  <input type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>
 
   <label for="description">Workout name</label>
-  <input type="text" id="description" name="description" value={{workoutObj.description}} />
+  <input type="text" id="description" name="description" value="{{workoutObj.description}}" placeholder="Workout description" />
 
   <div class="dropdown-container">
+
         <label for="type">Type</label>
         <select name="type" id="type">
-        <option value="Bodyweight">Bodyweight</option>
-        <option value="Gym">Gym</option>
-        <option value="Outdoor">Outdoor</option>
-        <option value="Athlete">Athlete</option>
-        <option value="Mobility">Mobility</option>
-        <option value="Endurance">Endurance</option>
+            {{> options workoutObj.type}}
         </select>
 
         <label for="duration">Duration</label>
-        <input type="number" name="duration" id="duration" />
+        <input type="number" name="duration" id="duration" value="{{workoutObj.duration}}"  min="0" max="300"/>
 
         <label for="level">Level</label>
         <select name="level" id="level">
-        <option value="Lannister / Targaryan">Lannister / Targaryan</option>
-        <option value="Beginner">Beginner</option>
-        <option value="Advanced">Advanced</option>
-        <option value="Pro">Pro</option>
-        <option value="Stark">Stark</option>
+            {{> options workoutObj.level}}
         </select>
 
         <label for="goals">Goals</label>
         <select name="goals" id="goals">
-        <option value="Get summer fit">Get summer fit</option>
-        <option value="Run a marathon">Run a marathon/option>
-        <option value="Become more athletic">Become more athletic</option>
-        <option value="Improve endurance">Improve endurance</option>
-        <option value="Lose weight">Lose weight</option>
-        <option value="Build muscle">Build muscle</option>
+              {{> options workoutObj.goals}}          
         </select>
 
         <label for="intensity">Intensity</label>
         <select name="intensity" id="intensity">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
+              {{> options workoutObj.intensity}}                     
         </select>
     </div>
+    
     <section id="add-exercises">
         <article class="new-exercise">
             <span>Exercise Name</span>
@@ -112,7 +98,8 @@
 
     <button type="submit" name="button" value="create-workout" >Create workout</button>
 
+
 </form>
 
 {{!-- Probably this file is no longer needed. --}}
-{{!-- <script src="/js/library/create-workout.js"></script> --}}
+<script src="/js/library/create-workout.js"></script>
