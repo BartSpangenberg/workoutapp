@@ -33,57 +33,9 @@
     </div>
     
     <section id="add-exercises">
-        <article class="new-exercise">
-            <span>Exercise Name</span>
-
-            <input name="reps" type="number" id="reps" value="1" />
-            <label for="unitType">Unit</label>
-            <select name="unitType" id="unitType">
-                <option value="Reps">Reps</option>
-                <option value="Minutes">Minutes</option>
-                <option value="Meter">Meter</option>
-                <option value="Km">Km</option>
-            </select>
-
-            <span>Rest between reps</span>
-            <input name="restBetweenReps" type="number" id="restBetweenReps" value="30" />
-            <span>Seconds</span>
-
-
-            <input name="sets" type="number" id="sets" value="1" />
-            <span>Sets</span>
-
-            <span>Rest between sets</span>
-            <input name="restBetweenSets" type="number" id="restBetweenSets" value="30" />
-            <span>Seconds</span>
-        </article>
-
-
-                <article class="new-exercise">
-            <span>Exercise Name</span>
-
-            <input name="reps" type="number" id="reps" value="1" />
-            <label for="unitType">Unit</label>
-            <select name="unitType" id="unitType">
-                <option value="Reps">Reps</option>
-                <option value="Minutes">Minutes</option>
-                <option value="Meter">Meter</option>
-                <option value="Km">Km</option>
-            </select>
-
-            <span>Rest between reps</span>
-            <input name="restBetweenReps" type="number" id="restBetweenReps" value="30" />
-            <span>Seconds</span>
-
-
-            <input name="sets" type="number" id="sets" value="1" />
-            <span>Sets</span>
-
-            <span>Rest between sets</span>
-            <input name="restBetweenSets" type="number" id="restBetweenSets" value="30" />
-            <span>Seconds</span>
-        </article>
-
+        {{#each workoutObj.exercises}}
+            {{> exercise this}}     
+        {{/each}}
     </section>
 
     <input type="text" name="find-exercise"> <button type="submit" name="button" value="search-for-exercise">Search for exercise</button>
