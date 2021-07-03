@@ -6,12 +6,14 @@ let levels = ["Lannister / Targaryan", "Beginner", "Advanced", "Pro", "Stark"];
 let goalsArr = ["Get summer fit", "Run a marathon", "Become more athletic", "Improve endurance", "Lose weight", "Build muscle"];
 let intensities = ["Low", "Medium", "High"];
 let unitTypes = ["Reps", "Minutes", "Meters", "Km"];
+let equipments = ["none (bodyweight exercise)", "Barbell", "Dumbell",  "Kettlebell", "SwissBal", "Bench", "Gym mat", "Incline Bench", "Pull-up bar", "SZ-Bar"]
+let muscles  = [`I haven't the faintest idea`,'Anterior deltoid','Biceps brachii','Bicpes femoris','Brachialis','Gastrocnemius','Gluteus maximus','Latissimus dorsi','Obliquus externus abdominis','Pectoralis major','Quadriceps femoris','Rectus abdominis','Serratus anterior','Soleus','Trapezius','Triceps brachii','Erector spinae','Gastrocnemius'];
 
 // createIsCreatingWorkout will later be removed when we create this variable on login
 router.get("/library/create-workout", createIsCreatingWorkout, resetSessionWorkoutData, (req, res, next) => {
     // Renders the workout data from the session into the create workout page
     let workoutObj = turnSessionDataIntoWorkoutObject(req);
-    console.log('WORKOUT OBJECT', workoutObj)
+    // console.log('WORKOUT OBJECT', workoutObj)
     res.render("./library/create-workout.hbs", {workoutObj});
 });
 
@@ -46,13 +48,42 @@ router.post('/library/create-workout', (req, res, next) => {
 })
 
 router.get("/library/create-exercise", (req, res, next) => {
-    res.render("./library/create-exercise.hbs");
+    res.render("./library/create-exercise.hbs", {muscles, equipments});
 })
 
 router.post('/library/create-exercise', (req, res, next) => {
-    // Create create new exercise in the database
-    // addExerciseToTheSession()
-    // Redirect to /library/create-workout
+    const {name , description} = req.body;
+    let muscleData = convertCheckboxData(req.body, muscles);
+    let equipmentData = convertCheckboxData(req.body, equipments);
+
+    let newExerciseForDatabase = {
+        name,
+        description,
+        equipments: equipmentData,
+        muscles: muscleData
+    }
+
+    ExerciseModel.create(newExerciseForDatabase)
+        .then((exerciseData) => {
+            let newExercise = {
+                exerciseId: exerciseData._id,
+                exerciseName: exerciseData.name,
+                reps: 10,
+                sets: 1,
+                restBetweenSets: 60,
+                restBetweenExercises: 30,
+                unitTypes: {
+                    Selected: 'Reps',
+                    NotSelected: ['Minutes', 'Meter', 'Km']
+                }
+            }
+            req.session.workout.exercises.push(newExercise)
+
+            res.redirect('/library/create-workout')
+        }).catch((err) => {
+            console.log('Something went wrong while creating a new exericse', err)
+            res.redirect('/library/create-workout')
+        });
 })
 
 router.get('/library/create-workout/exercise-pop-up', (req, res, next) => {
@@ -96,8 +127,6 @@ router.post('/library/create-workout/exercise-pop-up', (req, res, next) => {
 function saveWorkoutDataInTheSession(req) { 
     const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
     	
-    console.log(req.session.workout)
-    // req.session.workout = {};
     req.session.workout.name = name;
     req.session.workout.description = description;
     
@@ -223,17 +252,6 @@ function resetSessionWorkoutData(req, res, next) {
         req.session.workout.intensity.Selected = intensities[0];
         req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, intensities[0]);
 
-        // let newExercise = {
-        //     reps: 10,
-        //     sets: 1,
-        //     restBetweenSets: 60,
-        //     restBetweenExercises: 30,
-        //     unitTypes: {
-        //         Selected: 'Reps',
-        //         NotSelected: ['Minutes', 'Meter', 'Km']
-        //     }
-        // };
-        // req.session.workout.exercises = [newExercise];
         req.session.workout.exercises = [];
     }
     next();
@@ -247,11 +265,16 @@ function createIsCreatingWorkout(req, res, next) {
     next();
 }
 
-function addExerciseToTheSession(req, res, next) {
-
-    
-    // push exercise name, and id to the workout session
-        // Workout session needs to have name aswell in order to render the exercise data (maybe not neccessary if we load in the data dynamically)
+function convertCheckboxData(object, array) {
+    let newArr = [];
+    for (key in object) {
+        array.forEach(el => {
+            if(key === el) {
+                newArr.push(key)
+            }
+        })
+    }
+    return newArr;
 }
 
 module.exports = router;
