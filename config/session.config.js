@@ -10,7 +10,7 @@ module.exports = app => {
         session({
             secret: process.env.SESSION_SECRET,
             resave: true, // don't create session until something stored
-            saveUnitialized: false, //don't save session if unmodified
+            saveUninitialized: false, //don't save session if unmodified
             cookie: {
                 maxAge: 1000 * 86400 // 1000 days 
             },

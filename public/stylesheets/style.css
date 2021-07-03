@@ -10,3 +10,8 @@ a {
 h1 {
   color: 15px;
 }
+
+input[type="number"] {
+  width: 45px;
+  text-align: left;
+}

@@ -1,10 +1,10 @@
 <a href="/library/search">Go back to search</a>
 <form method="POST" action="/library/create-workout">
   <label for="name">Workout name</label>
-  <input type="text" id="name" name="name" />
+  <input type="text" id="name" name="name" value={{workoutObj.name}}/>
 
   <label for="description">Workout name</label>
-  <input type="text" id="description" name="description" />
+  <input type="text" id="description" name="description" value={{workoutObj.description}} />
 
   <div class="dropdown-container">
         <label for="type">Type</label>
@@ -48,37 +48,71 @@
     </div>
     <section id="add-exercises">
         <article class="new-exercise">
-            <input
-                type="exerciseSearch"
-                id="exericse-search"
-                placeholder="Search for exercise"
-            />
+            <span>Exercise Name</span>
 
-            <input type="reps" id="reps" value="1" />
+            <input name="reps" type="number" id="reps" value="1" />
+            <label for="unitType">Unit</label>
+            <select name="unitType" id="unitType">
+                <option value="Reps">Reps</option>
+                <option value="Minutes">Minutes</option>
+                <option value="Meter">Meter</option>
+                <option value="Km">Km</option>
+            </select>
 
-            <input type="restBetweenReps" id="restBetweenReps" value="30" />
+            <span>Rest between reps</span>
+            <input name="restBetweenReps" type="number" id="restBetweenReps" value="30" />
             <span>Seconds</span>
 
-            <input type="unitType" id="exericse-search" placeholder="Unit" />
 
-            <input type="sets" id="sets" value="1" />
-
+            <input name="sets" type="number" id="sets" value="1" />
             <span>Sets</span>
-            <input type="restBetweenSets" id="restBetweenSets" value="30" />
+
+            <span>Rest between sets</span>
+            <input name="restBetweenSets" type="number" id="restBetweenSets" value="30" />
+            <span>Seconds</span>
+        </article>
+
+
+                <article class="new-exercise">
+            <span>Exercise Name</span>
+
+            <input name="reps" type="number" id="reps" value="1" />
+            <label for="unitType">Unit</label>
+            <select name="unitType" id="unitType">
+                <option value="Reps">Reps</option>
+                <option value="Minutes">Minutes</option>
+                <option value="Meter">Meter</option>
+                <option value="Km">Km</option>
+            </select>
+
+            <span>Rest between reps</span>
+            <input name="restBetweenReps" type="number" id="restBetweenReps" value="30" />
             <span>Seconds</span>
 
+
+            <input name="sets" type="number" id="sets" value="1" />
+            <span>Sets</span>
+
+            <span>Rest between sets</span>
+            <input name="restBetweenSets" type="number" id="restBetweenSets" value="30" />
+            <span>Seconds</span>
         </article>
 
     </section>
 
-    <button id="add-row" type="button">+</button>
+    <input type="text" name="find-exercise"> <button type="submit" name="button" value="search-for-exercise">Search for exercise</button>
+    {{!-- <button id="add-row" type="button">+</button> --}}
+
 
     <p>Cannot find your exercise? Create it yourself!</p>
 
-    <a href="/library/create-exercise">Create an exercise</a>
+    <button type="submit" name="button" value="create-an-exercise">Create an exercise</button>
+    {{!-- <a href="/library/create-exercise">Create an exercise</a> --}}
 
-    <button type="submit">Create workout</button>
+
+    <button type="submit" name="button" value="create-workout" >Create workout</button>
 
 </form>
 
-<script src="/js/library/create-workout.js"></script>
+{{!-- Probably this file is no longer needed. --}}
+{{!-- <script src="/js/library/create-workout.js"></script> --}}
