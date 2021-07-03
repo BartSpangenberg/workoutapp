@@ -1,1 +1,33 @@
 <h1>Select your exercise</h1>
+
+{{#each exerciseData}}
+  <img src="{{this.image}}" alt="{{this.name}} image" />
+  <h4>{{this.name}}</h4>
+  <p>{{this.description}}</p>
+  <h6>Muscles</h6>
+  <ul>
+    {{#each this.muscles}}
+      <li>
+        {{this}}
+      </li>
+    {{/each}}
+  </ul>
+
+  <h6>Equipment</h6>
+  <ul>
+    {{#each this.equipment}}
+      <li>
+        {{this}}
+      </li>
+    {{/each}}
+  </ul>
+  <form method="POST" action="/library/create-workout/exercise-pop-up">
+    <input
+      type="text"
+      name="exerciseId"
+      value="{{this._id}}"
+      style="display:none"
+    />
+    <button>Add Exercise to workout</button>
+  </form>
+{{/each}}

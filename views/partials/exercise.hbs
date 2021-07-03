@@ -1,5 +1,11 @@
 <article class="new-exercise">
-  <span>Exercise Name</span>
+  <span>{{this.exerciseName}}</span>
+  <input
+    type="text"
+    name="exerciseName"
+    value="{{this.exerciseName}}"
+    style="display:none"
+  />
 
   <input name="reps" type="number" id="reps" value="{{this.reps}}" />
 
@@ -28,4 +34,12 @@
     value="{{this.restBetweenExercises}}"
   />
   <span>Seconds</span>
+
+  <input
+    type="text"
+    name="exerciseId"
+    value="{{this.exerciseId}}"
+    style="display:none"
+  />
+
 </article>

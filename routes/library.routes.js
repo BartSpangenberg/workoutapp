@@ -1,6 +1,5 @@
-const e = require("express");
-
 const router = require("express").Router();
+const ExerciseModel = require('../models/Exercise.model');
 
 let types = ["Bodyweight", "Gym", "Outdoor", "Athlete", "Mobility", "Endurance"]; 
 let levels = ["Lannister / Targaryan", "Beginner", "Advanced", "Pro", "Stark"];
@@ -12,7 +11,7 @@ let unitTypes = ["Reps", "Minutes", "Meters", "Km"];
 router.get("/library/create-workout", createIsCreatingWorkout, resetSessionWorkoutData, (req, res, next) => {
     // Renders the workout data from the session into the create workout page
     let workoutObj = turnSessionDataIntoWorkoutObject(req);
-    // console.log('WORKOUT OBJECT', workoutObj)
+    console.log('WORKOUT OBJECT', workoutObj)
     res.render("./library/create-workout.hbs", {workoutObj});
 });
 
@@ -28,9 +27,13 @@ router.post('/library/create-workout', (req, res, next) => {
 
     // After that the post request is handled based on the type of button click
     if (req.body.button === 'create-workout') {
+        // console.log(req.session.workout)
         res.send('Redirect to My Workouts');
+
     }
     else if (req.body.button === 'search-for-exercise') {
+        const { findExercise: searchWord } = req.body
+        req.session.exerciseSearchWord = searchWord;
         res.redirect('/library/create-workout/exercise-pop-up')
     }
     else {
@@ -53,26 +56,48 @@ router.post('/library/create-exercise', (req, res, next) => {
 })
 
 router.get('/library/create-workout/exercise-pop-up', (req, res, next) => {
-    // Search for the regular expression given by the req.query
-    // Dynamically render the workouts that are found by the query
+    const { exerciseSearchWord } = req.session;
+    ExerciseModel.find({ "name": { "$regex": exerciseSearchWord, "$options": "i" }})
+        .then((exerciseData) => {
+            res.render('library/exercise-pop-up.hbs', {exerciseData})
+        }).catch((err) => {
+            console.log('Something went wrong while searching for exercises', err)
+            // Display error message if no data is present.
+            // Create function that checks if array is empty
+            res.render('library/exercise-pop-up.hbs', {exerciseData})
+        });
+    
     // If nothing is found --> display create exercise button
-    res.render('library/exercise-pop-up.hbs')
-})
-
-router.post('/library/exercise-search', (req, res, next) => {
-    // saveWorkoutDataInTheSession()
-    // redirect to /library/create-workout/exercise-pop-up
 })
 
 router.post('/library/create-workout/exercise-pop-up', (req, res, next) => {
-    // Redirect to /library/create-workout
+    const { exerciseId }  = req.body;
+    ExerciseModel.findById(exerciseId)
+        .then((singleExercise) => {
+            req.session.workout.exercises.push({
+                exerciseId: singleExercise._id,
+                exerciseName: singleExercise.name,
+                reps: 10,
+                sets: 1,
+                restBetweenSets: 60,
+                restBetweenExercises: 30,
+                unitTypes: {
+                    Selected: 'Reps',
+                    NotSelected: ['Minutes', 'Meter', 'Km']
+                }
+            })
+            res.redirect('/library/create-workout')
+        }).catch((err) => {
+            console.log('Something went wrong while searching for a single exercise', err)
+        });
     // push exercise name, and id to the workout session
 })
 
 function saveWorkoutDataInTheSession(req) { 
-    const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets} = req.body;
-
-    req.session.workout = {};
+    const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
+    	
+    console.log(req.session.workout)
+    // req.session.workout = {};
     req.session.workout.name = name;
     req.session.workout.description = description;
     
@@ -93,15 +118,22 @@ function saveWorkoutDataInTheSession(req) {
     req.session.workout.intensity = {};
     req.session.workout.intensity.Selected = intensity;
     req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, req.session.workout.intensity.Selected);
-
-    req.session.workout.exercises = turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets);
+    
+    if (req.session.workout.exercises.length !== 0) {
+        req.session.workout.exercises = turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId);
+    }
+    else {
+        req.session.workout.exercises = [];
+    }
 }
 
-function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets) {
+function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId) {
     let exercises = [];
     if (typeof reps === 'string') {
         let newExercise = {};
         newExercise = {
+            exerciseId,
+            exerciseName,
             reps, 
             sets,
             restBetweenSets,
@@ -114,8 +146,10 @@ function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBet
         exercises.push(newExercise);
     }
     else {
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < reps.length; i++) {
             let newExercise = {
+                exerciseId: exerciseId[i],
+                exerciseName: exerciseName[i],
                 reps: reps[i],
                 unitType: unitType[i],
                 sets: sets[i],
@@ -189,17 +223,18 @@ function resetSessionWorkoutData(req, res, next) {
         req.session.workout.intensity.Selected = intensities[0];
         req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, intensities[0]);
 
-        let newExercise = {
-            reps: 10,
-            sets: 1,
-            restBetweenSets: 60,
-            restBetweenExercises: 30,
-            unitTypes: {
-                Selected: 'Reps',
-                NotSelected: ['Minutes', 'Meter', 'Km']
-            }
-        };
-        req.session.workout.exercises = [newExercise];
+        // let newExercise = {
+        //     reps: 10,
+        //     sets: 1,
+        //     restBetweenSets: 60,
+        //     restBetweenExercises: 30,
+        //     unitTypes: {
+        //         Selected: 'Reps',
+        //         NotSelected: ['Minutes', 'Meter', 'Km']
+        //     }
+        // };
+        // req.session.workout.exercises = [newExercise];
+        req.session.workout.exercises = [];
     }
     next();
 }

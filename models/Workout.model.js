@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const nestedExerciseSchema = new Schema({
-    exerciseRef: { 
+   exerciseId: { 
         type: Schema.Types.ObjectId, 
         ref: 'Exercise' 
     },

@@ -14,7 +14,8 @@ const { Schema, model } = require("mongoose");
 const exerciseSchema = new Schema({
     name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
     },
     description: {
         type: String,
@@ -28,6 +29,9 @@ const exerciseSchema = new Schema({
     },
     muscles: {
         type: Array
+    },
+    popularity: {
+        type: Number
     }
 });
 
