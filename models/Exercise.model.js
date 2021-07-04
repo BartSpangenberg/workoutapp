@@ -6,9 +6,9 @@ const { Schema, model } = require("mongoose");
 //     default: 'none'
 // })
 
-// const muscleSchema = new Schema({
+// const defaulMuscleSchema = new Schema({
 //     type: String, 
-//     default: 'none'
+//     default: 'None (bodyweight exercise)'
 // })
 
 const exerciseSchema = new Schema({
@@ -26,9 +26,11 @@ const exerciseSchema = new Schema({
     },
     equipments: {
         type: Array
+        // default: [defaulMuscleSchema]
     },
     muscles: {
         type: Array
+        // default: [`I haven't the faintest idea`]
     },
     popularity: {
         type: Number

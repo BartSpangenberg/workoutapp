@@ -22,12 +22,15 @@
     {{/each}}
   </ul>
   <form method="POST" action="/library/create-workout/exercise-pop-up">
+
+    {{! This hidden element is used to create search request, how could this be done more efficient? }}
     <input
       type="text"
       name="exerciseId"
       value="{{this._id}}"
       style="display:none"
     />
+
     <button>Add Exercise to workout</button>
   </form>
 {{/each}}
