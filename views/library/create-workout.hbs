@@ -6,6 +6,10 @@
   <label for="description">Workout description</label>
   <input type="text" id="description" name="description" value="{{workoutObj.description}}" placeholder="Workout description" />
 
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+
   <div class="dropdown-container">
 
         <label for="type">Type</label>

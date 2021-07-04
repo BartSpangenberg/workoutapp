@@ -7,6 +7,10 @@
   <label for="exercise-description">Exercise description</label>
   <input type="text" id="exercise-description" name="description" />
 
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+
   <h3>What equipment do you need for this exercise?</h3>
   {{#each equipments}}
     <div>

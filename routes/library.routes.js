@@ -1,3 +1,4 @@
+
 const router = require("express").Router();
 const ExerciseModel = require('../models/Exercise.model');
 const WorkoutModel = require('../models/Workout.model');
@@ -6,14 +7,20 @@ const {
     saveWorkoutDataInTheSession,
     turnSessionDataIntoWorkoutObject,
     resetSessionWorkoutData, 
-    createIsCreatingWorkout, 
+    createIsCreatingWorkoutVariable, 
     createWorkoutObject,
     createNewExerciseObject,
     createNewExerciseToAddToSession
 } = require('./library.helper')
 
-// createIsCreatingWorkout will later be removed when we create this variable on login
-router.get("/library/create-workout", createIsCreatingWorkout, resetSessionWorkoutData, (req, res, next) => {
+
+// CREATE WORKOUT ROUTES
+// For UX purposes create-workout page data needs to sustain through page switches. 
+// Form data is converted into session data and vice versa.
+// Helper functions assist with various tasks of converting datatypes.
+
+// createIsCreatingWorkoutVariable will later be removed when we create this variable on login
+router.get("/library/create-workout", createIsCreatingWorkoutVariable, resetSessionWorkoutData, (req, res, next) => {
     // const { exerciseNames } = req.session.workout;
 
     let workoutObj = turnSessionDataIntoWorkoutObject(req);
@@ -24,14 +31,21 @@ router.get("/library/create-workout", createIsCreatingWorkout, resetSessionWorko
 router.post('/library/create-workout', (req, res, next) => {
     req.session.isCreatingWorkout = true;
 
-    // This post request handles can be done from 3 different buttons
-    // The create workout, create exercise and search exercise button
-    // Because the user can possibly come back to the my workouts page, the data need to be stored in the session
-    // This is done by the function below
+    // Create-workout form has 3 buttons that have 3 different functions
+    // All three buttons are part of the same form. 
+    // This is done to re-use the data from the form when the user comes back
     saveWorkoutDataInTheSession(req);
 
-    // After that the post request is handled based on the type of button click
     if (req.body.button === 'create-workout') {
+        
+        const {name, description} = req.body;
+        if (!name || !description) {
+            let error = "Please fill in all fields."
+            let workoutObj = turnSessionDataIntoWorkoutObject(req);
+            res.render("./library/create-workout.hbs", {workoutObj, error});
+            return;
+        }
+
         let newWorkout = createWorkoutObject(req.session.workout);
 
         console.log(newWorkout)
@@ -60,12 +74,20 @@ router.get("/library/create-exercise", (req, res, next) => {
 })
 
 router.post('/library/create-exercise', (req, res, next) => {
-    
+    const {name, description} = req.body;
+
+    if (!name || !description) {
+        let error = "Please fill in all fields."
+        res.render("./library/create-exercise.hbs", {muscles, equipments, error});
+        return;
+    }
+
     let newExerciseForDatabase = createNewExerciseObject(req.body, muscles, equipments)
 
     ExerciseModel.create(newExerciseForDatabase)
         .then((exerciseData) => {
             // Add new created exercise to session
+            // The id and name are not part of the form, to sustain the data through re-renders they are stored in separate variables
             req.session.workout.exerciseIds.push(exerciseData._id);
             req.session.workout.exerciseNames.push(exerciseData.name);
             let newExercise = createNewExerciseToAddToSession();

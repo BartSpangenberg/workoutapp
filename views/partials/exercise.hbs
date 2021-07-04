@@ -1,18 +1,20 @@
 <article class="new-exercise">
   <span>{{this.exerciseName}}</span>
 
-  <input name="reps" type="number" id="reps" value="{{this.reps}}" />
+  <input  min="1" max="1000" name="reps" type="number" id="reps" value="{{this.reps}}"/>
 
   <label for="unitType">Unit</label>
   <select name="unitType" id="unitType">
     {{> options this.unitTypes}}  
   </select>
-
-  <input name="sets" type="number" id="sets" value="{{this.sets}}" />
+ 
+  <input min="1" max="1000" name="sets" type="number" id="sets" value="{{this.sets}}"/>
   <span>Sets</span>
 
   <span>Rest between sets</span>
   <input
+    min="0"
+    max="1000"
     name="restBetweenSets"
     type="number"
     id="restBetweenSets"
@@ -22,6 +24,8 @@
 
   <span>Rest between exercises</span>
   <input
+    min="0"
+    max="1000"
     name="restBetweenExercises"
     type="number"
     id="restBetweenExercises"

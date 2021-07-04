@@ -109,7 +109,7 @@ function resetSessionWorkoutData(req, res, next) {
     next();
 }
 
-function createIsCreatingWorkout(req, res, next) {
+function createIsCreatingWorkoutVariable(req, res, next) {
     // Temporary variable which needs to be created on cookie when the user logs in
     if (!('isCreatingWorkout' in req.session)) {
         req.session.isCreatingWorkout = false;
@@ -198,7 +198,7 @@ module.exports = {
     turnSessionDataIntoWorkoutObject,
     createArrayOfNotSelectedItems,
     resetSessionWorkoutData, 
-    createIsCreatingWorkout, 
+    createIsCreatingWorkoutVariable, 
     convertCheckboxData, 
     extractWorkoutDataFromSession, 
     addIdsToExercises, 
