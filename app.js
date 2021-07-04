@@ -5,6 +5,9 @@ require("dotenv/config");
 // ℹ️ Connects to the database
 require("./db");
 
+// ℹ️ Import helpers
+require("./helpers");
+
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
@@ -19,7 +22,7 @@ const app = express();
 require("./config")(app);
 // The ./config/session.config exports a function that takes app as an argument
 // This function creates the session and cookie
-require('./config/session.config')(app);
+require("./config/session.config")(app);
 
 // default value for title local
 const projectName = "workoutapp";
@@ -32,8 +35,11 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 const index = require("./routes/index");
 app.use("/", index);
 
-const libraryRoutes = require('./routes/library.routes.js');
+const libraryRoutes = require("./routes/library.routes.js");
 app.use("/", libraryRoutes);
+
+const authRoutes = require("./routes/auth.routes.js");
+app.use("/", authRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

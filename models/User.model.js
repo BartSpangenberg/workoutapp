@@ -10,31 +10,29 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  trainername: {
+  password: {
     type: String,
     required: true,
   },
-  password: String,
+  trainername: {
+    type: String,
+  },
   athleteType: {
     type: String,
-    required: true,
     enum: ["Lannister / Targaryan", "Beginner", "Intermediate", "Pro", "Stark"],
   },
   height: {
     type: Number,
-    required: true,
   },
   weight: {
     type: Number,
-    required: true,
   },
   birthday: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
   goals: {
-    type: String,
-    required: true,
+    type: [String],
     enum: [
       "Get Summer fit",
       "More Athletic",
