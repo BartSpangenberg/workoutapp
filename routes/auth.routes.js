@@ -3,7 +3,9 @@ const router = require("express").Router();
 const UserModel = require("../models/User.model");
 const bcrypt = require("bcryptjs");
 
-// SIGN UP ROUTES
+//-------------------------------
+//        SIGN UP ROUTES
+//-------------------------------
 
 // /signup
 router.get("/signup", (req, res, next) => {
@@ -49,7 +51,7 @@ router.post("/signup", (req, res, next) => {
 
   // At this time, data (username, email, password) are stored in the DB
 
-  //The following data are stored locally, inside the session
+  //The following data are stored locally
 });
 
 // /signup/trainer-name
@@ -198,9 +200,41 @@ router.post("/signup/profile-created", (req, res, next) => {
   res.redirect("/myworkouts/:user");
 });
 
-// SIGN IN ROUTES
+//-------------------------------
+//        SIGN IN ROUTES
+//-------------------------------
 
-//
+router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email })
+    .then((user) => {
+      if (user) {
+        bcrypt
+          .compare(req.body.password, user.password)
+          .then((isMatching) => {
+            if (isMatching) {
+              req.session.userInfo = user;
+              req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
+              req.app.locals.isUserLoggedIn = true;
+              res.redirect("/");
+            } else {
+              res.redirect("/");
+              console.error("Login has failed");
+            }
+          })
+          .catch((err) => {
+            next(err);
+          });
+      } else {
+        res.render("index.hbs", {
+          errorLogin: "Mail or password may be incorrect ",
+        });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
 // SIGN OUT ROUTE
 //---------------
@@ -208,10 +242,8 @@ router.post("/signup/profile-created", (req, res, next) => {
 //---------------
 
 // router.get('/login', (req, res, next) => {
+//     req.app.locals.isUserLoggedIn = false;
 //     req.session.destroy()
-
-//     // set global
-//     req.app.locals.isLoggedIn = false;
 //     res.redirect('/')
 //  })
 
