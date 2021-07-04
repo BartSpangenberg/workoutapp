@@ -1,26 +1,20 @@
 const router = require("express").Router();
 const ExerciseModel = require('../models/Exercise.model');
 const WorkoutModel = require('../models/Workout.model');
-
-let types = ["Bodyweight", "Gym", "Outdoor", "Athlete", "Mobility", "Endurance"]; 
-let levels = ["Lannister / Targaryan", "Beginner", "Advanced", "Pro", "Stark"];
-let goalsArr = ["Get summer fit", "Run a marathon", "Become more athletic", "Improve endurance", "Lose weight", "Build muscle"];
-let intensities = ["Low", "Medium", "High"];
-let unitTypes = ["Reps", "Minutes", "Meters", "Km"];
-let equipments = ["None (bodyweight exercise)", "Barbell", "Dumbell",  "Kettlebell", "SwissBal", "Bench", "Gym mat", "Incline Bench", "Pull-up bar", "SZ-Bar"]
-let muscles  = [`I haven't the faintest idea`,'Anterior deltoid','Biceps brachii','Bicpes femoris','Brachialis','Gastrocnemius','Gluteus maximus','Latissimus dorsi','Obliquus externus abdominis','Pectoralis major','Quadriceps femoris','Rectus abdominis','Serratus anterior','Soleus','Trapezius','Triceps brachii','Erector spinae','Gastrocnemius'];
+const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
 
 // createIsCreatingWorkout will later be removed when we create this variable on login
 router.get("/library/create-workout", createIsCreatingWorkout, resetSessionWorkoutData, (req, res, next) => {
     const { exerciseNames } = req.session.workout;
-    // Renders the workout data from the session into the create workout page
+
     let workoutObj = turnSessionDataIntoWorkoutObject(req);
-    // console.log('WORKOUT OBJECT', workoutObj)
-    res.render("./library/create-workout.hbs", {workoutObj, exerciseNames});
+
+    res.render("./library/create-workout.hbs", {workoutObj});
 });
 
 router.post('/library/create-workout', (req, res, next) => {
     req.session.isCreatingWorkout = true;
+
     // This post request handles can be done from 3 different buttons
     // The create workout, create exercise and search exercise button
     // Because the user can possibly come back to the my workouts page, the data need to be stored in the session
@@ -61,10 +55,6 @@ router.post('/library/create-workout', (req, res, next) => {
     else {
         res.redirect('/library/create-exercise')
     }
-
-    // Save exercises in DB in workout to do
-    // Clears the workout data from the session
-    // Redirects to My workouts
 })
 
 router.get("/library/create-exercise", (req, res, next) => {
@@ -88,8 +78,6 @@ router.post('/library/create-exercise', (req, res, next) => {
             req.session.workout.exerciseIds.push(exerciseData._id);
             req.session.workout.exerciseNames.push(exerciseData.name);
             let newExercise = {
-                // exerciseId: exerciseData._id,
-                // exerciseName: exerciseData.name,
                 reps: 10,
                 sets: 1,
                 restBetweenSets: 60,
@@ -116,7 +104,6 @@ router.get('/library/create-workout/exercise-pop-up', (req, res, next) => {
         }).catch((err) => {
             console.log('Something went wrong while searching for exercises', err)
             // Display error message if no data is present.
-            // Create function that checks if array is empty
             res.render('library/exercise-pop-up.hbs', {exerciseData})
         });
     
@@ -125,9 +112,6 @@ router.get('/library/create-workout/exercise-pop-up', (req, res, next) => {
 
 router.post('/library/create-workout/exercise-pop-up', (req, res, next) => {
     const { exerciseId }  = req.body;
-    // const { exerciseIds }  = req.session.workout;
-    // console.log(exerciseIds)
-    // const exerciseId = exerciseIds[exerciseIds.length - 1];
     ExerciseModel.findById(exerciseId)
         .then((singleExercise) => {
 
@@ -135,8 +119,6 @@ router.post('/library/create-workout/exercise-pop-up', (req, res, next) => {
             req.session.workout.exerciseNames.push(singleExercise.name);
 
             req.session.workout.exercises.push({
-                // exerciseId: singleExercise._id,
-                // exerciseName: singleExercise.name,
                 reps: 10,
                 sets: 1,
                 restBetweenSets: 60,
@@ -150,39 +132,36 @@ router.post('/library/create-workout/exercise-pop-up', (req, res, next) => {
         }).catch((err) => {
             console.log('Something went wrong while searching for a single exercise', err)
         });
-    // push exercise name, and id to the workout session
 })
 
 function saveWorkoutDataInTheSession(req) { 
     const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
-    	
-    req.session.workout.name = name;
-    req.session.workout.description = description;
+    let updatedWorkout = {
+        name,
+        description,
+        duration,
+        type: {
+            Selected: type,
+            NotSelected: createArrayOfNotSelectedItems(types, type)
+        },
+        level: {
+            Selected: level,
+            NotSelected: createArrayOfNotSelectedItems(levels, level)
+        },
+        goals: {
+            Selected: goals,
+            NotSelected: createArrayOfNotSelectedItems(goalsArr, goals)
+        },
+        intensity: {
+            Selected: intensity,
+            NotSelected: createArrayOfNotSelectedItems(intensities, intensity)
+        },
+        exercises: !reps ? [] : turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId),
+        exerciseIds: req.session.workout.exerciseIds,
+        exerciseNames: req.session.workout.exerciseNames
+    }	
     
-    req.session.workout.type = {};
-    req.session.workout.type.Selected = type;
-    req.session.workout.type.NotSelected = createArrayOfNotSelectedItems(types, req.session.workout.type.Selected);
-    
-    req.session.workout.duration = duration;
-
-    req.session.workout.level = {};
-    req.session.workout.level.Selected = level;
-    req.session.workout.level.NotSelected = createArrayOfNotSelectedItems(levels, req.session.workout.level.Selected);
-
-    req.session.workout.goals = {};
-    req.session.workout.goals.Selected = goals;
-    req.session.workout.goals.NotSelected = createArrayOfNotSelectedItems(goalsArr, req.session.workout.goals.Selected);
-
-    req.session.workout.intensity = {};
-    req.session.workout.intensity.Selected = intensity;
-    req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, req.session.workout.intensity.Selected);
-    
-    if (req.session.workout.exercises.length !== 0) {
-        req.session.workout.exercises = turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId);
-    }
-    else {
-        req.session.workout.exercises = [];
-    }
+    req.session.workout = updatedWorkout
 }
 
 function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId) {
@@ -190,8 +169,6 @@ function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBet
     if (typeof reps === 'string') {
         let newExercise = {};
         newExercise = {
-            // exerciseId,
-            // exerciseName,
             reps, 
             sets,
             restBetweenSets,
@@ -206,8 +183,6 @@ function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBet
     else {
         for (let i = 0; i < reps.length; i++) {
             let newExercise = {
-                // exerciseId: exerciseId[i],
-                // exerciseName: exerciseName[i],
                 reps: reps[i],
                 unitType: unitType[i],
                 sets: sets[i],
@@ -225,30 +200,10 @@ function turnExerciseArraysIntoOneArrayOfExerciseObjects(reps, unitType, restBet
 }
 
 function turnSessionDataIntoWorkoutObject(req) {
-    let workoutObj = {};
-    workoutObj.name = req.session.workout.name;
-    workoutObj.description = req.session.workout.description;
-    workoutObj.duration = req.session.workout.duration;
-
-    workoutObj.type = {};
-    workoutObj.type.Selected = req.session.workout.type.Selected;
-    workoutObj.type.NotSelected = req.session.workout.type.NotSelected;
-
-    workoutObj.level = {};
-    workoutObj.level.Selected = req.session.workout.level.Selected;
-    workoutObj.level.NotSelected = req.session.workout.level.NotSelected;
-    
-    workoutObj.goals = {};
-    workoutObj.goals.Selected = req.session.workout.goals.Selected;
-    workoutObj.goals.NotSelected = req.session.workout.goals.NotSelected;
-
-    workoutObj.intensity = {};
-    workoutObj.intensity.Selected = req.session.workout.intensity.Selected;
-    workoutObj.intensity.NotSelected = req.session.workout.intensity.NotSelected;
-
-    workoutObj.exercises = addExerciseNamesToWorkoutObj(req.session.workout.exercises, req.session.workout.exerciseNames);
-
-    return workoutObj;
+    let { name, description, duration, type, level, goals, intensity, exercises, exerciseNames } = req.session.workout
+    exercises = addExerciseNamesToWorkoutObj(exercises, exerciseNames);
+    const workoutObj = { name, description, duration, type, level, goals, intensity, exercises };
+    return workoutObj
 }
 
 function createArrayOfNotSelectedItems(array, selectedItem) {
@@ -260,31 +215,57 @@ function createArrayOfNotSelectedItems(array, selectedItem) {
 
 function resetSessionWorkoutData(req, res, next) {
     if (!req.session.isCreatingWorkout) {
-        req.session.workout = {};
+        req.session.workout = {
+            name: '',
+            description: '',
+            duration: 10,
+            type: {
+                Selected: types[0],
+                NotSelected: createArrayOfNotSelectedItems(types, types[0])
+            },
+            level: {
+                Selected: levels[0],
+                NotSelected: createArrayOfNotSelectedItems(levels, levels[0])
+            },
+            goals: {
+                Selected: goalsArr[0],
+                NotSelected: createArrayOfNotSelectedItems(goalsArr, goalsArr[0])
+            },
+            intensity: {
+                Selected: intensities[0],
+                NotSelected: createArrayOfNotSelectedItems(intensities, intensities[0])
+            },
+            exercises: [],
+            exerciseIds: [],
+            exerciseNames: []
+        }
 
-        req.session.workout.exerciseIds = [];
-        req.session.workout.exerciseNames = [];
-        req.session.workout.name = '';
-        req.session.workout.description = '';
-        req.session.workout.duration = 10;
+        // req.session.workout = {};
 
-        req.session.workout.type = {};
-        req.session.workout.type.Selected = types[0];
-        req.session.workout.type.NotSelected = createArrayOfNotSelectedItems(types, types[0]);
 
-        req.session.workout.level = {};
-        req.session.workout.level.Selected = levels[0];
-        req.session.workout.level.NotSelected = createArrayOfNotSelectedItems(levels, levels[0]);
+        // req.session.workout.exerciseIds = [];
+        // req.session.workout.exerciseNames = [];
+        // req.session.workout.name = '';
+        // req.session.workout.description = '';
+        // req.session.workout.duration = 10;
 
-        req.session.workout.goals = {};
-        req.session.workout.goals.Selected = goalsArr[0];
-        req.session.workout.goals.NotSelected = createArrayOfNotSelectedItems(goalsArr, goalsArr[0]);
+        // req.session.workout.type = {};
+        // req.session.workout.type.Selected = types[0];
+        // req.session.workout.type.NotSelected = createArrayOfNotSelectedItems(types, types[0]);
 
-        req.session.workout.intensity = {};
-        req.session.workout.intensity.Selected = intensities[0];
-        req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, intensities[0]);
+        // req.session.workout.level = {};
+        // req.session.workout.level.Selected = levels[0];
+        // req.session.workout.level.NotSelected = createArrayOfNotSelectedItems(levels, levels[0]);
 
-        req.session.workout.exercises = [];
+        // req.session.workout.goals = {};
+        // req.session.workout.goals.Selected = goalsArr[0];
+        // req.session.workout.goals.NotSelected = createArrayOfNotSelectedItems(goalsArr, goalsArr[0]);
+
+        // req.session.workout.intensity = {};
+        // req.session.workout.intensity.Selected = intensities[0];
+        // req.session.workout.intensity.NotSelected = createArrayOfNotSelectedItems(intensities, intensities[0]);
+
+        // req.session.workout.exercises = [];
     }
     next();
 }

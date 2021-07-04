@@ -7,7 +7,7 @@ const nestedExerciseSchema = new Schema({
     },
     unitType: {
         type: String,
-        enum: ['Minutes', 'Reps', 'Meters', 'Km']
+        enum: ['Minutes', 'Reps', 'Meter', 'Km']
     },
     reps: Number,
     sets: Number,
