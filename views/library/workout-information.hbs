@@ -1,0 +1,16 @@
+<button id="go-back">Go back!</button>
+
+{{#each tags}}
+  <p class="tag">{{this}}</p>
+{{/each}}
+
+{{!-- This need to be fixed --}}
+{{#each workout.tags}}
+  <p class="tag">{{this}}</p>
+{{/each}}
+
+{{#each workout.exercises}}
+    {{> exercise this}}     
+{{/each}}
+
+<script src="/js/library/workout-information.js"></script>

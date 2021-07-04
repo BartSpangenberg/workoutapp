@@ -1,0 +1,38 @@
+{{> sidebarLibrary }}
+
+<h1>Browse the vast library</h1>
+
+<section id="search-basic">
+    <form method="GET" action="/library/search">
+        <input type="text" name="workoutName">
+        <button>Search</button>
+
+        <select name="type" id="type">
+            {{> options workoutObj.type}}
+        </select>
+
+        {{!-- <select name="duration" id="duration">
+            {{> options workoutObj.duration}}
+        </select> --}}
+
+        <select name="level" id="level">
+            {{> options workoutObj.level}}
+        </select>
+
+        <select name="goals" id="goals">
+            {{> options workoutObj.goals}}
+        </select>
+
+        <select name="intensity" id="intensity">
+            {{> options workoutObj.intensity}}
+        </select>
+    </form>
+
+    {{!-- <a href="/library/search">Basic search</a> --}}
+</section>
+
+<h4>Pagination element, YET TO DO</h4>
+
+{{#each workouts}}
+    {{> searchResult this}}
+{{/each}}

@@ -1,4 +1,6 @@
-<a href="/library/search">Go back to search</a>
+{{> sidebarLibrary }}
+
+{{!-- <a href="/library/search">Go back to search</a> --}}
 <form method="POST" action="/library/create-workout">
   <label for="name">Workout name</label>
   <input type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>

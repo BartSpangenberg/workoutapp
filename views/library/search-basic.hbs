@@ -1,0 +1,18 @@
+{{> sidebarLibrary }}
+
+<h1>Browse the vast library</h1>
+
+<section id="search-basic">
+    <form method="GET" action="/library/search">
+        <input type="text" name="workoutName">
+        <button>Search</button>
+    </form>
+
+    <a href="/library/search/advanced">Advanced search</a>
+</section>
+
+<h4>Pagination element, YET TO DO</h4>
+
+{{#each workouts}}
+    {{> searchResult this}}
+{{/each}}
