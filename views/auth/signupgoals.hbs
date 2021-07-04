@@ -10,6 +10,7 @@
       name="goals"
       value="Get summer fit"
       id="flexCheckDefault"
+      {{#ifin "Get summer fit" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Get summer fit">
       Get summer fit
@@ -22,6 +23,7 @@
       name="goals"
       value="Become more athletic"
       id="flexCheckChecked"
+      {{#ifin "Become more athletic" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Become more athletic">
       Become more athletic
@@ -34,6 +36,7 @@
       name="goals"
       value="Lose weight"
       id="flexCheckChecked"
+      {{#ifin "Lose weight" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Lose weight">
       Lose weight
@@ -46,6 +49,7 @@
       name="goals"
       value="Run a marathon"
       id="flexCheckChecked"
+      {{#ifin "Run a marathon" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Run a marathon">
       Run a marathon
@@ -58,6 +62,7 @@
       name="goals"
       value="Improve endurance"
       id="goals"
+      {{#ifin "Improve endurance" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Improve endurance">
       Improve endurance
@@ -70,11 +75,13 @@
       name="goals"
       value="Build muscle"
       id="goals"
+      {{#ifin "Build muscle" currentUser.goals }} checked {{/ifin}}
     />
     <label class="form-check-label" for="Build muscle">
       Build muscle
     </label>
-  </div>
-</form>
 
-<button>Arrow Button</button>
+  </div>
+  <a class="btn btn-primary" href="/signup/birthday">Previous</a>
+  <button class="btn btn-primary" type="submit">Next</button>
+</form>
