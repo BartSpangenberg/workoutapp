@@ -217,33 +217,35 @@ router.post("/signup/profile-created", (req, res, next) => {
 //-------------------------------
 
 router.get("/login", (req, res, next) => {
-  res.render("partials/login.hbs");
+  res.render("auth/login.hbs");
 });
 
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
-  UserModel.findOne({ email, password })
+  if (!email || !password) {
+    res.render("auth/login.hbs", {
+      errorLogin: "Please enter your email and password",
+    });
+    return;
+  }
+
+  UserModel.findOne({ email })
     .then((user) => {
-      if (user) {
-        bcrypt
-          .compare(req.body.password, user.password)
-          .then((isMatching) => {
-            if (isMatching) {
-              req.session.userInfo = user;
-              req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
-              req.app.locals.isUserLoggedIn = true;
-              res.redirect("/");
-            } else {
-              res.redirect("/");
-              console.error("Login has failed");
-            }
-          })
-          .catch((err) => {
-            next(err);
-          });
+      console.log(user);
+      if (!user) {
+        res.render("auth/login.hbs", { errorLogin: "Email is incorrect" });
       } else {
-        res.render("index.hbs", {
-          errorLogin: "Mail or password may be incorrect ",
+        bcrypt.compare(req.body.password, user.password).then((isMatching) => {
+          if (isMatching) {
+            req.session.userInfo = user;
+            req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
+            req.app.locals.isUserLoggedIn = true;
+            res.redirect("/");
+          } else {
+            res.render("auth/login.hbs", {
+              errorLogin: "Password is incorrect",
+            });
+          }
         });
       }
     })
@@ -252,15 +254,14 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-// SIGN OUT ROUTE
-//---------------
-//  SIGNOUT
-//---------------
+// ---------------
+//  SIGNOUT ROUTE
+// ---------------
 
-// router.get('/login', (req, res, next) => {
-//     req.app.locals.isUserLoggedIn = false;
-//     req.session.destroy()
-//     res.redirect('/')
-//  })
+router.get("/login", (req, res, next) => {
+  req.app.locals.isUserLoggedIn = false;
+  req.session.destroy();
+  res.redirect("/");
+});
 
 module.exports = router;
