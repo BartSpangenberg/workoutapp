@@ -1,3 +1,84 @@
+{{!-- <h1>Log in </h1>
+
+<div id='signin' class="mb-3">
+  <form method="POST" action="/login">
+    <div>
+      <label class="form-label" id="marginText">Email</label>
+      <input type="email" name="email" placeholder="Enter your email" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" id="marginText">Password</label>
+      <input type="password" name="password" placeholder="Enter your Password" class="form-control">
+    </div>
+
+    <button class="btn btn-primary button-travel darkmode-ignore container-fluid">Sign In</button>
+
+  </form>
+</div>
+
+<div>
+  <hr id="solid">
+  </hr>
+</div>
+
+
+{{#if errorLogin}}
+<div class="error">{{errorLogin}}</div>
+{{/if}} --}}
+
+{{! 
+<form action="/login" method="POST">
+  <div
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="loginModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalTitle">Login</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" id="formGroupLogin">
+            <input
+              type="email"
+              class="form-control"
+              name="username"
+              placeholder="E-Mail"
+              required
+            />
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Passwort"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="submit"
+            class="btn btn-primary btn-block"
+            value="Login"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
 <button
   class="btn btn-outline-light text-white"
   data-bs-toggle="modal"
@@ -25,23 +106,23 @@
       <div class="modal-body d-flex justify-content-center">
         <form action="/login" method="POST">
           <div class="mb-3">
-            <label for="email" class="col-form-label">Email:</label><br />
+            <label for="email" class="col-form-label">Email</label><br />
             <input
               type="email"
               class="form-control"
               id="email"
               name="email"
-              placeholder="example@test.com"
+              placeholder="Enter your email"
             />
           </div>
           <div class="mb-3">
-            <label for="password" class="col-form-label">Password:</label><br />
+            <label for="password" class="col-form-label">Password</label><br />
             <input
               type="password"
               class="form-control"
               id="password"
               name="password"
-              placeholder="Password"
+              placeholder="Enter your password"
             />
 
           </div>
@@ -51,11 +132,8 @@
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-center flex-column">
-        <div>
-          <p>Forgot your password? <a href="#">Click here</a></p>
-        </div>
 
       </div>
     </div>
   </div>
-</div>
+</div>  }}

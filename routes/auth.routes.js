@@ -9,7 +9,12 @@ const bcrypt = require("bcryptjs");
 
 // /signup
 router.get("/signup", (req, res, next) => {
-  res.render("auth/signup.hbs");
+  // with this condition : when the user closes the browser and open it again to continue the signup process, he will be redirected to the page he left
+  if (req.session.currentUser) {
+    res.redirect(req.session.currentUser.currentView);
+  } else {
+    res.render("auth/signup.hbs");
+  }
 });
 
 router.post("/signup", (req, res, next) => {
@@ -42,7 +47,9 @@ router.post("/signup", (req, res, next) => {
   UserModel.create({ username, email, password: hash })
     .then(() => {
       // email is the key that identifies the user, it is stored as well inside the localStorage of the user to allows him to go through the signup flow
-      req.app.locals.currentUser = { email: email };
+      req.session.currentUser = { email: email };
+      //the currentView of the user is stored in the session
+      req.session.currentUser.currentView = "/signup/trainer-name";
       res.redirect("/signup/trainer-name");
     })
     .catch((err) => {
@@ -57,12 +64,12 @@ router.post("/signup", (req, res, next) => {
 // /signup/trainer-name
 router.get("/signup/trainer-name", (req, res, next) => {
   res.render("auth/signuptrainer.hbs", {
-    currentUser: req.app.locals.currentUser,
+    currentUser: req.session.currentUser,
   });
 });
 
 router.post("/signup/trainer-name", (req, res, next) => {
-  let currentUser = req.app.locals.currentUser;
+  let currentUser = req.session.currentUser;
 
   const { trainername } = req.body;
   if (!trainername) {
@@ -72,7 +79,8 @@ router.post("/signup/trainer-name", (req, res, next) => {
 
   UserModel.updateOne({ email: currentUser.email }, { trainername })
     .then(() => {
-      req.app.locals.currentUser.trainername = trainername;
+      req.session.currentUser.trainername = trainername;
+      req.session.currentUser.currentView = "/signup/athlete";
       res.redirect("/signup/athlete");
     })
     .catch((err) => {
@@ -88,7 +96,7 @@ router.get("/signup/athlete", (req, res, next) => {
 });
 
 router.post("/signup/athlete", (req, res, next) => {
-  let currentUser = req.app.locals.currentUser;
+  let currentUser = req.session.currentUser;
 
   const { athleteType } = req.body;
   if (!athleteType) {
@@ -97,7 +105,8 @@ router.post("/signup/athlete", (req, res, next) => {
 
   UserModel.updateOne({ email: currentUser.email }, { athleteType })
     .then(() => {
-      req.app.locals.currentUser.athleteType = athleteType;
+      req.session.currentUser.athleteType = athleteType;
+      req.session.currentUser.currentView = "/signup/body";
       res.redirect("/signup/body");
     })
     .catch((err) => {
@@ -108,12 +117,12 @@ router.post("/signup/athlete", (req, res, next) => {
 // /signup/body
 router.get("/signup/body", (req, res, next) => {
   res.render("auth/signupbody.hbs", {
-    currentUser: req.app.locals.currentUser,
+    currentUser: req.session.currentUser,
   });
 });
 
 router.post("/signup/body", (req, res, next) => {
-  let currentUser = req.app.locals.currentUser;
+  let currentUser = req.session.currentUser;
 
   const { height, weight } = req.body;
   if (!height || !weight) {
@@ -122,8 +131,9 @@ router.post("/signup/body", (req, res, next) => {
 
   UserModel.updateOne({ email: currentUser.email }, { height, weight })
     .then(() => {
-      req.app.locals.currentUser.height = height;
-      req.app.locals.currentUser.weight = weight;
+      req.session.currentUser.height = height;
+      req.session.currentUser.weight = weight;
+      req.session.currentUser.currentView = "/signup/birthday";
       res.redirect("/signup/birthday");
     })
     .catch((err) => {
@@ -134,12 +144,12 @@ router.post("/signup/body", (req, res, next) => {
 // /signup/birthday
 router.get("/signup/birthday", (req, res, next) => {
   res.render("auth/signupbirthday.hbs", {
-    currentUser: req.app.locals.currentUser,
+    currentUser: req.session.currentUser,
   });
 });
 
 router.post("/signup/birthday", (req, res, next) => {
-  let currentUser = req.app.locals.currentUser;
+  let currentUser = req.session.currentUser;
   const { birthday } = req.body;
 
   if (!birthday) {
@@ -148,7 +158,8 @@ router.post("/signup/birthday", (req, res, next) => {
 
   UserModel.updateOne({ email: currentUser.email }, { birthday })
     .then(() => {
-      req.app.locals.currentUser.birthday = birthday;
+      req.session.currentUser.birthday = birthday;
+      req.session.currentUser.currentView = "/signup/goals";
       res.redirect("/signup/goals");
     })
     .catch((err) => {
@@ -160,12 +171,12 @@ router.post("/signup/birthday", (req, res, next) => {
 
 router.get("/signup/goals", (req, res, next) => {
   res.render("auth/signupgoals.hbs", {
-    currentUser: req.app.locals.currentUser,
+    currentUser: req.session.currentUser,
   });
 });
 
 router.post("/signup/goals", (req, res, next) => {
-  let currentUser = req.app.locals.currentUser;
+  let currentUser = req.session.currentUser;
   const { goals } = req.body;
   if (!goals) {
     res.render("auth/signupgoals.hbs", {
@@ -175,7 +186,8 @@ router.post("/signup/goals", (req, res, next) => {
 
   UserModel.updateOne({ email: currentUser.email }, { goals })
     .then(() => {
-      req.app.locals.currentUser.goals = goals;
+      req.session.currentUser.goals = goals;
+      req.session.currentUser.currentView = "/signup/profile-created";
       res.redirect("/signup/profile-created");
     })
     .catch((err) => {
@@ -204,30 +216,36 @@ router.post("/signup/profile-created", (req, res, next) => {
 //        SIGN IN ROUTES
 //-------------------------------
 
+router.get("/login", (req, res, next) => {
+  res.render("auth/login.hbs");
+});
+
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    res.render("auth/login.hbs", {
+      errorLogin: "Please enter your email and password",
+    });
+    return;
+  }
+
   UserModel.findOne({ email })
     .then((user) => {
-      if (user) {
-        bcrypt
-          .compare(req.body.password, user.password)
-          .then((isMatching) => {
-            if (isMatching) {
-              req.session.userInfo = user;
-              req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
-              req.app.locals.isUserLoggedIn = true;
-              res.redirect("/");
-            } else {
-              res.redirect("/");
-              console.error("Login has failed");
-            }
-          })
-          .catch((err) => {
-            next(err);
-          });
+      console.log(user);
+      if (!user) {
+        res.render("auth/login.hbs", { errorLogin: "Email is incorrect" });
       } else {
-        res.render("index.hbs", {
-          errorLogin: "Mail or password may be incorrect ",
+        bcrypt.compare(req.body.password, user.password).then((isMatching) => {
+          if (isMatching) {
+            req.session.userInfo = user;
+            req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
+            req.app.locals.isUserLoggedIn = true;
+            res.redirect("/");
+          } else {
+            res.render("auth/login.hbs", {
+              errorLogin: "Password is incorrect",
+            });
+          }
         });
       }
     })
@@ -236,15 +254,14 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-// SIGN OUT ROUTE
-//---------------
-//  SIGNOUT
-//---------------
+// ---------------
+//  SIGNOUT ROUTE
+// ---------------
 
-// router.get('/login', (req, res, next) => {
-//     req.app.locals.isUserLoggedIn = false;
-//     req.session.destroy()
-//     res.redirect('/')
-//  })
+router.get("/login", (req, res, next) => {
+  req.app.locals.isUserLoggedIn = false;
+  req.session.destroy();
+  res.redirect("/");
+});
 
 module.exports = router;

@@ -29,7 +29,6 @@ const userSchema = new Schema({
   },
   birthday: {
     type: Date,
-    default: Date.now,
   },
   goals: {
     type: [String],
@@ -41,6 +40,10 @@ const userSchema = new Schema({
       "Improve endurance",
       "Build muscle",
     ],
+  },
+  userWorkouts: {
+    type: Schema.Types.ObjectId,
+    ref: "Workout",
   },
 });
 
