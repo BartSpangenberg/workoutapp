@@ -20,7 +20,10 @@ const userWorkoutSchema = new Schema({
         type: Schema.Types.ObjectId, 
         ref: 'User' 
     }, 
-    scheduled: Boolean,
+    scheduled: {
+        type: Boolean,
+        default: true
+    },
     timesCompleted: {
         type: Number,
         default: 0

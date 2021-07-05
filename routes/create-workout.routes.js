@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const ExerciseModel = require('../models/Exercise.model');
 const WorkoutModel = require('../models/Workout.model');
+const UserWorkoutModel = require('../models/UserWorkout.model');
 const { equipments, muscles } = require('../data/workoutData');
 const {
     saveWorkoutDataInTheSession,
@@ -9,7 +10,8 @@ const {
     createIsCreatingWorkoutVariable, 
     createWorkoutObject,
     createNewExerciseObject,
-    createNewExerciseToAddToSession
+    createNewExerciseToAddToSession,
+    createUserWorkoutObject
 } = require('./library.helper')
 
 
@@ -45,14 +47,23 @@ router.post('/library/create-workout', (req, res, next) => {
             return;
         }
 
-        let newWorkout = createWorkoutObject(req.session.workout);
-
+        let newWorkout = createWorkoutObject(req.session.workout, req.session.userInfo);
+        
         WorkoutModel.create(newWorkout)
+            .then(() => {
+            }).catch((err) => {
+                console.log("Something went wrong while creating a new Workout", err)
+                res.redirect('/library/create-workout')
+            });
+
+        let newUserWorkout = createUserWorkoutObject(req.session.workout, req.session.userInfo);
+        
+        UserWorkoutModel.create(newUserWorkout)
             .then(() => {
                 req.session.isCreatingWorkout = false;
                 res.send('Redirect to My Workouts');
             }).catch((err) => {
-                console.log("Something went wrong while creating a new workout", err)
+                console.log("Something went wrong while creating a new UserWorkout", err)
                 res.redirect('/library/create-workout')
             });
     }
