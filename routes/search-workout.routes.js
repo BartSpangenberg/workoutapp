@@ -8,6 +8,8 @@ const {
 } = require('./library.helper');
 const searchOptions = createOptionsForAdvancedSearchForm();
 
+const amountOfSearchResultsPerPage = 3;
+
 router.get('/library/search', (req, res, next) => {
     if (!("workoutName" in req.query)) {
         res.render('library/search-basic.hbs');
@@ -34,16 +36,26 @@ router.get('/library/search/advanced', (req, res, next) => {
 
     const searchData = turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, goals, intensity);
     console.log(searchData)
+
+    // The document count of the query will be used to determine how many pages there will be
+    WorkoutModel
+        .countDocuments({ $and: [{ "name": { "$regex": workoutName, "$options": "i" },  type: { $in: searchData.type }, athleteLevel: { $in: searchData.level }, intensity: { $in: searchData.intensity }, goals: { $in: searchData.goals }, duration: { $gte: searchData.minDuration, $lte: searchData.maxDuration } }] })
+        .exec((err, count) => {
+            console.log("Something went wrong while counting the workouts", err)
+        })
+
     WorkoutModel.find({ "name": { "$regex": workoutName, "$options": "i" }}) 
         .where('type').in(searchData.type)
         .where('athleteLevel').in(searchData.level)
         .where('intensity').in(searchData.intensity)
         .where('goals').in(searchData.goals)
         .where('duration').gte(searchData.minDuration).lte(searchData.maxDuration)
+        // .skip(10)
+        // .limit(5)
         .exec()
 
     .then((foundWorkouts) => {
-        console.log(foundWorkouts)
+        // console.log(foundWorkouts)
         res.render('library/search-advanced.hbs', { searchOptions, foundWorkouts });
     }).catch((err) => {
         console.log('Something went wrong while searching for workouts', err)  
