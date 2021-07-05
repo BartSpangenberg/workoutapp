@@ -148,9 +148,10 @@ function addExerciseNamesToWorkoutObj(exercises, exerciseNames) {
     return exercises
 }
 
-function createWorkoutObject(workoutObjectFromSession) {
+function createWorkoutObject(workoutObjectFromSession, userObj) {
     const {name, description, duration, type, level, goals, intensity, exercises, exerciseIds} = workoutObjectFromSession;
     let newWorkout = {
+        createdBy: userObj.trainername,
         name,
         description,
         duration: +duration,
@@ -161,6 +162,22 @@ function createWorkoutObject(workoutObjectFromSession) {
         exercises: addIdsToExercises(exercises, exerciseIds)
     }
     return newWorkout
+}
+
+function createUserWorkoutObject(workoutObjectFromSession, userObj) {
+    const {name, description, duration, type, level, goals, intensity, exercises, exerciseIds} = workoutObjectFromSession;
+    let newUserWorkout = {
+        userId: userObj._id,
+        name,
+        description,
+        duration: +duration,
+        type: extractWorkoutDataFromSession(type),
+        athleteLevel: extractWorkoutDataFromSession(level),
+        goals: extractWorkoutDataFromSession(goals),
+        intensity: extractWorkoutDataFromSession(intensity),
+        exercises: addIdsToExercises(exercises, exerciseIds)
+    }
+    return newUserWorkout
 }
 
 function createNewExerciseObject(bodyObject, muscles, equipments) {
@@ -241,5 +258,6 @@ module.exports = {
     createNewExerciseObject,
     createNewExerciseToAddToSession,
     createOptionsForAdvancedSearchForm,
-    turnSearchRequestIntoQueryData
+    turnSearchRequestIntoQueryData,
+    createUserWorkoutObject
 }
