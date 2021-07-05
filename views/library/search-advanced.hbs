@@ -7,24 +7,30 @@
         <input type="text" name="workoutName">
         <button>Search</button>
 
+        <span></span>Type of workout</span>
         <select name="type" id="type">
-            {{> options workoutObj.type}}
+            {{> options searchOptions.types}}
         </select>
 
-        {{!-- <select name="duration" id="duration">
-            {{> options workoutObj.duration}}
-        </select> --}}
+        <span></span>Duration</span>
+        <label for="minDuration">Min</label>
+        <input type="number" name="minDuration" id="minDuration" min="0" max="999">
+        <label for="maxDuration">Max</label>
+        <input type="number" name="maxDuration" id="maxDuration" min="1" max="1000" >
 
+        <span></span>Level</span>
         <select name="level" id="level">
-            {{> options workoutObj.level}}
+            {{> options searchOptions.levels}}
         </select>
 
+        <span></span>Goals</span>
         <select name="goals" id="goals">
-            {{> options workoutObj.goals}}
+            {{> options searchOptions.goals}}
         </select>
 
+        <span></span>Intensity</span>
         <select name="intensity" id="intensity">
-            {{> options workoutObj.intensity}}
+            {{> options searchOptions.intensities}}
         </select>
     </form>
 

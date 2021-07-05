@@ -47,8 +47,6 @@ router.post('/library/create-workout', (req, res, next) => {
 
         let newWorkout = createWorkoutObject(req.session.workout);
 
-        console.log(newWorkout)
-
         WorkoutModel.create(newWorkout)
             .then(() => {
                 req.session.isCreatingWorkout = false;

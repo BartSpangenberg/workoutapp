@@ -192,6 +192,29 @@ function createNewExerciseToAddToSession() {
     return newExercise
 }
 
+function createOptionsForAdvancedSearchForm() {
+    const searchOptions = {
+        types: {
+            Selected: '',
+            NotSelected: types
+        },
+        levels: {
+            Selected: '',
+            NotSelected: levels
+        },
+        goals: {
+            Selected: '',
+            NotSelected: goalsArr
+        },
+        intensities: {
+            Selected: '',
+            NotSelected: intensities
+        }
+    }
+    return searchOptions
+}
+
+
 module.exports = {
     saveWorkoutDataInTheSession,
     turnExerciseArraysIntoOneArrayOfExerciseObjects,
@@ -205,5 +228,6 @@ module.exports = {
     addExerciseNamesToWorkoutObj, 
     createWorkoutObject,
     createNewExerciseObject,
-    createNewExerciseToAddToSession
+    createNewExerciseToAddToSession,
+    createOptionsForAdvancedSearchForm
 }

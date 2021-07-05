@@ -20,6 +20,14 @@ const workoutSchema = new Schema({
     type: String,
     required: true,
   },
+  createdBy: {
+    type: String,
+    default: "Super Trainer"
+  },
+  timesSelected: {
+    type: Number,
+    default: 1
+  },
   description: String,
   type: {
     type: String,
