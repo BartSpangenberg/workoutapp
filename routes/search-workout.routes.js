@@ -2,7 +2,11 @@ const router = require('express').Router();
 const ExerciseModel = require('../models/Exercise.model');
 const WorkoutModel = require('../models/Workout.model');
 const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
-const {createOptionsForAdvancedSearchForm} = require('./library.helper');
+const {
+    createOptionsForAdvancedSearchForm,
+    turnSearchRequestIntoQueryData
+} = require('./library.helper');
+const searchOptions = createOptionsForAdvancedSearchForm();
 
 router.get('/library/search', (req, res, next) => {
     if (!("workoutName" in req.query)) {
@@ -13,7 +17,6 @@ router.get('/library/search', (req, res, next) => {
     const workoutSearchWord = req.query.workoutName;
     WorkoutModel.find({ "name": { "$regex": workoutSearchWord, "$options": "i" }}) 
         .then((foundWorkouts) => {
-            console.log(foundWorkouts)
             res.render('library/search-basic.hbs', {foundWorkouts});
         }).catch((err) => {
             console.log('Something went wrong while searching for workouts', err)  
@@ -21,7 +24,7 @@ router.get('/library/search', (req, res, next) => {
 })
 
 router.get('/library/search/advanced', (req, res, next) => {
-    const searchOptions = createOptionsForAdvancedSearchForm();
+    const { workoutName, type, minDuration, maxDuration, level, goals, intensity } = req.query;
     console.log(req.query)
     if (!("workoutName" in req.query)) {
         console.log("I run")
@@ -29,19 +32,22 @@ router.get('/library/search/advanced', (req, res, next) => {
         return;
     } 
 
-    // WORKING ON THIS
-    // WorkoutModel.find({ "name": { "$regex": workoutSearchWord, "$options": "i" }}) 
-    //     .where('type').in(types)
-    //     .where('athleteLevel').in([])
-    //     .where('goals').in([])
-    //     .where('').in([])
-    // .then((foundWorkouts) => {
-    //     console.log(foundWorkouts)
-    //     res.render('library/search-advanced.hbs', { searchOptions, foundWorkouts });
-    // }).catch((err) => {
-    //     console.log('Something went wrong while searching for workouts', err)  
-    // });
+    const searchData = turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, goals, intensity);
+    console.log(searchData)
+    WorkoutModel.find({ "name": { "$regex": workoutName, "$options": "i" }}) 
+        .where('type').in(searchData.type)
+        .where('athleteLevel').in(searchData.level)
+        .where('intensity').in(searchData.intensity)
+        .where('goals').in(searchData.goals)
+        .where('duration').gte(searchData.minDuration).lte(searchData.maxDuration)
+        .exec()
 
+    .then((foundWorkouts) => {
+        console.log(foundWorkouts)
+        res.render('library/search-advanced.hbs', { searchOptions, foundWorkouts });
+    }).catch((err) => {
+        console.log('Something went wrong while searching for workouts', err)  
+    });
 })
 
 router.get('/library/workout-information/:id', (req, res, next) => {

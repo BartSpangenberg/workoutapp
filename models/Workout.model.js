@@ -42,7 +42,7 @@ const workoutSchema = new Schema({
       type: String,
       enum: ['Lannister / Targaryan', 'Beginner', 'Advanced', 'Pro', 'Stark']
   },
-  goals: Array,
+  goals: String,
   intensity: {
       type: String,
       enum: ['Low', 'Medium', 'High']

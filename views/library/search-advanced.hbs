@@ -3,32 +3,32 @@
 <h1>Browse the vast library</h1>
 
 <section id="search-basic">
-    <form method="GET" action="/library/search">
+    <form method="GET" action="/library/search/advanced">
         <input type="text" name="workoutName">
-        <button>Search</button>
+        <button>Search advanced</button>
 
-        <span></span>Type of workout</span>
+        <span>Type of workout</span>
         <select name="type" id="type">
             {{> options searchOptions.types}}
         </select>
 
-        <span></span>Duration</span>
+        <span>Duration</span>
         <label for="minDuration">Min</label>
         <input type="number" name="minDuration" id="minDuration" min="0" max="999">
         <label for="maxDuration">Max</label>
         <input type="number" name="maxDuration" id="maxDuration" min="1" max="1000" >
 
-        <span></span>Level</span>
+        <span>Level</span>
         <select name="level" id="level">
             {{> options searchOptions.levels}}
         </select>
 
-        <span></span>Goals</span>
+        <span>Goals</span>
         <select name="goals" id="goals">
             {{> options searchOptions.goals}}
         </select>
 
-        <span></span>Intensity</span>
+        <span>Intensity</span>
         <select name="intensity" id="intensity">
             {{> options searchOptions.intensities}}
         </select>
@@ -39,6 +39,6 @@
 
 <h4>Pagination element, YET TO DO</h4>
 
-{{#each workouts}}
+{{#each foundWorkouts}}
     {{> searchResult this}}
 {{/each}}

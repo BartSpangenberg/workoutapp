@@ -156,7 +156,7 @@ function createWorkoutObject(workoutObjectFromSession) {
         duration: +duration,
         type: extractWorkoutDataFromSession(type),
         athleteLevel: extractWorkoutDataFromSession(level),
-        goals: [extractWorkoutDataFromSession(goals)],
+        goals: extractWorkoutDataFromSession(goals),
         intensity: extractWorkoutDataFromSession(intensity),
         exercises: addIdsToExercises(exercises, exerciseIds)
     }
@@ -214,6 +214,17 @@ function createOptionsForAdvancedSearchForm() {
     return searchOptions
 }
 
+function turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, goals, intensity) {
+    const searchData = {
+        type: !type ? types : type,
+        level: !level ? levels : level,
+        goals: !goals ? goalsArr : goals,
+        intensity: !intensity ? intensities : intensity,
+        minDuration: !minDuration ? 1 : minDuration,
+        maxDuration: !maxDuration ? 1000 : maxDuration,
+    }
+    return searchData
+}
 
 module.exports = {
     saveWorkoutDataInTheSession,
@@ -229,5 +240,6 @@ module.exports = {
     createWorkoutObject,
     createNewExerciseObject,
     createNewExerciseToAddToSession,
-    createOptionsForAdvancedSearchForm
+    createOptionsForAdvancedSearchForm,
+    turnSearchRequestIntoQueryData
 }
