@@ -1,4 +1,17 @@
-const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
+const { 
+    types, 
+    levels, 
+    goalsArr, 
+    intensities, 
+    unitTypes, 
+    equipments, 
+    muscles,     
+    defaultDuration, 
+    defaultReps, 
+    defaultSets, 
+    defaultRestBetweenSets, 
+    defaultRestBetweenExercises
+} = require('../data/workoutData');
 
 function saveWorkoutDataInTheSession(req) { 
     const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
@@ -84,7 +97,7 @@ function resetSessionWorkoutData(req, res, next) {
         req.session.workout = {
             name: '',
             description: '',
-            duration: 10,
+            duration: defaultDuration,
             type: {
                 Selected: types[0],
                 NotSelected: createArrayOfNotSelectedItems(types, types[0])
@@ -197,10 +210,10 @@ function createNewExerciseObject(bodyObject, muscles, equipments) {
 
 function createNewExerciseToAddToSession() {
     let newExercise = {
-        reps: 10,
-        sets: 1,
-        restBetweenSets: 60,
-        restBetweenExercises: 30,
+        reps: defaultReps,
+        sets: defaultSets,
+        restBetweenSets: defaultRestBetweenSets,
+        restBetweenExercises: defaultRestBetweenExercises,
         unitTypes: {
             Selected: unitTypes[0],
             NotSelected: unitTypes.slice(1)

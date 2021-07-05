@@ -47,13 +47,18 @@ function ConvertExerciseData(exerciseArray) {
     exerciseArray.forEach(exercise => {
         exercises.push({
             name: exercise.name,
-            description: exercise.description,
+            description: deleteHtmlTagsFromDescription(exercise.description),
             equipmentNumbers: exercise.equipment,
             exerciseImageNumber: exercise.exercise_base,
             musclesNumbers: exercise.muscles
         })
     })
     return exercises
+}
+
+function deleteHtmlTagsFromDescription(description) {
+    let newDescription = description.replace(/(<\/p>)|(<p>)|(<\/li>)|(<li>)|(<\/ul>)|(<ul>)/gm, "")
+    return newDescription
 }
 
 function addImageUrlToExercises(exerciseArray, imageArray) {
