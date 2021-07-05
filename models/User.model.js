@@ -42,6 +42,10 @@ const userSchema = new Schema({
       "Build muscle",
     ],
   },
+  userWorkouts: {
+    type: Schema.Types.ObjectId,
+    ref: "Workout",
+  },
 });
 
 const User = model("User", userSchema);
