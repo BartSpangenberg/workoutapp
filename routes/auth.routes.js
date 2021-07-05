@@ -238,8 +238,8 @@ router.post("/login", (req, res, next) => {
         bcrypt.compare(req.body.password, user.password).then((isMatching) => {
           if (isMatching) {
             req.session.userInfo = user;
+            req.session.userIsLoggedIn = true;
             req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
-            req.app.locals.isUserLoggedIn = true;
             res.redirect("/");
           } else {
             res.render("auth/login.hbs", {
