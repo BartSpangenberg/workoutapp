@@ -231,8 +231,9 @@ function createOptionsForAdvancedSearchForm() {
     return searchOptions
 }
 
-function turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, goals, intensity) {
+function turnSearchRequestIntoQueryData(workoutName, type, minDuration, maxDuration, level, goals, intensity) {
     const searchData = {
+        workoutName: !workoutName ? '' : workoutName,
         type: !type ? types : type,
         level: !level ? levels : level,
         goals: !goals ? goalsArr : goals,
@@ -242,6 +243,18 @@ function turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, g
     }
     return searchData
 }
+
+function createPageNumberArr(pageCount) {
+    pageNumberArr = [];
+    for (let i = 1; i <= pageCount; i++)
+        pageNumberArr.push(`${i}`)
+    return pageNumberArr;
+}
+
+// function storeSearchDataInSession(searchData, sessionObj) {
+//     type, minDuration, maxDuration, level, goals, intensity 
+
+// }
 
 module.exports = {
     saveWorkoutDataInTheSession,
@@ -259,5 +272,6 @@ module.exports = {
     createNewExerciseToAddToSession,
     createOptionsForAdvancedSearchForm,
     turnSearchRequestIntoQueryData,
-    createUserWorkoutObject
+    createUserWorkoutObject,
+    createPageNumberArr,
 }

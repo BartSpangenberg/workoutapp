@@ -5,7 +5,8 @@
 <section id="search-basic">
     <form method="GET" action="/library/search/advanced">
         <input type="text" name="workoutName">
-        <button>Search advanced</button>
+        {{!-- <button>Search advanced</button> --}}
+        <button type="submit" name="button" value="search">Search</button>
 
         <span>Type of workout</span>
         <select name="type" id="type">
@@ -32,12 +33,14 @@
         <select name="intensity" id="intensity">
             {{> options searchOptions.intensities}}
         </select>
+
+        {{#each pageNumberArr}}
+            <button type="submit" name="paginationBtn" value="{{this}}">{{this}}</button>
+        {{/each}}
     </form>
 
     {{!-- <a href="/library/search">Basic search</a> --}}
 </section>
-
-<h4>Pagination element, YET TO DO</h4>
 
 {{#each foundWorkouts}}
     {{> searchResult this}}
