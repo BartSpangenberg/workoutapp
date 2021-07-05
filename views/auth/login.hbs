@@ -1,0 +1,25 @@
+<div id='signin' class="mb-3">
+  <form method="POST" action="/login">
+    <div>
+      <label class="form-label" id="marginText">Email</label>
+      <input type="email" name="email" placeholder="Enter your email" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" id="marginText">Password</label>
+      <input type="password" name="password" placeholder="Enter your Password" class="form-control">
+    </div>
+
+    <button class="btn btn-primary button-travel darkmode-ignore container-fluid">Sign In</button>
+
+  </form>
+</div>
+
+<div>
+  <hr id="solid">
+  </hr>
+</div>
+
+
+{{#if errorLogin}}
+<div class="error">{{errorLogin}}</div>
+{{/if}}
