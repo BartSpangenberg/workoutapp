@@ -1,16 +1,18 @@
 <button id="go-back">Go back!</button>
 
+<h1>{{workoutData.name}}</h1>
+<h6>{{workoutData.description}}</h6>
+
 {{#each tags}}
-  <p class="tag">{{this}}</p>
+  <span class="tag">{{this}}</span>
 {{/each}}
 
-{{!-- This need to be fixed --}}
-{{#each workout.tags}}
-  <p class="tag">{{this}}</p>
-{{/each}}
+<form method="POST" action="/library/workout-information/{{workoutData._id}}">
+  {{#each workoutData.exercises}}
+      {{> workoutInfoExercise this}}     
+  {{/each}}
 
-{{#each workout.exercises}}
-    {{> exercise this}}     
-{{/each}}
+  <button>Add to your workouts</button>
+</form>
 
 <script src="/js/library/workout-information.js"></script>

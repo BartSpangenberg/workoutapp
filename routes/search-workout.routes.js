@@ -1,11 +1,13 @@
 const router = require('express').Router();
-const ExerciseModel = require('../models/Exercise.model');
+const UserWorkoutModel = require('../models/UserWorkout.model');
 const WorkoutModel = require('../models/Workout.model');
 const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
 const {
     createOptionsForAdvancedSearchForm,
     turnSearchRequestIntoQueryData,
     createPageNumberArr,
+    convertWorkoutDataIntoArrayOfTags,
+    createUserWorkoutFromSearch
 } = require('./library.helper');
 
 const searchOptions = createOptionsForAdvancedSearchForm();
@@ -98,7 +100,31 @@ router.get('/library/search/advanced', (req, res, next) => {
 })
 
 router.get('/library/workout-information/:id', (req, res, next) => {
-    res.render('library/workout-information.hbs')
+    const { id } = req.params;
+    WorkoutModel.findById(id)
+        .populate('exercises.exerciseId')
+        .then((workoutData) => {
+            const tags = convertWorkoutDataIntoArrayOfTags(workoutData);
+            res.render('library/workout-information.hbs', {workoutData, tags})
+        }).catch((err) => {
+            console.log("Something went wrong while searching for the workout", err);
+        });
+})
+
+router.post('/library/workout-information/:id', (req, res, next) => {
+    const { id } = req.params;
+    const { reps, sets, restBetweenSets, restBetweenExercises } = req.body;
+
+    WorkoutModel.findByIdAndUpdate(id, { $inc: { timesSelected: 1 } })
+        .populate('exercises.exerciseId')
+        .then((workoutData) => {
+            let newUserWorkout = createUserWorkoutFromSearch(workoutData, reps, sets, restBetweenSets, restBetweenExercises, req.session.userInfo);    
+            return UserWorkoutModel.create(newUserWorkout)
+        }).then(() => {
+            res.send('Redirect to My Workouts');
+        }).catch((err) => {
+            console.log("Something went wrong while creating a new UserWorkout", err)
+        });
 })
 
 module.exports = router;

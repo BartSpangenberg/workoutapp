@@ -251,10 +251,44 @@ function createPageNumberArr(pageCount) {
     return pageNumberArr;
 }
 
-// function storeSearchDataInSession(searchData, sessionObj) {
-//     type, minDuration, maxDuration, level, goals, intensity 
+function convertWorkoutDataIntoArrayOfTags(workoutData) {
+    let tags = [];
+    if (workoutData.goals) {
+        tags.push(workoutData.goals)
+    }
+    if (workoutData.type) {
+        tags.push(workoutData.type)
+    }
+    if (workoutData.athleteLevel) {
+        tags.push(workoutData.athleteLevel)
+    }
+    if (workoutData.intensity) {
+        tags.push(workoutData.intensity)
+    }
+    return tags
+}
 
-// }
+function createUserWorkoutFromSearch(workoutData, reps, sets, restBetweenSets, restBetweenExercises, userObj) {
+    const {name, description, duration, type, athleteLevel, goals, intensity, exercises} = workoutData;
+    exercises.forEach((exercise, index) => {
+        exercise.reps = reps[index];
+        exercise.sets = sets[index];
+        exercise.restBetweenSets = restBetweenSets[index];
+        exercise.restBetweenExercises = restBetweenExercises[index];
+    })
+    let newUserWorkout = {
+        userId: userObj._id,
+        name,
+        description,
+        duration,
+        type,
+        athleteLevel,
+        goals,
+        intensity,
+        exercises
+    }
+    return newUserWorkout
+}
 
 module.exports = {
     saveWorkoutDataInTheSession,
@@ -274,4 +308,6 @@ module.exports = {
     turnSearchRequestIntoQueryData,
     createUserWorkoutObject,
     createPageNumberArr,
+    convertWorkoutDataIntoArrayOfTags,
+    createUserWorkoutFromSearch
 }
