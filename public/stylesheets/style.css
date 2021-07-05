@@ -19,3 +19,11 @@ input[type="number"] {
 .bi-arrow-right-square-fill {
   size: 60px;
 }
+
+.sidebar-not-selected {
+  text-decoration: none;
+}
+
+.sidebar-selected {
+  text-decoration: underline;
+}
