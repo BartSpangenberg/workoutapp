@@ -1,4 +1,3 @@
-
 const router = require("express").Router();
 const ExerciseModel = require('../models/Exercise.model');
 const WorkoutModel = require('../models/Workout.model');
