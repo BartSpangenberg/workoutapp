@@ -1,6 +1,7 @@
 //Requires
 const router = require("express").Router();
 const UserModel = require("../models/User.model");
+const UserWorkoutModel = require("../models/UserWorkout.model");
 const bcrypt = require("bcryptjs");
 
 // check if user is logged In
@@ -14,6 +15,18 @@ const checkLoggedin = (req, res, next) => {
   }
 };
 
+//Get to main page
+router.get("/myworkouts/:id", checkLoggedin, (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  UserWorkoutModel.findById(_id)
+    .then((user) => {
+      res.render("mainpage.hbs", { currentUser: user });
+    })
+    .catch((err) => {
+      err;
+    });
+});
+
 //Get to account
 router.get("/profile", checkLoggedin, (req, res, next) => {
   // get _id from the session
@@ -25,7 +38,7 @@ router.get("/profile", checkLoggedin, (req, res, next) => {
       res.render("userprofile.hbs", { currentUser: user });
     })
     .catch((err) => {
-      err;
+      next(err);
     });
 });
 
