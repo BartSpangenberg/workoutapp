@@ -10,6 +10,7 @@ const {
     convertWorkoutDataIntoArrayOfTags,
     createUserWorkoutFromSearch
 } = require('./library.helper');
+const navBarClasses = require('../data/navbarClasses');
 
 const searchOptions = createOptionsForAdvancedSearchForm();
 let searchData = turnSearchRequestIntoQueryData();
@@ -51,7 +52,7 @@ router.get('/library/search', checkLoggedIn, (req, res, next) => {
         .skip(basicSkipCount)   
         .limit(workoutsPerPage)
         .then((foundWorkouts) => {
-            res.render('library/search-basic.hbs', {foundWorkouts, pageNumberArr });
+            res.render('library/search-basic.hbs', {foundWorkouts, pageNumberArr, navBarClasses });
         }).catch((err) => {
             console.log('Something went wrong while searching for workouts', err)  
         });
@@ -95,7 +96,7 @@ router.get('/library/search/advanced', checkLoggedIn, (req, res, next) => {
         .limit(workoutsPerPage)
         .exec()
             .then((foundWorkouts) => {
-                res.render('library/search-advanced.hbs', { searchOptions, foundWorkouts, pageNumberArr });
+                res.render('library/search-advanced.hbs', { searchOptions, foundWorkouts, pageNumberArr, navBarClasses });
             }).catch((err) => {
                 console.log('Something went wrong while searching for workouts', err)  
             });
@@ -107,7 +108,7 @@ router.get('/library/workout-information/:id',  checkLoggedIn, (req, res, next) 
         .populate('exercises.exerciseId')
         .then((workoutData) => {
             const tags = convertWorkoutDataIntoArrayOfTags(workoutData);
-            res.render('library/workout-information.hbs', {workoutData, tags})
+            res.render('library/workout-information.hbs', {workoutData, tags, navBarClasses})
         }).catch((err) => {
             console.log("Something went wrong while searching for the workout", err);
         });

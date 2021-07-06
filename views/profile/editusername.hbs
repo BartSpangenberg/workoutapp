@@ -1,18 +1,25 @@
-<h1>Edit your username</h1>
+{{> navbar navBarClasses.profile }}
 
-<form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
-<div class="mb-3">
-    <label class="form-label" for="username"></label>
-    <input
-      placeholder={{currentUser.username}}
-      class="form-control"
-      type="text"
-      name="username"
-      value ={{currentUser.username}}
-    />
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
+    <h4>Edit your username</h4>
 
-    
-     <br />
+    <form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
+    <div class="mb-3">
+        <label class="form-label" for="username"></label>
+        <input
+          placeholder={{currentUser.username}}
+          class="form-control"
+          type="text"
+          name="username"
+          value ={{currentUser.username}} 
+        />
 
-<button class="btn btn-primary" type="submit">Update</button>
-</form>
+        
+        <br />
+
+    <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+
+  </div>
+</section>

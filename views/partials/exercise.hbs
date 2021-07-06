@@ -1,36 +1,36 @@
-<article class="new-exercise">
-  <span>{{this.exerciseName}}</span>
+<div class="cr-wo-ex-container">
 
-  <input  min="1" max="1000" name="reps" type="number" id="reps" value="{{this.reps}}"/>
+    <p class="cr-wo-ex-name">{{this.exerciseName}}</p>
 
-  <label for="unitType">Unit</label>
-  <select name="unitType" id="unitType">
-    {{> options this.unitTypes}}  
-  </select>
- 
-  <input min="1" max="1000" name="sets" type="number" id="sets" value="{{this.sets}}"/>
-  <span>Sets</span>
+    <div class="cr-wo-input-container">
 
-  <span>Rest between sets</span>
-  <input
-    min="0"
-    max="1000"
-    name="restBetweenSets"
-    type="number"
-    id="restBetweenSets"
-    value="{{this.restBetweenSets}}"
-  />
-  <span>Seconds</span>
+      <input  min="1" max="1000" name="reps" type="number" id="reps" value="{{this.reps}}"/>
+      
+      <div>
+        <select name="unitType" id="unitType">
+          {{> options this.unitTypes}}  
+        </select>
+      </div>
+    
+      <input min="1" max="1000" name="sets" type="number" id="sets" value="{{this.sets}}"/>
 
-  <span>Rest between exercises</span>
-  <input
-    min="0"
-    max="1000"
-    name="restBetweenExercises"
-    type="number"
-    id="restBetweenExercises"
-    value="{{this.restBetweenExercises}}"
-  />
-  <span>Seconds</span>
+      <input
+        min="0"
+        max="1000"
+        name="restBetweenSets"
+        type="number"
+        id="restBetweenSets"
+        value="{{this.restBetweenSets}}"
+      />
 
-</article>
+      <input
+        min="0"
+        max="1000"
+        name="restBetweenExercises"
+        type="number"
+        id="restBetweenExercises"
+        value="{{this.restBetweenExercises}}"
+      />
+
+    </div>
+</div>

@@ -1,7 +1,13 @@
-<h1>Edit your body trainername : </h1>
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
+    <h4>Edit your body trainername : </h4>
 
-<form method="POST" action="/profile/{{ currentUser._id }}/edit/trainername">
-  {{>trainerScreen this}}
+    <form method="POST" action="/profile/{{ currentUser._id }}/edit/trainername">
+      {{>trainerScreen this}}
 
-  <button class="btn btn-primary" type="submit">Update</button>
-</form>
+      <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+
+
+  </div>
+</section>

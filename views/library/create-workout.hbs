@@ -1,55 +1,80 @@
-{{> navbar }}
+{{> navbar navBarClasses.createWorkout }}
 
 {{!-- <a href="/library/search">Go back to search</a> --}}
-<form method="POST" action="/library/create-workout">
-  <label for="name">Workout name</label>
-  <input type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>
+<section id="create-workout-section">
+    <form id="create-workout-form" method="POST" action="/library/create-workout">
+    <label class="label-big" for="name">Workout name</label>
+    <input class="input-txt-medium cr-wo-name" type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>
 
-  <label for="description">Workout description</label>
-  <input type="text" id="description" name="description" value="{{workoutObj.description}}" placeholder="Workout description" />
+    <label class="label-medium" for="description">Workout description</label>
+    <input class="input-txt-big cr-wo-description" type="text" id="description" name="description" value="{{workoutObj.description}}" placeholder="Workout description" />
 
-  {{#if error}}
-    <p class="error">{{error}}</p>
-  {{/if}}
+    {{#if error}}
+        <p class="error">{{error}}</p>
+    {{/if}}
 
-  <div class="dropdown-container">
+    <div class="cr-wo-dropdown-container">
+            <span>
+                <label class="label-small" for="type">Type</label>
+                <select name="type" id="type">
+                    {{> options workoutObj.type}}
+                </select>
+            </span>
 
-        <label for="type">Type</label>
-        <select name="type" id="type">
-            {{> options workoutObj.type}}
-        </select>
+            <span>
+                <label class="label-small" for="duration">Duration</label>
+                <input type="number" name="duration" id="duration" value="{{workoutObj.duration}}"  min="0" max="300"/>
+            </span>
 
-        <label for="duration">Duration</label>
-        <input type="number" name="duration" id="duration" value="{{workoutObj.duration}}"  min="0" max="300"/>
+            <span>
+                <label class="label-small" for="level">Level</label>
+                <select name="level" id="level">
+                    {{> options workoutObj.level}}
+                </select>
+            </span>
 
-        <label for="level">Level</label>
-        <select name="level" id="level">
-            {{> options workoutObj.level}}
-        </select>
+            <span>
+                <label class="label-small" for="goals">Goals</label>
+                <select name="goals" id="goals">
+                    {{> options workoutObj.goals}}          
+                </select>
+            </span>
 
-        <label for="goals">Goals</label>
-        <select name="goals" id="goals">
-              {{> options workoutObj.goals}}          
-        </select>
+            <span>
+                <label class="label-small" for="intensity">Intensity</label>
+                <select name="intensity" id="intensity">
+                    {{> options workoutObj.intensity}}                     
+                </select>
+            </span>
+        </div>
+        
+        <h6 class="add-exercises-header">Let's add the exercises!</h4>
 
-        <label for="intensity">Intensity</label>
-        <select name="intensity" id="intensity">
-              {{> options workoutObj.intensity}}                     
-        </select>
-    </div>
-    
-    <section id="add-exercises">
+        <div class="cr-wo-search-ex-container">
+            <input class="search-for-ex-input" type="text" name="findExercise"> 
+            <button class="button button-medium" type="submit" name="button" value="search-for-exercise">Search for exercise</button>
+        </div>
+
+        <div class="cr-wo-cr-ex-container">
+            <h6 class="cannot-find-ex">Cannot find your exercise? Create it yourself!</h6>
+            <button class="button button-medium" type="submit" name="button" value="create-an-exercise">Create an exercise</button>
+        </div>
+
+        <div class="cr-wo-ex-container">
+            <h5 class="cr-wo-ex-name">Name</h5>
+            <div class="cr-wo-input-container">
+                <p>Reps</p>
+                <p>Unit</p>
+                <p>Sets</p>
+                <p>Rest between <br>sets (sec)</p>
+                <p>Rest between <br>exer. (sec)</p>
+            </div>
+        </div>
+
         {{#each workoutObj.exercises}}
             {{> exercise this}}     
         {{/each}}
-    </section>
 
-    <input type="text" name="findExercise"> <button type="submit" name="button" value="search-for-exercise">Search for exercise</button>
-
-    <p>Cannot find your exercise? Create it yourself!</p>
-
-    <button type="submit" name="button" value="create-an-exercise">Create an exercise</button>
-
-    <button type="submit" name="button" value="create-workout" >Create workout</button>
-
-</form>
+        <button class="button button-big cr-wo-btn" type="submit" name="button" value="create-workout" >Create workout</button>
+    </form>
+</section>

@@ -1,14 +1,22 @@
-<h1>If I were a trainer : </h1>
 
-{{! To improve : button }}
-
-<form method="POST" action="/signup/trainer-name">
-  {{>trainerScreen this}}
-
-  <button class="btn btn-primary" type="submit">Next</button>
-</form>
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
 
 
-{{#if msg}}
-  <p class="msg"> {{msg}} </p>
-{{/if}}
+  <h4>If I were a trainer : </h4>
+
+  <form method="POST" action="/signup/trainer-name">
+    {{>trainerScreen this}}
+
+    <button class="btn btn-primary" type="submit">Next</button>
+  </form>
+
+
+  {{#if msg}}
+    <p class="msg"> {{msg}} </p>
+  {{/if}}
+
+
+
+  </div>
+</section>

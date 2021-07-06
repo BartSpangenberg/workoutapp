@@ -1,9 +1,14 @@
-<h1>Edit your goals</h1>
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
+    <h4>Edit your goals</h4>
+    {{! To improve : button }}
 
-{{! To improve : button }}
+    <form method="POST" action="/profile/{{ currentUser._id }}/edit/goals">
+      {{>goalsScreen this}}
 
-<form method="POST" action="/profile/{{ currentUser._id }}/edit/goals">
-  {{>goalsScreen this}}
+      <button class="btn btn-primary" type="submit">Update</button>
+    </form>
 
-  <button class="btn btn-primary" type="submit">Update</button>
-</form>
+
+  </div>
+</section>

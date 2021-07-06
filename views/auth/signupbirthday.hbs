@@ -1,11 +1,18 @@
-<h1>What is your birthday ?</h1>
-
-{{! NEED TO CHECK FOR DISPLAYING DATE IN FORM }}
-{{! To improve : button }}
-<form method="POST" action="/signup/birthday">
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
   
-{{>birthdayScreen this}}
-  <a class="btn btn-primary" href="/signup/body">Previous</a>
-  <button class="btn btn-primary" type="submit">Next</button>
+  
+  <h4>What is your birthday ?</h4>
 
-</form>
+  {{! NEED TO CHECK FOR DISPLAYING DATE IN FORM }}
+  {{! To improve : button }}
+  <form method="POST" action="/signup/birthday">
+    
+  {{>birthdayScreen this}}
+    <a class="btn btn-primary" href="/signup/body">Previous</a>
+    <button class="btn btn-primary" type="submit">Next</button>
+
+  </form>
+
+  </div>
+</section>

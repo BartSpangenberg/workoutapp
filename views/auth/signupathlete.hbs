@@ -1,9 +1,13 @@
-<h1>What type of athlete are you ?</h1>
+<section id="intro-flow-section">
+  <div class="intro-flow-box">
 
-{{! To improve : button }}
+      <h4>What type of athlete are you ?</h4>
 
-<form method="POST" action="/signup/athlete">
-{{>athleteScreen this}}
-  <a class="btn btn-primary" href="/signup/trainer-name">Previous</a>
-  <button class="btn btn-primary" type="submit">Next</button>
-</form>
+      <form method="POST" action="/signup/athlete">
+      {{>athleteScreen this}}
+        <a class="btn btn-primary" href="/signup/trainer-name">Previous</a>
+        <button class="btn btn-primary" type="submit">Next</button>
+      </form>
+
+  </div>
+</section>

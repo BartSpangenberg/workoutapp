@@ -1,0 +1,19 @@
+#intro-flow-section {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-flow-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 600px;
+  height: 400px;
+  background-color: teal;
+  box-shadow: 30px 30px 0px 0px rgba(0, 0, 0, 0.3);
+}

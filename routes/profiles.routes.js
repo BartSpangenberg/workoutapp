@@ -4,6 +4,7 @@ const UserModel = require("../models/User.model");
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const bcrypt = require("bcryptjs");
+const navBarClasses = require('../data/navbarClasses');
 
 //Get to account
 router.get("/profile", checkLoggedIn, (req, res, next) => {
@@ -13,7 +14,7 @@ router.get("/profile", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
-      res.render("userprofile.hbs", { currentUser: user });
+      res.render("userprofile.hbs", { currentUser: user, navBarClasses });
     })
     .catch((err) => {
       next(err);
@@ -25,7 +26,7 @@ router.get("/profile/:id/edit/username", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
-      res.render("profile/editusername.hbs", { currentUser: user });
+      res.render("profile/editusername.hbs", { currentUser: user, navBarClasses });
     })
     .catch((err) => {
       next(err);

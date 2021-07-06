@@ -14,6 +14,7 @@ const {
   createUserWorkoutObject,
 } = require("./library.helper");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const navBarClasses = require('../data/navbarClasses');
 
 // CREATE WORKOUT ROUTES
 // For UX purposes create-workout page data needs to sustain through page switches.
@@ -31,7 +32,7 @@ router.get(
 
     let workoutObj = turnSessionDataIntoWorkoutObject(req);
 
-    res.render("./library/create-workout.hbs", { workoutObj });
+    res.render("./library/create-workout.hbs", { workoutObj, navBarClasses });
   }
 );
 
@@ -48,7 +49,7 @@ router.post("/library/create-workout", checkLoggedIn, (req, res, next) => {
     if (!name || !description) {
       let error = "Please fill in all fields.";
       let workoutObj = turnSessionDataIntoWorkoutObject(req);
-      res.render("./library/create-workout.hbs", { workoutObj, error });
+      res.render("./library/create-workout.hbs", { workoutObj, error, navBarClasses });
       return;
     }
 
@@ -91,7 +92,7 @@ router.post("/library/create-workout", checkLoggedIn, (req, res, next) => {
 });
 
 router.get("/library/create-exercise", checkLoggedIn, (req, res, next) => {
-  res.render("./library/create-exercise.hbs", { muscles, equipments });
+  res.render("./library/create-exercise.hbs", { muscles, equipments, navBarClasses });
 });
 
 router.post("/library/create-exercise", checkLoggedIn, (req, res, next) => {
@@ -99,7 +100,7 @@ router.post("/library/create-exercise", checkLoggedIn, (req, res, next) => {
 
   if (!name || !description) {
     let error = "Please fill in all fields.";
-    res.render("./library/create-exercise.hbs", { muscles, equipments, error });
+    res.render("./library/create-exercise.hbs", { muscles, equipments, error, navBarClasses });
     return;
   }
 
@@ -133,12 +134,12 @@ router.get(
     const { exerciseSearchWord } = req.session;
     ExerciseModel.find({ name: { $regex: exerciseSearchWord, $options: "i" } })
       .then((exerciseData) => {
-        res.render("library/exercise-pop-up.hbs", { exerciseData });
+        res.render("library/exercise-pop-up.hbs", { exerciseData, navBarClasses });
       })
       .catch((err) => {
         console.log("Something went wrong while searching for exercises", err);
         // Display error message if no data is present.
-        res.render("library/exercise-pop-up.hbs", { exerciseData });
+        res.render("library/exercise-pop-up.hbs", { exerciseData, navBarClasses });
       });
 
     // If nothing is found --> display create exercise button

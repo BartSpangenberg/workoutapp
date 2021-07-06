@@ -1,6 +1,17 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+li.active {
+  background-color: yellow;
+}
+
+a.active {
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 a {
@@ -8,7 +19,31 @@ a {
 }
 
 h1 {
-  color: 15px;
+  font-size: 5em;
+}
+
+h2 {
+  font-size: 4em;
+}
+
+h3 {
+  font-size: 3em;
+}
+
+h4 {
+  font-size: 2em;
+}
+
+h5 {
+  font-size: 1.6em;
+}
+
+h6 {
+  font-size: 1.2em;
+}
+
+p {
+  font-size: 0.8em;
 }
 
 input[type="number"] {
@@ -26,4 +61,57 @@ input[type="number"] {
 
 .sidebar-selected {
   text-decoration: underline;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  width: auto;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+.button-small {
+}
+
+.button-medium {
+  font-size: 1em;
+  padding: 10px;
+}
+
+.button-big {
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+.label-small {
+  font-size: 1em;
+}
+
+.label-medium {
+  font-size: 2em;
+}
+
+.label-big {
+  font-size: 3em;
+}
+
+.input-txt-small {
+  width: 50px;
+}
+
+.input-txt-medium {
+  height: 35px;
+  width: 200px;
+}
+
+.input-txt-big {
+  width: 500px;
+  height: 35px;
 }

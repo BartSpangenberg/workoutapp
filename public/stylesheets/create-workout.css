@@ -1,0 +1,76 @@
+#create-workout-section {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#create-workout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-wo-dropdown-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.cr-wo-search-ex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cr-wo-cr-ex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cr-wo-btn {
+  width: 200px;
+}
+
+.cr-wo-ex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cr-wo-ex-name {
+  width: 30%;
+}
+
+.cr-wo-input-container {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cr-wo-name {
+  margin-bottom: 10px;
+}
+
+.cr-wo-description {
+  margin-bottom: 20px;
+}
+
+.add-exercises-header {
+  margin-bottom: 30px;
+}
+
+.cannot-find-ex {
+  margin-right: 50px;
+}
+
+.search-for-ex-input {
+  margin-right: 50px;
+}
