@@ -1,44 +1,60 @@
 {{> navbar navBarClasses.workoutLibrary }}
-<section class="swap-animation-two">
+<section class="swap-animation-two section-center">
 
 
 <h1>Browse the vast library</h1>
 
 <section id="search-basic">
     <form method="GET" action="/library/search/advanced">
+    <div class="search-bar-row1">  
         <input type="text" name="workoutName">
-        {{!-- <button>Search advanced</button> --}}
         <button type="submit" name="button" value="search">Search</button>
+    </div>
+    <div class="search-bar-row2">
+        <div>
+            <span>Type of workout</span>
+            <select name="type" id="type">
+                {{> options searchOptions.types}}
+            </select>
+        </div>
 
-        <span>Type of workout</span>
-        <select name="type" id="type">
-            {{> options searchOptions.types}}
-        </select>
+        <div>
+            <span>Duration</span>
+            <div id="duration-container">
+                <label for="minDuration">Min</label>
+                <input type="number" name="minDuration" id="minDuration" min="0" max="999">
+                <label for="maxDuration">Max</label>
+                <input type="number" name="maxDuration" id="maxDuration" min="1" max="1000" >
+            </div>
+        </div>
 
-        <span>Duration</span>
-        <label for="minDuration">Min</label>
-        <input type="number" name="minDuration" id="minDuration" min="0" max="999">
-        <label for="maxDuration">Max</label>
-        <input type="number" name="maxDuration" id="maxDuration" min="1" max="1000" >
+        <div>
+            <span>Level</span>
+            <select name="level" id="level">
+                {{> options searchOptions.levels}}
+            </select>
+        </div>
 
-        <span>Level</span>
-        <select name="level" id="level">
-            {{> options searchOptions.levels}}
-        </select>
+        <div>
+            <span>Goals</span>
+            <select name="goals" id="goals">
+                {{> options searchOptions.goals}}
+            </select>
+        </div>
 
-        <span>Goals</span>
-        <select name="goals" id="goals">
-            {{> options searchOptions.goals}}
-        </select>
+        <div>
+            <span>Intensity</span>
+            <select name="intensity" id="intensity">
+                {{> options searchOptions.intensities}}
+            </select>
+        </div>
+    </div>
 
-        <span>Intensity</span>
-        <select name="intensity" id="intensity">
-            {{> options searchOptions.intensities}}
-        </select>
-
+    <div class="pagenumbers">
         {{#each pageNumberArr}}
             <button type="submit" name="paginationBtn" value="{{this}}">{{this}}</button>
         {{/each}}
+    </div>
     </form>
 
     {{!-- <a href="/library/search">Basic search</a> --}}

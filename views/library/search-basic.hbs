@@ -1,24 +1,26 @@
 {{> navbar navBarClasses.workoutLibrary }}
-<section class="swap-animation">
+<section class="swap-animation section-center">
 
 <h1>Browse the vast library</h1>
 
 <section id="search-basic-two">
 
     <form method="GET" action="/library/search">
-        <input type="text" name="workoutName">
-        <button type="submit" name="button" value="search">Search</button>
-    
+        <div class="search-bar-row1">              
+            <input type="text" name="workoutName">
+            <button class="button button-small" type="submit" name="button" value="search">Search</button>
+            <a href="/library/search/advanced">Advanced search</a>
+        </div>
 
-    <a href="/library/search/advanced">Advanced search</a>
-
-    {{#each pageNumberArr}}
-        <button type="submit" name="paginationBtn" value="{{this}}">{{this}}</button>
-    {{/each}}
+        <div class="pagenumbers">
+            {{#each pageNumberArr}}
+                <button type="submit" name="paginationBtn" value="{{this}}">{{this}}</button>
+            {{/each}}
+        </div>
     </form>
+    {{#each foundWorkouts}}
+        {{> searchResult this}}
+    {{/each}}
 </section>
 
-{{#each foundWorkouts}}
-    {{> searchResult this}}
-{{/each}}
 </section>

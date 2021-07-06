@@ -1,5 +1,7 @@
-<span>
-  <p>Created by: {{this.createdBy}}</p>
-  <p>Times selected: {{this.timesSelected}}</p>
-  <a href="/library/workout-information/{{this._id}}">{{this.name}}</a>
-</span>
+<a class="srch-result-wo" href="/library/workout-information/{{this._id}}">
+  <p class="srch-result-name">
+    {{this.name}}
+  </p>
+  <p class="srch-result-creator">Created by: {{this.createdBy}}</p>
+  <p class="srch-result-selected">Times selected: {{this.timesSelected}}</p>
+</a>

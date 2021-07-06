@@ -1,0 +1,81 @@
+.search-bar-row1 {
+  margin-bottom: 10px;
+}
+
+.search-bar-row1 input {
+  margin-right: 20px;
+}
+
+.search-bar-row1 button {
+  margin-right: 20px;
+}
+
+.search-bar-row2 {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-bar-row2 div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  margin-right: 50px;
+}
+
+#duration-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagenumbers {
+  margin-bottom: 40px;
+}
+
+.pagenumbers button {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: white;
+  margin-right: 10px;
+  box-shadow: 0px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.pagenumbers button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 1px 0.5px rgba(0, 0, 0, 0.5);
+}
+
+.srch-result-wo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1em;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.srch-result-name {
+  margin-right: 40px;
+  font-size: 1.5em;
+}
+
+.srch-result-selected {
+  padding: 1px 11px;
+  border-radius: 15px;
+  background-color: darkblue;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.srch-result-creator {
+  padding: 1px 11px;
+  border-radius: 15px;
+  background-color: darkblue;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
