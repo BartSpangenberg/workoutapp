@@ -1,4 +1,17 @@
-const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
+const { 
+    types, 
+    levels, 
+    goalsArr, 
+    intensities, 
+    unitTypes, 
+    equipments, 
+    muscles,     
+    defaultDuration, 
+    defaultReps, 
+    defaultSets, 
+    defaultRestBetweenSets, 
+    defaultRestBetweenExercises
+} = require('../data/workoutData');
 
 function saveWorkoutDataInTheSession(req) { 
     const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
@@ -84,7 +97,7 @@ function resetSessionWorkoutData(req, res, next) {
         req.session.workout = {
             name: '',
             description: '',
-            duration: 10,
+            duration: defaultDuration,
             type: {
                 Selected: types[0],
                 NotSelected: createArrayOfNotSelectedItems(types, types[0])
@@ -197,10 +210,10 @@ function createNewExerciseObject(bodyObject, muscles, equipments) {
 
 function createNewExerciseToAddToSession() {
     let newExercise = {
-        reps: 10,
-        sets: 1,
-        restBetweenSets: 60,
-        restBetweenExercises: 30,
+        reps: defaultReps,
+        sets: defaultSets,
+        restBetweenSets: defaultRestBetweenSets,
+        restBetweenExercises: defaultRestBetweenExercises,
         unitTypes: {
             Selected: unitTypes[0],
             NotSelected: unitTypes.slice(1)
@@ -231,8 +244,9 @@ function createOptionsForAdvancedSearchForm() {
     return searchOptions
 }
 
-function turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, goals, intensity) {
+function turnSearchRequestIntoQueryData(workoutName, type, minDuration, maxDuration, level, goals, intensity) {
     const searchData = {
+        workoutName: !workoutName ? '' : workoutName,
         type: !type ? types : type,
         level: !level ? levels : level,
         goals: !goals ? goalsArr : goals,
@@ -241,6 +255,52 @@ function turnSearchRequestIntoQueryData(type, minDuration, maxDuration, level, g
         maxDuration: !maxDuration ? 1000 : maxDuration,
     }
     return searchData
+}
+
+function createPageNumberArr(pageCount) {
+    pageNumberArr = [];
+    for (let i = 1; i <= pageCount; i++)
+        pageNumberArr.push(`${i}`)
+    return pageNumberArr;
+}
+
+function convertWorkoutDataIntoArrayOfTags(workoutData) {
+    let tags = [];
+    if (workoutData.goals) {
+        tags.push(workoutData.goals)
+    }
+    if (workoutData.type) {
+        tags.push(workoutData.type)
+    }
+    if (workoutData.athleteLevel) {
+        tags.push(workoutData.athleteLevel)
+    }
+    if (workoutData.intensity) {
+        tags.push(workoutData.intensity)
+    }
+    return tags
+}
+
+function createUserWorkoutFromSearch(workoutData, reps, sets, restBetweenSets, restBetweenExercises, userObj) {
+    const {name, description, duration, type, athleteLevel, goals, intensity, exercises} = workoutData;
+    exercises.forEach((exercise, index) => {
+        exercise.reps = reps[index];
+        exercise.sets = sets[index];
+        exercise.restBetweenSets = restBetweenSets[index];
+        exercise.restBetweenExercises = restBetweenExercises[index];
+    })
+    let newUserWorkout = {
+        userId: userObj._id,
+        name,
+        description,
+        duration,
+        type,
+        athleteLevel,
+        goals,
+        intensity,
+        exercises
+    }
+    return newUserWorkout
 }
 
 module.exports = {
@@ -259,5 +319,8 @@ module.exports = {
     createNewExerciseToAddToSession,
     createOptionsForAdvancedSearchForm,
     turnSearchRequestIntoQueryData,
-    createUserWorkoutObject
+    createUserWorkoutObject,
+    createPageNumberArr,
+    convertWorkoutDataIntoArrayOfTags,
+    createUserWorkoutFromSearch
 }

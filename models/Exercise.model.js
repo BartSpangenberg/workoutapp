@@ -23,14 +23,15 @@ const exerciseSchema = new Schema({
     },
     image: {
         type: String,
+        default: "https://i.pinimg.com/originals/9d/60/72/9d6072c41e19a5cb61b020b51691ff5a.jpg"
     },
     equipments: {
-        type: Array
-        // default: [defaulMuscleSchema]
+        type: Array,
+        default: ["None (bodyweight exercise)"]
     },
     muscles: {
-        type: Array
-        // default: [`I haven't the faintest idea`]
+        type: Array,
+        default: ["I haven't the faintest idea"]
     },
     popularity: {
         type: Number

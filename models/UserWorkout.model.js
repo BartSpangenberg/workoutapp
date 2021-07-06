@@ -24,6 +24,9 @@ const userWorkoutSchema = new Schema({
         type: Boolean,
         default: true
     },
+    dateSchedule: {
+        type: Date
+    },
     timesCompleted: {
         type: Number,
         default: 0

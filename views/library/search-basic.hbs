@@ -1,17 +1,21 @@
-{{> sidebarLibrary }}
+{{>navbar this}}
 
 <h1>Browse the vast library</h1>
 
 <section id="search-basic">
+
     <form method="GET" action="/library/search">
         <input type="text" name="workoutName">
-        <button>Search</button>
-    </form>
+        <button type="submit" name="button" value="search">Search</button>
+    
 
     <a href="/library/search/advanced">Advanced search</a>
-</section>
 
-<h4>Pagination element, YET TO DO</h4>
+    {{#each pageNumberArr}}
+        <button type="submit" name="paginationBtn" value="{{this}}">{{this}}</button>
+    {{/each}}
+    </form>
+</section>
 
 {{#each foundWorkouts}}
     {{> searchResult this}}
