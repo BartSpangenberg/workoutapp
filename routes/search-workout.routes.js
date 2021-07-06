@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const UserWorkoutModel = require('../models/UserWorkout.model');
 const WorkoutModel = require('../models/Workout.model');
+const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const { types, levels, goalsArr, intensities, unitTypes, equipments, muscles } = require('../data/workoutData');
 const {
     createOptionsForAdvancedSearchForm,
@@ -20,7 +21,7 @@ let skipCount = 0;
 let basicSkipCount = 0;
 let pageNumberArr;
 
-router.get('/library/search', (req, res, next) => {
+router.get('/library/search', checkLoggedIn, (req, res, next) => {
     const { workoutName, button, paginationBtn } = req.query;
     // When the user clicks on the search button a new search query needs to be created
     if (button === 'search') {
@@ -56,7 +57,7 @@ router.get('/library/search', (req, res, next) => {
         });
 })
 
-router.get('/library/search/advanced', (req, res, next) => {
+router.get('/library/search/advanced', checkLoggedIn, (req, res, next) => {
     const { workoutName, type, minDuration, maxDuration, level, goals, intensity, button, paginationBtn } = req.query;
     // When the user clicks on the search button a new search query needs to be created
     if (button === 'search') {
@@ -100,7 +101,7 @@ router.get('/library/search/advanced', (req, res, next) => {
             });
 })
 
-router.get('/library/workout-information/:id', (req, res, next) => {
+router.get('/library/workout-information/:id',  checkLoggedIn, (req, res, next) => {
     const { id } = req.params;
     WorkoutModel.findById(id)
         .populate('exercises.exerciseId')
@@ -112,7 +113,7 @@ router.get('/library/workout-information/:id', (req, res, next) => {
         });
 })
 
-router.post('/library/workout-information/:id', (req, res, next) => {
+router.post('/library/workout-information/:id',  checkLoggedIn, (req, res, next) => {
     const { id } = req.params;
     const { reps, sets, restBetweenSets, restBetweenExercises } = req.body;
 
