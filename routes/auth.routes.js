@@ -208,10 +208,6 @@ router.get("/signup/profile-created", (req, res, next) => {
   res.render("auth/signupprofile-created.hbs");
 });
 
-router.post("/signup/profile-created", (req, res, next) => {
-  res.redirect("/myworkouts");
-});
-
 //-------------------------------
 //        SIGN IN ROUTES
 //-------------------------------
@@ -259,7 +255,7 @@ router.post("/login", (req, res, next) => {
 // ---------------
 
 router.get("/logout", (req, res, next) => {
-  req.app.locals.isUserLoggedIn = false;
+  req.session.isUserLoggedIn = false;
   req.session.destroy();
   res.redirect("/");
 });
