@@ -3,7 +3,8 @@ const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 
-//
+//Function with parameters : id (to grab all the userWorkouts), scheduled
+// used to make the update from false to true
 changeScheduled = (id, scheduled, res) => {
   UserWorkoutModel.updateOne({ _id: id }, { scheduled: scheduled })
     .then((workout) => {
@@ -14,28 +15,28 @@ changeScheduled = (id, scheduled, res) => {
     });
 };
 
-//Get to main page : grab all workouts created by the user
+//Get to main page : find all workouts created by the user
 router.get("/myworkouts", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserWorkoutModel.find({ userId: _id })
     .then((workouts) => {
-      console.log("IN MYWORKOUTS");
-      console.log(workouts);
       res.render("mainpage.hbs", {
         currentWorkouts: workouts,
         currentUser: req.session.userInfo,
       });
     })
     .catch((err) => {
-      err;
+      next(err);
     });
 });
 
+//Route to change the status of schedule : done => scheduled is false
 router.get("/myworkouts/:id/done", checkLoggedIn, (req, res, next) => {
   const id = req.params.id;
   changeScheduled(id, false, res);
 });
 
+//Route to change the status of schedule : scheduled => scheduled is true
 router.get("/myworkouts/:id/scheduled", checkLoggedIn, (req, res, next) => {
   const id = req.params.id;
   changeScheduled(id, true, res);
