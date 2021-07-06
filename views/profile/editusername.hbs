@@ -1,10 +1,8 @@
 {{> navbar navBarClasses.profile }}
 
-<<<<<<< HEAD
 <section id="intro-flow-section">
   <div class="intro-flow-box">
     <h4>Edit your username</h4>
-=======
 <form method="POST" action="/profile/edit/username">
 <div class="mb-3">
     <label class="form-label" for="username"></label>
@@ -15,7 +13,6 @@
       name="username"
       value ={{currentUser.username}}
     />
->>>>>>> b726bb6037851ff645d524debd7a2b5a3d7d8bd0
 
     <form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
     <div class="mb-3">

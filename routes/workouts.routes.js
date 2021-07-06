@@ -2,6 +2,7 @@
 const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const navBarClasses = require('../data/navbarClasses');
 
 //Function with parameters : id (to grab all the userWorkouts), scheduled
 // used to make the update from false to true
@@ -23,6 +24,7 @@ router.get("/myworkouts", checkLoggedIn, (req, res, next) => {
       res.render("mainpage.hbs", {
         currentWorkouts: workouts,
         currentUser: req.session.userInfo,
+        navBarClasses
       });
     })
     .catch((err) => {
