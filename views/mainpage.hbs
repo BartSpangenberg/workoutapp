@@ -8,7 +8,7 @@
 {{#each currentWorkouts}}
 {{#ifeq this.scheduled true}} 
 <p>Workouts : {{this.name}}
-<a  class = "btn btn-primary" href="/myworkouts/{{this._id}}/done"> I did it ! </a></p>
+<a  id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/done"> I did it ! </a></p>
 <br/>
 {{/ifeq}}
 {{/each}}
@@ -24,7 +24,7 @@
 {{#each currentWorkouts}}
 {{#ifeq this.scheduled false}}
 <p>Workouts : {{this.name}}
-<a class = "btn btn-primary" href="/myworkouts/{{this._id}}/scheduled"> Add it to plan </a></p>
+<a id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/scheduled"> Add it to plan </a></p>
 <br/>
 {{/ifeq}}
 {{/each}}
