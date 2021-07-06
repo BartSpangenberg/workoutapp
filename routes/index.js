@@ -2,10 +2,11 @@ const router = require("express").Router();
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  // currentUser is the user, and contains the view where the user left
-  let currentUser = req.session.currentUser;
+  let currentUser = req.session.currentUser; // currentUser is the user, and contains the view where the user left
   let isUserLoggedIn = req.app.locals.isUserLoggedIn;
 
+  // if currentUser exists and if he is loggedin and if his last view is not the the last screen of the userflow, he will be redirected to the last view
+  //else, he will be redirected to the index
   if (
     currentUser &&
     isUserLoggedIn &&

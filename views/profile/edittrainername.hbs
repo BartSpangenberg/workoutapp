@@ -1,0 +1,7 @@
+<h1>Edit your body trainername : </h1>
+
+<form method="POST" action="/profile/{{ currentUser._id }}/edit/trainername">
+  {{>trainerScreen this}}
+
+  <button class="btn btn-primary" type="submit">Update</button>
+</form>
