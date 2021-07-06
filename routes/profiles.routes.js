@@ -22,7 +22,7 @@ router.get("/profile", checkLoggedIn, (req, res, next) => {
 });
 
 // Edit username
-router.get("/profile/:id/edit/username", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/username", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -33,7 +33,7 @@ router.get("/profile/:id/edit/username", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/username", checkLoggedIn, (req, res, next) => {
+router.post("/profile/edit/username", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { username } = req.body;
   UserModel.findByIdAndUpdate(_id, { username }, { new: false })
@@ -49,7 +49,7 @@ router.post("/profile/:id/edit/username", checkLoggedIn, (req, res, next) => {
 });
 
 // Edit email
-router.get("/profile/:id/edit/email", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/email", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -60,7 +60,7 @@ router.get("/profile/:id/edit/email", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/email", checkLoggedIn, (req, res, next) => {
+router.post("/profile/edit/email", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { email } = req.body;
   UserModel.findByIdAndUpdate(_id, { email }, { new: false })
@@ -76,7 +76,7 @@ router.post("/profile/:id/edit/email", checkLoggedIn, (req, res, next) => {
 });
 
 // Edit password
-router.get("/profile/:id/edit/password", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/password", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -87,7 +87,7 @@ router.get("/profile/:id/edit/password", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/password", checkLoggedIn, (req, res, next) => {
+router.post("/profile/edit/password", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { password } = req.body;
 
@@ -116,7 +116,7 @@ router.post("/profile/:id/edit/password", checkLoggedIn, (req, res, next) => {
 });
 
 // Edit birthday
-router.get("/profile/:id/edit/birthday", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/birthday", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -127,23 +127,24 @@ router.get("/profile/:id/edit/birthday", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/birthday", checkLoggedIn, (req, res, next) => {
+router.post("/profile/edit/birthday", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { birthday } = req.body;
+
   UserModel.findByIdAndUpdate(_id, { birthday }, { new: false })
     .then(() => {
       res.redirect("/profile");
     })
     .catch((err) => {
       next(err);
-      res.render("profile/editemail.hbs", {
+      res.render("profile/editbirthday.hbs", {
         currentUser: req.session.userInfo,
       });
     });
 });
 
 //Edit trainername
-router.get("/profile/:id/edit/trainername", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/trainername", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -154,27 +155,23 @@ router.get("/profile/:id/edit/trainername", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post(
-  "/profile/:id/edit/trainername",
-  checkLoggedIn,
-  (req, res, next) => {
-    const { _id } = req.session.userInfo;
-    const { trainername } = req.body;
-    UserModel.findByIdAndUpdate(_id, { trainername }, { new: false })
-      .then(() => {
-        res.redirect("/profile");
-      })
-      .catch((err) => {
-        next(err);
-        res.render("profile/edittrainername.hbs", {
-          currentUser: req.session.userInfo,
-        });
+router.post("/profile/edit/trainername", checkLoggedIn, (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  const { trainername } = req.body;
+  UserModel.findByIdAndUpdate(_id, { trainername }, { new: false })
+    .then(() => {
+      res.redirect("/profile");
+    })
+    .catch((err) => {
+      next(err);
+      res.render("profile/edittrainername.hbs", {
+        currentUser: req.session.userInfo,
       });
-  }
-);
+    });
+});
 
 //Edit goals
-router.get("/profile/:id/edit/goals", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/goals", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -185,7 +182,7 @@ router.get("/profile/:id/edit/goals", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/goals", (req, res, next) => {
+router.post("/profile/edit/goals", (req, res, next) => {
   const { _id } = req.session.userInfo;
   const { goals } = req.body;
   UserModel.findByIdAndUpdate(_id, { goals }, { new: false })
@@ -201,7 +198,7 @@ router.post("/profile/:id/edit/goals", (req, res, next) => {
 });
 
 //Edit athleteType
-router.get("/profile/:id/edit/athletetype", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/athletetype", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserModel.findById(_id)
     .then((user) => {
@@ -212,27 +209,23 @@ router.get("/profile/:id/edit/athletetype", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post(
-  "/profile/:id/edit/athletetype",
-  checkLoggedIn,
-  (req, res, next) => {
-    const { _id } = req.session.userInfo;
-    const { athleteType } = req.body;
-    UserModel.findByIdAndUpdate(_id, { athleteType }, { new: false })
-      .then(() => {
-        res.redirect("/profile");
-      })
-      .catch((err) => {
-        next(err);
-        res.render("profile/editathletetype.hbs", {
-          currenUser: req.session.userInfo,
-        });
+router.post("/profile/edit/athletetype", checkLoggedIn, (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  const { athleteType } = req.body;
+  UserModel.findByIdAndUpdate(_id, { athleteType }, { new: false })
+    .then(() => {
+      res.redirect("/profile");
+    })
+    .catch((err) => {
+      next(err);
+      res.render("profile/editathletetype.hbs", {
+        currenUser: req.session.userInfo,
       });
-  }
-);
+    });
+});
 
 // Edit body
-router.get("/profile/:id/edit/body", checkLoggedIn, (req, res, next) => {
+router.get("/profile/edit/body", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
   console.log(req.session.userInfo);
   console.log(_id);
@@ -247,7 +240,7 @@ router.get("/profile/:id/edit/body", checkLoggedIn, (req, res, next) => {
     });
 });
 
-router.post("/profile/:id/edit/body", checkLoggedIn, (req, res, next) => {
+router.post("/profile/edit/body", checkLoggedIn, (req, res, next) => {
   console.log(req.body);
   const { _id } = req.session.userInfo;
   const { weight, height } = req.body;

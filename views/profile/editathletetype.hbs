@@ -4,8 +4,8 @@
 
     {{! To improve : button }}
 
-    <form method="POST" action="/profile/{{ currentUser._id }}/edit/athletetype">
-    {{>athleteScreen this}}
+    <form method="POST" action="/profile/edit/athletetype">
+      {{>athleteScreen this}}
 
       <button class="btn btn-primary" type="submit">Update</button>
     </form>

@@ -2,10 +2,10 @@
   <div class="intro-flow-box">
         <h4>Edit your birthday</h4>
 
-        <form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
+        <form method="POST" action="/profile/edit/birthday">
         
-        {{>birthdayScreen this}}
-        <button class="btn btn-primary" type="submit">Update</button>
+                {{>birthdayScreen this}}
+                <button class="btn btn-primary" type="submit">Update</button>
 
         </form>
 

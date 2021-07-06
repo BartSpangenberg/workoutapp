@@ -1,0 +1,40 @@
+.welcomeUser {
+  margin: 30px 0 30px 0px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.desc-block-left {
+  float: left;
+  position: relative;
+  border-style: solid;
+  background-color: #b5eaea;
+  width: 500px;
+  margin: 30px 10px 100px 150px;
+  border-color: #b5eaea;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.desc-block-right {
+  float: right;
+  position: relative;
+  border-style: solid;
+  background-color: #b5eaea;
+  width: 500px;
+  margin: 30px 10px 10px 5px;
+  border-radius: 5px;
+  border-color: #b5eaea;
+  text-align: center;
+}
+
+.stateworkouts {
+  margin: 30px 0 30px 0px;
+}
+
+#btnMainPage {
+  margin: 0px 0px 0px 50px;
+}
+#btnAddmore {
+  font-size: 16px;
+}

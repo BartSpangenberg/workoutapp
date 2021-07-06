@@ -1,1 +1,31 @@
 {{>navbar this}}
+
+
+<h1 class="welcomeUser">Hey {{currentUser.username}}, what's up today ?</h1>
+
+<section class = "desc-block-left">
+<h2 class = "stateworkouts">Workouts To-do </h2>
+{{#each currentWorkouts}}
+{{#ifeq this.scheduled true}} 
+<p>Workouts : {{this.name}}
+<a  id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/done"> I did it ! </a></p>
+<br/>
+{{/ifeq}}
+{{/each}}
+
+</section>
+
+<a id ="btnAddmore" href="/library/search">Add more workouts</a>
+
+
+<section class = "desc-block-right">
+<h2 class="stateworkouts">Previous workouts</h2>
+
+{{#each currentWorkouts}}
+{{#ifeq this.scheduled false}}
+<p>Workouts : {{this.name}}
+<a id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/scheduled"> Add it to plan </a></p>
+<br/>
+{{/ifeq}}
+{{/each}}
+</section>
