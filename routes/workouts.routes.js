@@ -15,7 +15,7 @@ const checkLoggedin = (req, res, next) => {
 };
 
 //Get to main page
-router.get("/myworkouts/:id", checkLoggedin, (req, res, next) => {
+router.get("/myworkouts", checkLoggedin, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserWorkoutModel.findById(_id)
     .then((user) => {
@@ -25,3 +25,5 @@ router.get("/myworkouts/:id", checkLoggedin, (req, res, next) => {
       err;
     });
 });
+
+module.exports = router;

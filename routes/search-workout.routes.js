@@ -34,7 +34,7 @@ router.get('/library/search', (req, res, next) => {
     }
 
     // The workoutCount of the query will be used to determine how many pages there will be
-    basicSearchData = req.session.basicSearchData;
+    basicSearchData = req.session.basicSearchData ? req.session.basicSearchData : turnSearchRequestIntoQueryData();
     WorkoutModel
         .countDocuments({ "name": { "$regex": basicSearchData.workoutName, "$options": "i" }})
             .then((count) => {
@@ -71,7 +71,8 @@ router.get('/library/search/advanced', (req, res, next) => {
     }
 
     // The workoutCount of the query will be used to determine how many pages there will be
-    SearchData = req.session.SearchData;
+    // SearchData = req.session.SearchData;
+    SearchData = req.session.SearchData ? req.session.SearchData : turnSearchRequestIntoQueryData();
     WorkoutModel
         .countDocuments({ $and: [{ "name": { "$regex": searchData.workoutName, "$options": "i" },  type: { $in: searchData.type }, athleteLevel: { $in: searchData.level }, intensity: { $in: searchData.intensity }, goals: { $in: searchData.goals }, duration: { $gte: searchData.minDuration, $lte: searchData.maxDuration } }] })
             .then((count) => {
