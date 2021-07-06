@@ -1,13 +1,7 @@
 const router = require("express").Router();
-const UserWorkoutModel = require("../models/UserWorkout.model");
 const WorkoutModel = require("../models/Workout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const {
-  types,
-  levels,
-  goalsArr,
-  intensities,
-  unitTypes,
   equipments,
   muscles,
 } = require("../data/workoutData");
