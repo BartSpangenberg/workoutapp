@@ -1,0 +1,73 @@
+#create-exercise-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-ex-items-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cr-ex-items-container div {
+  width: 33%;
+}
+
+.cr-ex-button {
+  width: 200px;
+}
+
+.srch-ex-container {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.srch-img-container {
+  width: 20vw;
+  height: 20vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+}
+
+.srch-img-container img {
+  width: 15vw;
+  height: auto;
+}
+
+.srch-ex-info {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+}
+
+.srch-ex-equipments {
+  list-style: none;
+  display: flex;
+}
+
+.srch-ex-tags-container {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.srch-ex-equipments {
+  padding: 1px 11px;
+  border-radius: 15px;
+  background-color: darkblue;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.srch-ex-muscles {
+  padding: 1px 11px;
+  border-radius: 15px;
+  background-color: darkmagenta;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}

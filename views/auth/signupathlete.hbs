@@ -1,13 +1,15 @@
-<section id="intro-flow-section">
-  <div class="intro-flow-box">
+  
 
-      <h4>What type of athlete are you ?</h4>
+  <section id="intro-flow-section" class="swap-animation">
+    <div class="intro-flow-box">
 
-      <form method="POST" action="/signup/athlete">
-      {{>athleteScreen this}}
-        <a class="btn btn-primary" href="/signup/trainer-name">Previous</a>
-        <button class="btn btn-primary" type="submit">Next</button>
-      </form>
+        <h4>What type of athlete are you ?</h4>
 
-  </div>
-</section>
+        <form method="POST" action="/signup/athlete">
+        {{>athleteScreen this}}
+          <a class="btn btn-primary" href="/signup/trainer-name">Previous</a>
+          <button class="btn btn-primary" type="submit">Next</button>
+        </form>
+
+    </div>
+  </section>

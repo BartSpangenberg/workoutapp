@@ -1,8 +1,9 @@
 {{> navbar navBarClasses.workoutLibrary }}
+<section class="swap-animation">
 
 <h1>Browse the vast library</h1>
 
-<section id="search-basic">
+<section id="search-basic-two">
 
     <form method="GET" action="/library/search">
         <input type="text" name="workoutName">
@@ -20,3 +21,4 @@
 {{#each foundWorkouts}}
     {{> searchResult this}}
 {{/each}}
+</section>

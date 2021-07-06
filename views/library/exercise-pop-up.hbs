@@ -1,38 +1,44 @@
 {{> navbar navBarClasses.createWorkout }}
 
+<section class="swap-animation-two section-center">
+
 <h1>Select your exercise</h1>
 
 {{#each exerciseData}}
-  <img src="{{this.image}}" alt="{{this.name}} image" />
-  <h4>{{this.name}}</h4>
-  <p>{{this.description}}</p>
-  <h6>Muscles</h6>
-  <ul>
-    {{#each this.muscles}}
-      <li>
-        {{this}}
-      </li>
-    {{/each}}
-  </ul>
+  <div class="srch-ex-container">
+      <div class="srch-img-container">
+        <img src="{{this.image}}" alt="{{this.name}} image" />
 
-  <h6>Equipment</h6>
-  <ul>
-    {{#each this.equipment}}
-      <li>
-        {{this}}
-      </li>
-    {{/each}}
-  </ul>
-  <form method="POST" action="/library/create-workout/exercise-pop-up">
+      </div>
+      <div class="srch-ex-info">
 
-    {{! This hidden element is used to create search request, how could this be done more efficient? }}
-    <input
-      type="text"
-      name="exerciseId"
-      value="{{this._id}}"
-      style="display:none"
-    />
+        <h4>{{this.name}}</h4>
+        <p class="mrg-btm">{{this.description}}</p>
+        <div class="srch-ex-tags-container">
+          {{#each this.muscles}}
+            <li class="srch-ex-muscles">
+              {{this}}
+            </li>
+          {{/each}}
+          {{#each this.equipments}}
+            <li class="srch-ex-equipments">
+              {{this}}
+            </li>
+          {{/each}}
+        </div>
+        <form method="POST" action="/library/create-workout/exercise-pop-up">
 
-    <button>Add Exercise to workout</button>
-  </form>
-{{/each}}
+          {{! This hidden element is used to create search request, how could this be done more efficient? }}
+          <input
+            type="text"
+            name="exerciseId"
+            value="{{this._id}}"
+            style="display:none"
+          />
+
+          <button class="button button-small">Add Exercise to workout</button>
+        </form>
+      </div>
+  </div>
+      {{/each}}
+</section>

@@ -78,6 +78,8 @@ input[type="number"] {
 }
 
 .button-small {
+  font-size: 0.8em;
+  padding: 10px;
 }
 
 .button-medium {
@@ -114,4 +116,52 @@ input[type="number"] {
 .input-txt-big {
   width: 500px;
   height: 35px;
+}
+
+.swap-animation {
+  animation: swapAnimation ease-in-out 750ms;
+}
+
+@keyframes swapAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  51% {
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.swap-animation-two {
+  animation: swapAnimationTwo ease-in-out 750ms;
+}
+
+@keyframes swapAnimationTwo {
+  0% {
+    opacity: 0;
+    transform: translateX(-60%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.section-center {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mrg-btm {
+  margin-bottom: 20px;
 }

@@ -1,22 +1,21 @@
-
-<section id="intro-flow-section">
-  <div class="intro-flow-box">
-
-
-  <h4>If I were a trainer : </h4>
-
-  <form method="POST" action="/signup/trainer-name">
-    {{>trainerScreen this}}
-
-    <button class="btn btn-primary" type="submit">Next</button>
-  </form>
+<section id="intro-flow-section" class="swap-animation"> 
+    <div class="intro-flow-box">
 
 
-  {{#if msg}}
-    <p class="msg"> {{msg}} </p>
-  {{/if}}
+    <h4>If I was a trainer call me:</h4>
+
+    <form method="POST" action="/signup/trainer-name">
+      {{>trainerScreen this}}
+
+      <button class="btn btn-primary" type="submit">Next</button>
+    </form>
+
+
+    {{#if msg}}
+      <p class="msg"> {{msg}} </p>
+    {{/if}}
 
 
 
-  </div>
-</section>
+    </div>
+  </section>

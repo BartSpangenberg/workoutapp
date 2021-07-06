@@ -9,6 +9,7 @@
 #create-workout-form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .cr-wo-dropdown-container {

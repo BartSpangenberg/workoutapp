@@ -1,33 +1,39 @@
 {{> navbar navBarClasses.createWorkout }}
 
+<section id="create-exercise-page" class="swap-animation-two section-center">
+
 <a href="/library/create-workout">Go back to workout</a>
 
-<form method="POST" action="/library/create-exercise">
-  <label for="exercise-name">Exercise name</label>
-  <input type="text" id="exercise-name" name="name" />
+<form id="create-exercise-form" method="POST" action="/library/create-exercise">
+  <label class="label-big" for="exercise-name">Exercise name</label>
+  <input class="input-txt-medium cr-wo-name mrg-btm" type="text" id="exercise-name" name="name" />
 
-  <label for="exercise-description">Exercise description</label>
-  <input type="text" id="exercise-description" name="description" />
+  <label class="label-medium" for="exercise-description">Exercise description</label>
+  <input class="input-txt-big cr-wo-description mrg-btm" type="text" id="exercise-description" name="description" />
 
   {{#if error}}
     <p class="error">{{error}}</p>
   {{/if}}
 
-  <h3>What equipment do you need for this exercise?</h3>
-  {{#each equipments}}
-    <div>
-      <input type="checkbox" id="{{this}}" name="{{this}}" />
-      <label for="{{this}}">{{this}}</label>
-    </div>
-  {{/each}}
+  <h5>What equipment do you need for this exercise?</h5>
+  <div class="cr-ex-items-container mrg-btm">
+    {{#each equipments}}
+      <div>
+        <input type="checkbox" id="{{this}}" name="{{this}}" />
+        <label for="{{this}}">{{this}}</label>
+      </div>
+    {{/each}}
+  </div>
 
-  <h3>Which muscles do you train with this exercise?</h3>
+  <h5>Which muscles do you train with this exercise?</h5>
+  <div class="cr-ex-items-container mrg-btm">
   {{#each muscles}}
     <div>
       <input type="checkbox" id="{{this}}" name="{{this}}" />
       <label for="{{this}}">{{this}}</label>
     </div>
   {{/each}}
-
-  <button>Create exercise</button>
+  </div>
+  <button class="button button-big cr-ex-button">Create exercise</button>
 </form>
+</section>
