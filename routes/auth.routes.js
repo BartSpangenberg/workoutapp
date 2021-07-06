@@ -209,7 +209,7 @@ router.get("/signup/profile-created", (req, res, next) => {
 });
 
 router.post("/signup/profile-created", (req, res, next) => {
-  res.redirect("/myworkouts/:user");
+  res.redirect("/myworkouts/" + req.session.currentUser._id);
 });
 
 //-------------------------------
@@ -238,9 +238,9 @@ router.post("/login", (req, res, next) => {
         bcrypt.compare(req.body.password, user.password).then((isMatching) => {
           if (isMatching) {
             req.session.userInfo = user;
-            req.app.locals.isUserLoggedIn = req.session.userIsLoggedIn;
-            req.app.locals.isUserLoggedIn = true;
-            res.redirect("/");
+            req.session.isUserLoggedIn = true;
+            req.app.locals.isUserLoggedIn = req.session.isUserLoggedIn;
+            res.redirect("/myworkouts/" + user._id);
           } else {
             res.render("auth/login.hbs", {
               errorLogin: "Password is incorrect",

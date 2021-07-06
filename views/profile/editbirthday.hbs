@@ -1,0 +1,8 @@
+<h1>Edit your birthday</h1>
+
+<form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
+  
+{{>birthdayScreen this}}
+<button class="btn btn-primary" type="submit">Update</button>
+
+</form>

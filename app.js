@@ -39,11 +39,13 @@ const createWorkoutRoutes = require("./routes/create-workout.routes.js");
 app.use("/", createWorkoutRoutes);
 
 const searchWorkoutRoutes = require("./routes/search-workout.routes.js");
-app.use("/", searchWorkoutRoutes)
+app.use("/", searchWorkoutRoutes);
 
 const authRoutes = require("./routes/auth.routes.js");
 app.use("/", authRoutes);
 
+const userProfileRoutes = require("./routes/profiles.routes.js");
+app.use("/", userProfileRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

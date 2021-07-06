@@ -3,26 +3,8 @@
 {{! NEED TO CHECK FOR DISPLAYING DATE IN FORM }}
 {{! To improve : button }}
 <form method="POST" action="/signup/birthday">
-  <label for="birthday"></label>
-  <input
-    type="date"
-    id="birthday"
-    name="birthday"
-    min="1900-01-01"
-    max="2021-07-31"
-    value="{{currentUser.birthday}}"
-  />
-
-  {{! 
-<form method="POST" action="/signup/birthday">
-  <label>birthday : <span>*</span></label>
-  <SELECT id="year" name="yyyy" onchange="change_year(this)" />
-  <SELECT id="month" name="mm" onchange="change_month(this)" />
-  <SELECT id="day" name="dd" />
-</form> }}
-
-  <br />
-
+  
+{{>birthdayScreen this}}
   <a class="btn btn-primary" href="/signup/body">Previous</a>
   <button class="btn btn-primary" type="submit">Next</button>
 
