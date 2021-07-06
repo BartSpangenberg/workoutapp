@@ -5,20 +5,6 @@ const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const bcrypt = require("bcryptjs");
 
-<<<<<<< HEAD
-=======
-// check if user is logged In
-
-const checkLoggedin = (req, res, next) => {
-  console.log(req.session.isUserLoggedIn);
-  if (req.session.isUserLoggedIn) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-};
-
->>>>>>> 9328a4fe7279b3e63ced6b139e1c0cc09a47fb30
 //Get to account
 router.get("/profile", checkLoggedIn, (req, res, next) => {
   // get _id from the session
