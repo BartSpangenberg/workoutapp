@@ -15,4 +15,22 @@ const checkFriendRequests = (req, res, next) => {
         });
 }
 
-module.exports = checkFriendRequests
+const checkIfUserHasFriends = (req, res, next) => {
+    let userId = req.session.userInfo._id;
+    UserModel.findById(userId)
+        .then((loggedInUser) => {
+            if (!loggedInUser.friends.length) {
+                res.redirect('/library/create-workout/date')
+            } 
+            else {
+                next();
+            }
+        }).catch(() => {
+            redirect('/library/create-workout/date');
+        });
+}
+
+module.exports = {
+    checkFriendRequests,
+    checkIfUserHasFriends
+}

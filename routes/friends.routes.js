@@ -92,7 +92,7 @@ router.get('/friends/friend-request', (req, res, next) => {
         });
 })
 
-router.post('/friends/friend-request', (req, res, next) => {
+router.post('/friends/friend-request', async (req, res, next) => {
     let newFriendId = req.session.userInfo.friendRequests[0];
     const { friendAction } = req.body;
     if (friendAction === 'decline') {
@@ -105,19 +105,14 @@ router.post('/friends/friend-request', (req, res, next) => {
             });    
     }
     if (friendAction === 'accept') {
-        // UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }}, { $push: { friends: newFriendId }} )
-        UserModel.findByIdAndUpdate(req.session.userInfo._id, {  $push: { friends: newFriendId }} )
-            .then((loggedInUser) => {
-                return UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }})
-            }).then(() => {
-                return UserModel.findByIdAndUpdate(newFriendId, {  $push: { friends: req.session.userInfo._id }} )
-            }).then(() => {
-                res.redirect('/myworkouts')
-            }).catch((err) => {
-                res.redirect('/myworkouts')
-            });
-
-            // set friend for friend
+        try {
+            await UserModel.findByIdAndUpdate(req.session.userInfo._id, {  $push: { friends: newFriendId }, $pull: { friendRequests: newFriendId } })
+            await UserModel.findByIdAndUpdate(newFriendId, {  $push: { friends: req.session.userInfo._id }} )
+            res.redirect('/myworkouts');
+        }
+        catch(err) {
+            res.redirect('/myworkouts');
+        }
     }
 })
 

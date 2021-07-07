@@ -1,0 +1,12 @@
+<section id="intro-flow-section" class="swap-animation">
+  <div class="intro-flow-box">
+
+    <h4>Add a friend</h4>
+    <select name="friend" id="">
+      {{#each friends}}
+        <option value="{{this._id}}">{{this.username}}</option>
+      {{/each}}
+    </select>
+    <button class="button button-medium">Continue</button>
+  </div>
+</section>

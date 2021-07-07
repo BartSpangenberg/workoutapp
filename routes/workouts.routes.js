@@ -2,7 +2,7 @@
 const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
-const checkFriendRequests = require("../middlewares/friendMiddleware");
+const { checkFriendRequests } = require("../middlewares/friendMiddleware");
 const navBarClasses = require('../data/navbarClasses');
 
 //Function with parameters : id (to grab all the userWorkouts), scheduled

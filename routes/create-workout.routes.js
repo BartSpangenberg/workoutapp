@@ -2,6 +2,7 @@ const router = require("express").Router();
 const ExerciseModel = require("../models/Exercise.model");
 const WorkoutModel = require("../models/Workout.model");
 const UserWorkoutModel = require("../models/UserWorkout.model");
+const UserModel = require("../models/User.model");
 const { equipments, muscles } = require("../data/workoutData");
 const {
   saveWorkoutDataInTheSession,
@@ -15,6 +16,7 @@ const {
 } = require("./library.helper");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const navBarClasses = require('../data/navbarClasses');
+const { checkIfUserHasFriends } = require("../middlewares/friendMiddleware");
 
 // CREATE WORKOUT ROUTES
 // For UX purposes create-workout page data needs to sustain through page switches.
@@ -71,9 +73,10 @@ router.post("/library/create-workout", checkLoggedIn, (req, res, next) => {
     );
 
     UserWorkoutModel.create(newUserWorkout)
-      .then(() => {
+      .then((latestCreatedWorkout) => {
         req.session.isCreatingWorkout = false;
-        res.send("Redirect to My Workouts");
+        req.session.latestCreatedWorkout = latestCreatedWorkout;
+        res.redirect("/library/create-workout/friends");
       })
       .catch((err) => {
         console.log(
@@ -141,8 +144,6 @@ router.get(
         // Display error message if no data is present.
         res.render("library/exercise-pop-up.hbs", { exerciseData, navBarClasses });
       });
-
-    // If nothing is found --> display create exercise button
   }
 );
 
@@ -166,5 +167,23 @@ router.post(
       });
   }
 );
+
+router.get('/library/create-workout/friends', checkIfUserHasFriends, async (req, res, next) => {
+  let userId = req.session.userInfo._id;
+  console.log("I run")
+  try {
+    let loggedInUser = await UserModel.findById(userId).populate('friends');
+    res.render('library/add-friend.hbs', loggedInUser);
+  }
+  catch(err) {
+    res.redirect('/myworkouts')
+  }
+})
+
+
+router.get('/library/create-workout/date', (req, res, next) => {
+  res.render('library/add-date.hbs')
+})
+
 
 module.exports = router;
