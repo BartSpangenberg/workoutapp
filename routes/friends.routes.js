@@ -2,10 +2,20 @@ const router = require('express').Router();
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const UserModel = require("../models/User.model");
 const navBarClasses = require('../data/navbarClasses');
+const User = require('../models/User.model');
 let newFriendId = '';
 
 router.get('/friends', checkLoggedIn, (req, res, next) => {
-    res.render("friends/friends.hbs", { navBarClasses })
+    UserModel.findById(req.session.userInfo._id)
+        .populate('friends')
+        .then((loggedInUser) => {
+            const { friends } = loggedInUser;
+            console.log(loggedInUser)
+            res.render("friends/friends.hbs", { navBarClasses, friends })
+            
+        }).catch((err) => {
+            
+        });
 })
 
 router.post('/friends', checkLoggedIn, (req, res, next) => {
@@ -71,5 +81,44 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
         });
 })
 
+router.get('/friends/friend-request', (req, res, next) => {
+    let = newFriendId = req.session.userInfo.friendRequests[0];
+
+    UserModel.findById(newFriendId)
+        .then((friendThatSendRequest) => {
+            res.render("friends/friend-request.hbs", { friendThatSendRequest })
+        }).catch((err) => {
+            res.redirect('/myworkouts')
+        });
+})
+
+router.post('/friends/friend-request', (req, res, next) => {
+    let newFriendId = req.session.userInfo.friendRequests[0];
+    const { friendAction } = req.body;
+    if (friendAction === 'decline') {
+        // UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: req.session.userInfo.friendRequests[0] }})
+        UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }})
+            .then((loggedInUser) => {
+                res.redirect('/myworkouts')
+            }).catch((err) => {
+                res.redirect('/myworkouts')
+            });    
+    }
+    if (friendAction === 'accept') {
+        // UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }}, { $push: { friends: newFriendId }} )
+        UserModel.findByIdAndUpdate(req.session.userInfo._id, {  $push: { friends: newFriendId }} )
+            .then((loggedInUser) => {
+                return UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }})
+            }).then(() => {
+                return UserModel.findByIdAndUpdate(newFriendId, {  $push: { friends: req.session.userInfo._id }} )
+            }).then(() => {
+                res.redirect('/myworkouts')
+            }).catch((err) => {
+                res.redirect('/myworkouts')
+            });
+
+            // set friend for friend
+    }
+})
 
 module.exports = router;

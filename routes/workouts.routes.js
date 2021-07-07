@@ -2,6 +2,7 @@
 const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const checkFriendRequests = require("../middlewares/friendMiddleware");
 const navBarClasses = require('../data/navbarClasses');
 
 //Function with parameters : id (to grab all the userWorkouts), scheduled
@@ -17,7 +18,7 @@ changeScheduled = (id, scheduled, res) => {
 };
 
 //Get to main page : find all workouts created by the user
-router.get("/myworkouts", checkLoggedIn, (req, res, next) => {
+router.get("/myworkouts", checkLoggedIn, checkFriendRequests, (req, res, next) => {
   const { _id } = req.session.userInfo;
   UserWorkoutModel.find({ userId: _id })
     .then((workouts) => {

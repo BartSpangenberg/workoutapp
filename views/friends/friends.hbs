@@ -17,4 +17,9 @@
   {{#if error}}
     <div class="error">{{error.msg}}</div>
   {{/if}}
+
+  {{#each friends}}
+    <h4>{{this.username}}</h4>
+  {{/each}}
+
 </section>
