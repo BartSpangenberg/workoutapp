@@ -8,11 +8,13 @@
         <h2 class = "stateworkouts">Workouts To-do </h2>
         {{#each currentWorkouts}}
             {{#ifeq this.scheduled true}} 
-                <p>Workouts: {{this.name}}
-                <p>On: {{this.date}}</p>
-                {{#if this.friend}}
-                    <p>Workout buddy: {{this.friend.username}}
-                {{/if}} 
+                <a href="/myworkouts/workout-information/{{this._id}}">
+                    <p>Workouts: {{this.name}}
+                    <p>On: {{this.date}}</p>
+                    {{#if this.friend}}
+                        <p>Workout buddy: {{this.friend.username}}
+                    {{/if}} 
+                </a>
                 <a  id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/done"> I did it ! </a></p>
                 <br/>
             {{/ifeq}}

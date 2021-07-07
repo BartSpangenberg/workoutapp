@@ -1,0 +1,37 @@
+<article class="new-exercise">
+  <img src="{{this.exerciseId.image}}" alt="Exercise image" />
+
+  <h4>{{this.exerciseId.name}}</h4>
+  <span>{{this.exerciseId.description}}</span>
+
+  <h6>Equipment</h6>
+  <ul>
+    {{#each this.exerciseId.equipments}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+
+  <h6>Muscles</h6>
+  <ul>
+    {{#each this.exerciseId.muscles}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+
+  <p>{{this.reps}}</p>
+  <span>{{this.unitType}}</span>
+
+  <p>{{this.sets}}</p>
+  <span>Sets</span>
+
+  <span>Rest between sets</span>
+  <p>{{this.restBetweenSets}}</p>
+
+  <span>Seconds</span>
+
+  <span>Rest between exercises</span>
+
+  <p>{{this.restBetweenExercises}}</p>
+  <span>Seconds</span>
+
+</article>

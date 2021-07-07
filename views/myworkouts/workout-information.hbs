@@ -1,0 +1,24 @@
+{{>navbar navBarClasses.myWorkouts}}
+
+<section class="swap-animation-two section-center">
+  
+    <button id="go-back" class="go-back-button button button-small"><i class="bi bi-arrow-left"></i> back</button>
+
+    <h1>{{workoutData.name}}</h1>
+    <h6>{{workoutData.description}}</h6>
+
+    {{#each tags}}
+    <span class="tag">{{this}}</span>
+    {{/each}}
+
+    <form method="POST" action="/myworkouts/workout-information/{{workoutData._id}}">
+    {{#each workoutData.exercises}}
+        {{> workoutInfoExerciseStatic this}}     
+    {{/each}}
+
+    <button>Add to your workouts</button>
+    </form>
+
+    <script src="/js/library/workout-information.js"></script>
+    
+</section>

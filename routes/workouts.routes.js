@@ -5,6 +5,9 @@ const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const { checkFriendRequests, checkWorkoutRequests } = require("../middlewares/friendMiddleware");
 const navBarClasses = require('../data/navbarClasses');
 
+// Might need to change
+const { convertWorkoutDataIntoArrayOfTags } = require('./library.helper');
+
 //Function with parameters : id (to grab all the userWorkouts), scheduled
 // used to make the update from false to true
 changeScheduled = (id, scheduled, res) => {
@@ -46,5 +49,19 @@ router.get("/myworkouts/:id/scheduled", checkLoggedIn, (req, res, next) => {
   const id = req.params.id;
   changeScheduled(id, true, res);
 });
+
+// WORKIN HERE
+router.get('/myworkouts/workout-information/:id',  checkLoggedIn, (req, res, next) => {
+  const { id } = req.params;
+  UserWorkoutModel.findById(id)
+      .populate('exercises.exerciseId')
+      .then((workoutData) => {
+          const tags = convertWorkoutDataIntoArrayOfTags(workoutData);
+          console.log(tags)
+          res.render('myworkouts/workout-information.hbs', {workoutData, tags, navBarClasses})
+      }).catch((err) => {
+          console.log("Something went wrong while searching for the workout", err);
+      });
+})
 
 module.exports = router;
