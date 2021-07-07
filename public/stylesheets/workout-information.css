@@ -3,3 +3,27 @@
   left: 25px;
   top: 60px;
 }
+
+.wo-info-ex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.wo-info-tag-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.wo-info-tag-container span {
+  padding: 1px 11px;
+  border-radius: 15px;
+  background-color: darkblue;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.new-exercise {
+  display: flex;
+}

@@ -10,7 +10,6 @@ router.get('/friends', checkLoggedIn, (req, res, next) => {
         .populate('friends')
         .then((loggedInUser) => {
             const { friends } = loggedInUser;
-            console.log(loggedInUser)
             res.render("friends/friends.hbs", { navBarClasses, friends })
             
         }).catch((err) => {
@@ -67,7 +66,6 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
             return UserModel.findByIdAndUpdate(newFriendId, { $push: { friendRequests: req.session.userInfo._id }})
 
         }).then((userThatReceivesRequest) => {
-            console.log(userThatReceivesRequest)
             let suc = {
                 msg: "Friend request has been sent."
             }

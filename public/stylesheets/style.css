@@ -87,7 +87,6 @@ input[type="number"] {
 .button-small {
   font-size: 0.8em;
   padding: 10px;
-
 }
 
 .button-medium {
@@ -172,4 +171,40 @@ input[type="number"] {
 
 .mrg-btm {
   margin-bottom: 20px;
+}
+
+.logout-ul {
+  margin-right: 25px;
+}
+
+.logo-a {
+  margin-left: 25px;
+}
+
+.navbar-nav {
+  margin-left: 50px;
+}
+
+.navbar-nav li {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.navbar-nav li .active {
+  border-bottom: 2px solid black;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-nav li a {
+  display: flex;
+}
+
+.icon-center {
+  display: block;
+  margin: auto;
+  margin-right: 5px;
+}
+
+.flex-row {
+  display: flex;
 }
