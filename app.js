@@ -47,6 +47,9 @@ app.use("/", authRoutes);
 const myWorkoutRoutes = require("./routes/workouts.routes.js");
 app.use("/", myWorkoutRoutes);
 
+const friendRoutes = require("./routes/friends.routes.js");
+app.use("/", friendRoutes);
+
 const userProfileRoutes = require("./routes/profiles.routes.js");
 app.use("/", userProfileRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

@@ -1,0 +1,20 @@
+{{> navbar navBarClasses.myFriends }}
+
+<section class="swap-animation-two section-center">
+  <h4>My friends</h4>
+    <form method="POST" action="/friends">
+        <label for="friends-request">Send friend request</label>
+        <div>
+            <input type="text" id="friend-request" name="friendRequest" placeholder="type name"/>
+            <button>Send friend request</button>
+        </div>    
+    </form>
+
+  {{#if suc}}
+    <div>{{suc.msg}}</div>
+  {{/if}}
+
+  {{#if error}}
+    <div class="error">{{error.msg}}</div>
+  {{/if}}
+</section>

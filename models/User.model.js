@@ -45,6 +45,14 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Workout",
   },
+  friends: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  friendRequests: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
+  }]
 });
 
 const User = model("User", userSchema);

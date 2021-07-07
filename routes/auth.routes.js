@@ -70,6 +70,7 @@ router.get("/signup/trainer-name", (req, res, next) => {
 
 router.post("/signup/trainer-name", (req, res, next) => {
   let currentUser = req.session.currentUser;
+  console.log(req.session.currentUser)
 
   const { trainername } = req.body;
   if (!trainername) {
