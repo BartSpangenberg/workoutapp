@@ -1,17 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;&display=swap');
+
+html, body {
+  height: 100%;
+}
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  font-family:'Nunito',sans-serif
 }
 
 li.active {
-  background-color: yellow;
+  background-color: #ecf0f3;
 }
 
 a.active {
   font-size: 1em;
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a {
@@ -80,6 +86,7 @@ input[type="number"] {
 .button-small {
   font-size: 0.8em;
   padding: 10px;
+  border-color: red;
 }
 
 .button-medium {

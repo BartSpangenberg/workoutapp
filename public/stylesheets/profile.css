@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
-.profile-card, .img-area{
+html{
+   height: 100%;
+}
+
+.profile-card, .img-area, .buttons {
    background:#ecf0f3;
    box-shadow:-3px -3px 7px #ffffff,3px 3px 5px #ceced1
 }
@@ -39,11 +43,20 @@
 
 .choosePic{
 margin-top: 30px;
+font-size: 14px;
 
-   }
 
-.btnChange button:hover:before{
-          content:"";position:absolute;top:0;left:0;bottom:0;right:0;border-radius:50%;background:#ecf0f3;box-shadow:inset -3px -3px 7px #ffffff,inset 3px 3px 5px #ceced1}      
+}
+
+.profile-card .buttons{display:flex;width:100%;justify-content:space-between}
+
+.buttons button{position:relative;width:100%;border:none;outline:none;padding:12px 0;color:#31344b;font-size:17px;font-weight:400;border-radius:5px;cursor:pointer;z-index:4}
+
+button:hover:before{
+position:absolute;top:0;left:0;bottom:0;right:0;border-radius:50%;background:#ecf0f3;box-shadow:inset -3px -3px 7px #ffffff,inset 3px 3px 5px #ceced1
+}      
+button:hover:before{z-index:-1;border-radius:5px}
 
 .profileAttrib{
-    font-size: 16px;}
+    font-size: 18px
+}
