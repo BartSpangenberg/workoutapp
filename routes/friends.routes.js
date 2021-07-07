@@ -29,7 +29,15 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
                 res.render("friends/friends.hbs", { navBarClasses, error })
                 return
             }
-
+            
+            if (friendUser[0].friendRequests.includes(req.session.userInfo._id)) {
+                let error = {
+                    msg: "Friend request has already been send."
+                }
+                res.render("friends/friends.hbs", { navBarClasses, error })
+                return
+            }
+            
             // The next step is to check if the user is already a friend
             newFriendId = friendUser[0]._id;
             return UserModel.findById(req.session.userInfo._id)
@@ -44,18 +52,12 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
                 return
             }
 
-            if (loggedInUser.friendRequests.includes(newFriendId)) {
-                let error = {
-                    msg: "Friend request has already been send."
-                }
-                res.render("friends/friends.hbs", { navBarClasses, error })
-                return
-            }
-
-            // If the user is not already a friend, or the friend request has already been send, then we can add it to the friendRequests array.
-            return UserModel.findByIdAndUpdate(req.session.userInfo._id, { $push: { friendRequests: newFriendId }})
+            // If the user is not already a friend, or the friend request has already been send
+            // Then we can add it to the friendRequests array of the user we send a request to
+            return UserModel.findByIdAndUpdate(newFriendId, { $push: { friendRequests: req.session.userInfo._id }})
 
         }).then((userThatReceivesRequest) => {
+            console.log(userThatReceivesRequest)
             let suc = {
                 msg: "Friend request has been sent."
             }
@@ -63,7 +65,7 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
             res.render("friends/friends.hbs", { navBarClasses, suc })
         }).catch((err) => {
             let error = {
-                msg: "Username was not found."
+                msg: "Something went wrong, please try again."
             }
             res.render("friends/friends.hbs", { navBarClasses, error })
         });
