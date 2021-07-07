@@ -123,8 +123,9 @@ router.post('/library/workout-information/:id',  checkLoggedIn, (req, res, next)
         .then((workoutData) => {
             let newUserWorkout = createUserWorkoutFromSearch(workoutData, reps, sets, restBetweenSets, restBetweenExercises, req.session.userInfo);    
             return UserWorkoutModel.create(newUserWorkout)
-        }).then(() => {
-            res.send('Redirect to My Workouts');
+        }).then((latestCreatedWorkout) => {
+            req.session.latestCreatedWorkout = latestCreatedWorkout;
+            res.redirect("/library/create-workout/friends");
         }).catch((err) => {
             console.log("Something went wrong while creating a new UserWorkout", err)
         });
