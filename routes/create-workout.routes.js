@@ -223,7 +223,6 @@ router.get('/library/create-workout/workout-request', async (req, res, next) => 
   }
 })
 
-
 router.post('/library/create-workout/workout-request', async (req, res, next) => {
   let userWorkoutId = req.session.workoutRequests[0];
   let userThatSendWorkoutRequestId = req.session.userThatSendWorkoutRequestId;

@@ -20,8 +20,10 @@ changeScheduled = (id, scheduled, res) => {
 //Get to main page : find all workouts created by the user
 router.get("/myworkouts", checkLoggedIn, checkFriendRequests, checkWorkoutRequests, (req, res, next) => {
   const { _id } = req.session.userInfo;
-  UserWorkoutModel.find({ userId: _id })
+  UserWorkoutModel.find({ userId: _id }).populate('friend')
     .then((workouts) => {
+      console.log(workouts)
+      
       res.render("mainpage.hbs", {
         currentWorkouts: workouts,
         currentUser: req.session.userInfo,
