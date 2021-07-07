@@ -52,7 +52,10 @@ const userSchema = new Schema({
   friendRequests: [{ 
     type: Schema.Types.ObjectId, 
     ref: 'User' 
-  }]
+  }],
+  profilePic: {
+    type: String
+  }
 });
 
 const User = model("User", userSchema);
