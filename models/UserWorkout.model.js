@@ -54,7 +54,14 @@ const userWorkoutSchema = new Schema({
         type: String,
         enum: ['Low', 'Medium', 'High']
     },
-    exercises: [nestedExerciseSchema]
+    exercises: [nestedExerciseSchema],
+    friend: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
+    }, 
+    date: {
+        type: String
+    }
 });
 
 const UserWorkoutModel = model("UserWorkout", userWorkoutSchema);

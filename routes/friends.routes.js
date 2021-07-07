@@ -96,7 +96,6 @@ router.post('/friends/friend-request', async (req, res, next) => {
     let newFriendId = req.session.userInfo.friendRequests[0];
     const { friendAction } = req.body;
     if (friendAction === 'decline') {
-        // UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: req.session.userInfo.friendRequests[0] }})
         UserModel.findByIdAndUpdate(req.session.userInfo._id, { $pull: { friendRequests: newFriendId }})
             .then((loggedInUser) => {
                 res.redirect('/myworkouts')

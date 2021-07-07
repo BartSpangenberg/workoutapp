@@ -1,0 +1,24 @@
+<section id="intro-flow-section" class="swap-animation">
+  <div class="intro-flow-box">
+
+    <h4>{{userWorkout.userId.username}}
+      wants to do the
+      {{userWorkout.name}}
+      workout with you on
+      {{userWorkout.date}}!</h4>
+    <form method="POST" action="/library/create-workout/workout-request">
+      <button
+        type="submit"
+        class="button button-big"
+        name="workoutRequestAction"
+        value="accept"
+      >Accept</button>
+      <button
+        type="submit"
+        class="button button-big"
+        name="workoutRequestAction"
+        value="decline"
+      >Decline</button>
+    </form>
+  </div>
+</section>

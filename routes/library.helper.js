@@ -13,6 +13,8 @@ const {
     defaultRestBetweenExercises
 } = require('../data/workoutData');
 
+const UserWorkoutModel = require('../models/UserWorkout.model');
+
 function saveWorkoutDataInTheSession(req) { 
     const {name, description, duration, type, level, goals, intensity, reps, unitType, restBetweenExercises, sets, restBetweenSets, exerciseName, exerciseId} = req.body;
     let updatedWorkout = {
@@ -303,6 +305,13 @@ function createUserWorkoutFromSearch(workoutData, reps, sets, restBetweenSets, r
     return newUserWorkout
 }
 
+function copyUserWorkoutDocumentSwapFriendAndOwner(userWorkout, loggedInUserId, userThatSendWorkoutRequestId) {
+    userWorkout.userId = loggedInUserId;
+    userWorkout.friend = userThatSendWorkoutRequestId;
+    delete userWorkout._id; 
+    return userWorkout
+}
+
 module.exports = {
     saveWorkoutDataInTheSession,
     turnExerciseArraysIntoOneArrayOfExerciseObjects,
@@ -322,5 +331,6 @@ module.exports = {
     createUserWorkoutObject,
     createPageNumberArr,
     convertWorkoutDataIntoArrayOfTags,
-    createUserWorkoutFromSearch
+    createUserWorkoutFromSearch,
+    copyUserWorkoutDocumentSwapFriendAndOwner
 }

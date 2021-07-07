@@ -1,14 +1,15 @@
 <section id="intro-flow-section" class="swap-animation">
   <div class="intro-flow-box">
-
-    <h4>Add a friend</h4>
-    <select name="friend" id="">
-      {{#each friends}}
-        <option value="{{this._id}}">{{this.username}}</option>
-      {{/each}}
-    </select>
-    <button class="button button-medium">Add friend</button>
-    <a class="button button-medium" href="/library/create-workout/date">Don't
-      add a friend</a>
+    <form method="POST" action="/library/create-workout/friends">
+      <h4>Add a friend</h4>
+      <select name="friendId" id="">
+        {{#each friends}}
+          <option value="{{this._id}}">{{this.username}}</option>
+        {{/each}}
+      </select>
+      <button type="submit" class="button button-medium">Add friend</button>
+      <a class="button button-medium" href="/library/create-workout/date">Don't
+        add a friend</a>
+    </form>
   </div>
 </section>

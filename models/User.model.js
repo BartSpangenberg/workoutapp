@@ -53,6 +53,10 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId, 
     ref: 'User' 
   }],
+  workoutRequests: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'UserWorkout' 
+  }],
   profilePic: {
     type: String
   }

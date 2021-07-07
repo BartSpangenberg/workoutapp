@@ -1,7 +1,9 @@
 <section id="intro-flow-section" class="swap-animation">
   <div class="intro-flow-box">
-    <h4>Add the date</h4>
-    <input type="date" required />
-    <button>Continue</button>
+    <form method="POST" action="/library/create-workout/date">
+      <h4>Add the date</h4>
+      <input name="newDate" type="date" required />
+      <button>Select date</button>
+    </form>
   </div>
 </section>

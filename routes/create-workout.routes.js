@@ -13,6 +13,7 @@ const {
   createNewExerciseObject,
   createNewExerciseToAddToSession,
   createUserWorkoutObject,
+  copyUserWorkoutDocumentSwapFriendAndOwner
 } = require("./library.helper");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const navBarClasses = require('../data/navbarClasses');
@@ -180,13 +181,78 @@ router.get('/library/create-workout/friends', checkIfUserHasFriends, async (req,
   }
 })
 
-router.post('/library/create-workout/friends', (req, res, next) => {
-  // HANDLE POST REQUEST FRIEND SUMBIT BUTTON
-  
+router.post('/library/create-workout/friends', async (req, res, next) => {
+  const { friendId }  = req.body;
+  const lastWorkoutId = req.session.latestCreatedWorkout._id;
+  try {
+    await UserModel.findByIdAndUpdate(friendId, {  $push: { workoutRequests: lastWorkoutId }} );
+    res.redirect('/library/create-workout/date');
+  }
+  catch(err) {
+      res.redirect('/library/create-workout/date');
+  }
 })
 
 router.get('/library/create-workout/date', (req, res, next) => {
   res.render('library/add-date.hbs')
+})
+
+router.post('/library/create-workout/date', async (req, res, next) => {
+  const { newDate } = req.body;
+  const lastWorkoutId = req.session.latestCreatedWorkout._id;
+ 
+  try {
+    await UserWorkoutModel.findByIdAndUpdate(lastWorkoutId, {  date: newDate  } );
+    res.redirect('/myworkouts');
+  }
+  catch(err) {
+      res.redirect('/myworkouts');
+  }
+})
+
+router.get('/library/create-workout/workout-request', async (req, res, next) => {
+  let userWorkoutId = req.session.workoutRequests[0]
+  try {
+    let userWorkout = await UserWorkoutModel.findById(userWorkoutId).populate('userId')
+    req.session.userThatSendWorkoutRequestId = userWorkout.userId._id;
+    req.session.userWorkoutSend = userWorkout;
+    res.render('friends/workout-request.hbs', { userWorkout });
+  }
+  catch(err) {
+    res.redirect('/myworkouts')
+  }
+})
+
+
+router.post('/library/create-workout/workout-request', async (req, res, next) => {
+  let userWorkoutId = req.session.workoutRequests[0];
+  let userThatSendWorkoutRequestId = req.session.userThatSendWorkoutRequestId;
+  let loggedInUserId = req.session.userInfo._id;
+  console.log(userWorkoutId, userThatSendWorkoutRequestId, loggedInUserId )
+
+  const { workoutRequestAction } = req.body;
+  if (workoutRequestAction === 'decline') {
+      UserModel.findByIdAndUpdate(loggedInUserId, { $pull: { workoutRequests: userWorkoutId }})
+          .then(() => {
+              res.redirect('/myworkouts');
+          }).catch(() => {
+              res.redirect('/myworkouts');
+          });    
+  }
+  if (workoutRequestAction === 'accept') {
+      let userWorkout = req.session.userWorkoutSend;
+      let copyUserWorkout = copyUserWorkoutDocumentSwapFriendAndOwner(userWorkout, loggedInUserId, userThatSendWorkoutRequestId);
+      console.log(copyUserWorkout)
+      try {
+        await UserModel.findByIdAndUpdate(loggedInUserId, { $pull: { workoutRequests: userWorkoutId }}); 
+        await UserWorkoutModel.findByIdAndUpdate(userWorkoutId, { friend: loggedInUserId });
+        await UserWorkoutModel.create(copyUserWorkout);
+        res.redirect('/myworkouts');
+      }
+      catch(err) {
+          res.redirect('/myworkouts');
+      }
+  }
 })
 
 
