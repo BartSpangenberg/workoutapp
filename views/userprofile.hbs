@@ -2,6 +2,13 @@
 
 <h1>My profile </h1>
 
+<img class = "profilePic" src="{{currentUser.profilePic}}" alt="profile pic">
+
+<form method="POST" action="/upload" enctype="multipart/form-data">
+    <input type="file" name="imageUrl" accept="image/png, image/jpg">
+    <button type="submit">Submit</button> 
+</form> 
+
 <p>Username : {{currentUser.username}}</p>
 <form method="GET" action="/profile/edit/username">
   <button type="submit">Edit</button>

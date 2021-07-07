@@ -5,6 +5,7 @@ const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
 const bcrypt = require("bcryptjs");
 const navBarClasses = require('../data/navbarClasses');
+const uploader = require('../middlewares/cloudinary.js')
 
 //Get to account
 router.get("/profile", checkLoggedIn, (req, res, next) => {
@@ -20,6 +21,22 @@ router.get("/profile", checkLoggedIn, (req, res, next) => {
       next(err);
     });
 });
+
+//Upload profile pic
+// the image url is in 'req.file.path'
+// and store that in the DB
+
+router.post('/upload', checkLoggedIn, uploader.single("imageUrl"), (req, res, next) => {
+  const { _id } = req.session.userInfo;
+  console.log('file is :', req.file)
+  UserModel.findByIdAndUpdate(_id, { profilePic: req.file.path }, {new:true})
+    .then(() => {
+      res.redirect("/profile")
+    })
+    .catch((err) => {
+      next(err)
+    });
+})
 
 // Edit username
 router.get("/profile/edit/username", checkLoggedIn, (req, res, next) => {

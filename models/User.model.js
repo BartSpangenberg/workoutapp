@@ -44,7 +44,10 @@ const userSchema = new Schema({
   userWorkouts: {
     type: Schema.Types.ObjectId,
     ref: "Workout",
-  },
+          },
+  profilePic: {
+    type: String,
+  }
 });
 
 const User = model("User", userSchema);
