@@ -1,40 +1,53 @@
 {{> navbar navBarClasses.profile }}
 
-<h1>My profile </h1>
 
-<p>Username : {{currentUser.username}}</p>
+<div class = "profile-card">
+<h1 class="myProfileTitle">My profile </h1>
+
+<div class ="img-area"><div class ="inner-area"><img src="{{currentUser.profilePic}}" alt="profile pic"></div></div>
+
+<div class = "choosePic">
+<form method="POST" action="/upload" enctype="multipart/form-data">
+    <input class = "profilePic" type="file" name="imageUrl" accept="image/png, image/jpg">
+    <div class ="buttons"><button type="submit">Submit</button> </div>
+</form> 
+</div>
+
+<p class = "profileAttrib">Username : {{currentUser.username}}</p>
 <form method="GET" action="/profile/edit/username">
-  <button type="submit">Edit</button>
+  <div class ="buttons"><button type="submit">Edit</button></div>
 </form>
-<p>Email : {{currentUser.email}}</p>
+<p class = "profileAttrib">Email : {{currentUser.email}}</p>
 <form method="GET" action="/profile/edit/email">
-  <button type="submit">Edit</button>
+  <div class ="buttons"><button type="submit">Edit</button></div>
 </form>
-<p>Password : </p>
+<p class = "profileAttrib">Password : </p>
 <form method="GET" action="/profile/edit/password">
-  <button type="submit">Edit</button>
+ <div class ="buttons"> <button type="submit">Edit</button></div>
 </form>
-<p>Birthday : {{currentUser.birthday}}</p>
+<p class = "profileAttrib">Birthday : {{currentUser.birthday}}</p>
 <form method="GET" action="/profile/edit/birthday">
-  <button type="submit">Edit</button>
+  <div class ="buttons"><button type="submit">Edit</button></div>
 </form>
-<p>Trainer name : {{currentUser.trainername}}</p>
+<p class = "profileAttrib">Trainer name : {{currentUser.trainername}}</p>
 <form method="GET" action="/profile/edit/trainername">
-  <button type="submit">Edit</button>
+  <div class ="buttons"><button type="submit">Edit</button></div>
 </form>
-<p>Goals : {{currentUser.goals}}</p>
+<p class = "profileAttrib">Goals : {{currentUser.goals}}</p>
 <form method="GET" action="/profile/edit/goals">
-  <button type="submit">Edit</button>
+ <div class ="buttons"> <button type="submit">Edit</button></div>
 </form>
-<p>Athlete Type : {{currentUser.athleteType}}</p>
+<p class = "profileAttrib">Athlete Type : {{currentUser.athleteType}}</p>
 <form method="GET" action="/profile/edit/athletetype">
-  <button type="submit">Edit</button>
+ <div class ="buttons"> <button type="submit">Edit</button></div>
 </form>
-<p>Height : {{currentUser.height}} cm</p>
+<p class = "profileAttrib">Height : {{currentUser.height}} cm</p>
 <form method="GET" action="/profile/edit/body">
-  <button type="submit">Edit</button>
+  <div class ="buttons"> <button type="submit">Edit</button></div>
 </form>
-<p>Weight : {{currentUser.weight}} kg</p>
+<p class = "profileAttrib">Weight : {{currentUser.weight}} kg</p>
 <form method="GET" action="/profile/edit/body">
-  <button type="submit">Edit</button>
+  <div class ="buttons"> <button type="submit">Edit</button></div>
 </form>
+
+</div>
