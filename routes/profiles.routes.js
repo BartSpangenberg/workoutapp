@@ -26,6 +26,7 @@ router.get("/profile", checkLoggedIn, (req, res, next) => {
 // the image url is in 'req.file.path'
 // and store that in the DB
 
+
 router.post('/upload', checkLoggedIn, uploader.single("imageUrl"), (req, res, next) => {
   const { _id } = req.session.userInfo;
   console.log('file is :', req.file)
