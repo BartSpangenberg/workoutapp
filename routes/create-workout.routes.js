@@ -180,6 +180,10 @@ router.get('/library/create-workout/friends', checkIfUserHasFriends, async (req,
   }
 })
 
+router.post('/library/create-workout/friends', (req, res, next) => {
+  // HANDLE POST REQUEST FRIEND SUMBIT BUTTON
+  
+})
 
 router.get('/library/create-workout/date', (req, res, next) => {
   res.render('library/add-date.hbs')
