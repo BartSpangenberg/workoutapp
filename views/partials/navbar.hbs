@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">WorkoutY (logo)</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-container">
+  <a class="navbar-brand logo-a" href="#">WorkoutY (logo)</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -11,30 +11,37 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse space-around" id="navbarNavNav">
     <ul class="navbar-nav">
       <li class="{{this.myWorkouts.li}}">
-        <a class="{{this.myWorkouts.a}}" href="/myworkouts">My workouts</a>
+        <a class="{{this.myWorkouts.a}}" href="/myworkouts"><i
+            class="bi bi-house-door-fill icon-center"
+          ></i>My workouts</a>
       </li>
       <li class="{{this.workoutLibrary.li}}">
-        <a class="{{this.workoutLibrary.a}}" href="/library/search">Workout
-          Library</a>
+        <a class="{{this.workoutLibrary.a}}" href="/library/search"><i
+            class="bi bi-search icon-center"
+          ></i>Workout Library</a>
       </li>
       <li class="{{this.createWorkout.li}}">
-        <a
-          class="{{this.createWorkout.a}}"
-          href="/library/create-workout"
-        >Create Workout</a>
+        <a class="{{this.createWorkout.a}}" href="/library/create-workout"><i class="bi bi-plus-square-fill icon-center"></i>
+</i>Create Workout</a>
       </li>
       <li class="{{this.myFriends.li}}">
-        <a class="{{this.myFriends.a}}" href="/friends">My friends</a>
+        <a class="{{this.myFriends.a}}" href="/friends"><i
+            class="bi bi-people-fill icon-center"
+          ></i>Friends</a>
       </li>
       <li class="{{this.profile.li}}">
-        <a class="{{this.profile.a}}" href="/profile">My account</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
+        <a class="{{this.profile.a}}" href="/profile"><i
+            class="bi bi-person-fill icon-center"
+          ></i>Account</a>
       </li>
     </ul>
   </div>
+  <ul class="navbar-nav logout-ul">
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">Log Out</a>
+    </li>
+  </ul>
 </nav>

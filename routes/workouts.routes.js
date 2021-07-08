@@ -25,8 +25,6 @@ router.get("/myworkouts", checkLoggedIn, checkFriendRequests, checkWorkoutReques
   const { _id } = req.session.userInfo;
   UserWorkoutModel.find({ userId: _id }).populate('friend')
     .then((workouts) => {
-      console.log(workouts)
-      
       res.render("mainpage.hbs", {
         currentWorkouts: workouts,
         currentUser: req.session.userInfo,
@@ -57,7 +55,6 @@ router.get('/myworkouts/workout-information/:id',  checkLoggedIn, (req, res, nex
       .populate('exercises.exerciseId')
       .then((workoutData) => {
           const tags = convertWorkoutDataIntoArrayOfTags(workoutData);
-          console.log(tags)
           res.render('myworkouts/workout-information.hbs', {workoutData, tags, navBarClasses})
       }).catch((err) => {
           console.log("Something went wrong while searching for the workout", err);

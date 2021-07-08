@@ -245,8 +245,6 @@ router.post("/profile/edit/athletetype", checkLoggedIn, (req, res, next) => {
 // Edit body
 router.get("/profile/edit/body", checkLoggedIn, (req, res, next) => {
   const { _id } = req.session.userInfo;
-  console.log(req.session.userInfo);
-  console.log(_id);
   UserModel.findById(_id)
     .then((user) => {
       res.render("profile/editbody.hbs", {
@@ -259,7 +257,6 @@ router.get("/profile/edit/body", checkLoggedIn, (req, res, next) => {
 });
 
 router.post("/profile/edit/body", checkLoggedIn, (req, res, next) => {
-  console.log(req.body);
   const { _id } = req.session.userInfo;
   const { weight, height } = req.body;
   UserModel.findByIdAndUpdate(_id, { weight, height }, { new: false })

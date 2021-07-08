@@ -228,7 +228,6 @@ router.post("/login", (req, res, next) => {
 
   UserModel.findOne({ email })
     .then((user) => {
-      console.log(user);
       if (!user) {
         res.render("auth/login.hbs", { errorLogin: "Email is incorrect" });
       } else {

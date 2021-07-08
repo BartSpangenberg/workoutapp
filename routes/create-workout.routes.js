@@ -171,7 +171,6 @@ router.post(
 
 router.get('/library/create-workout/friends', checkIfUserHasFriends, async (req, res, next) => {
   let userId = req.session.userInfo._id;
-  console.log("I run")
   try {
     let loggedInUser = await UserModel.findById(userId).populate('friends');
     res.render('library/add-friend.hbs', loggedInUser);
@@ -227,7 +226,6 @@ router.post('/library/create-workout/workout-request', async (req, res, next) =>
   let userWorkoutId = req.session.workoutRequests[0];
   let userThatSendWorkoutRequestId = req.session.userThatSendWorkoutRequestId;
   let loggedInUserId = req.session.userInfo._id;
-  console.log(userWorkoutId, userThatSendWorkoutRequestId, loggedInUserId )
 
   const { workoutRequestAction } = req.body;
   if (workoutRequestAction === 'decline') {
@@ -241,7 +239,6 @@ router.post('/library/create-workout/workout-request', async (req, res, next) =>
   if (workoutRequestAction === 'accept') {
       let userWorkout = req.session.userWorkoutSend;
       let copyUserWorkout = copyUserWorkoutDocumentSwapFriendAndOwner(userWorkout, loggedInUserId, userThatSendWorkoutRequestId);
-      console.log(copyUserWorkout)
       try {
         await UserModel.findByIdAndUpdate(loggedInUserId, { $pull: { workoutRequests: userWorkoutId }}); 
         await UserWorkoutModel.findByIdAndUpdate(userWorkoutId, { friend: loggedInUserId });

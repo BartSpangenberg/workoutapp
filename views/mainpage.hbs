@@ -1,39 +1,45 @@
 {{>navbar navBarClasses.myWorkouts}}
 
-<section class="swap-animation-two section-center">
+<section class="section-center">
 
-    <h1 class="welcomeUser">Hey {{currentUser.username}}, what's up today ?</h1>
+    <h1 class="welcomeUser">Hey {{currentUser.username}}, what's up today?</h1>
 
-    <section class = "desc-block-left">
-        <h2 class = "stateworkouts">Workouts To-do </h2>
-        {{#each currentWorkouts}}
-            {{#ifeq this.scheduled true}} 
-                <a href="/myworkouts/workout-information/{{this._id}}">
-                    <p>Workouts: {{this.name}}
-                    <p>On: {{this.date}}</p>
-                    {{#if this.friend}}
-                        <p>Workout buddy: {{this.friend.username}}
-                    {{/if}} 
-                </a>
-                <a  id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/done"> I did it ! </a></p>
-                <br/>
-            {{/ifeq}}
-        {{/each}}
+    <div class="flex-row main-page-section-container">
 
-    </section>
+        <section id="main-page-container">
+            <h4 class = "stateworkouts">Workouts To-do </h4>
+                {{#each currentWorkouts}}
+                    <div class="my-wo-wo-container">
+                    {{#ifeq this.scheduled true}} 
+                        <a class="wo-info-link-container" href="/myworkouts/workout-information/{{this._id}}">
+                            <p class="wo-info-name">{{this.name}}</p>
+                            {{#if this.friend}}
+                                <p class="wo-info-buddy">Workout buddy: {{this.friend.username}}</p>
+                            {{/if}} 
+                            <p class="wo-info-date">Date: {{this.date}}</p>
+                        </a>
+                        <a id="button-myworkouts" class="button button-small" href="/myworkouts/{{this._id}}/done">I did it!</a>
+                    {{/ifeq}}
+                    </div>
+                {{/each}}
 
-    <a id ="btnAddmore" href="/library/search">Add more workouts</a>
+        </section>
 
-
-    <section class = "desc-block-right">
-        <h2 class="stateworkouts">Previous workouts</h2>
-
-        {{#each currentWorkouts}}
-            {{#ifeq this.scheduled false}}
-                <p>Workouts : {{this.name}}
-                <a id = "btnMainPage" class = "btn btn-primary" href="/myworkouts/{{this._id}}/scheduled"> Add it to plan </a></p>
-                <br/>
-            {{/ifeq}}
-        {{/each}}
-    </section>
+        <section id="main-page-container">
+            <h4 class="stateworkouts">Previous workouts</h4>
+                {{#each currentWorkouts}}
+                    <div class="my-wo-wo-container">
+                    {{#ifeq this.scheduled false}}
+                        <a class="wo-info-link-container" href="/myworkouts/workout-information/{{this._id}}">
+                            <p class="wo-info-name">Workouts: {{this.name}}</p>
+                            {{#if this.friend}}
+                                <p class="wo-info-buddy">Workout buddy: {{this.friend.username}}</p>
+                            {{/if}} 
+                        </a>
+                        <a id="button-myworkouts" class="button button-small" href="/myworkouts/{{this._id}}/scheduled"> Add it to plan </a>
+                    {{/ifeq}}
+                    </div>
+                {{/each}}
+        </section>
+    </div>
 </section>
