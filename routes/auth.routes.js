@@ -21,7 +21,7 @@ router.post("/signup", (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    res.render("auth/signup.hbs", { msg: "Please enter all fields" });
+    res.render("auth/signup.hbs", { msg: "Please fill out all fields" });
     return;
   }
 
@@ -154,7 +154,7 @@ router.get("/signup/birthday", (req, res, next) => {
 router.post("/signup/birthday", (req, res, next) => {
   let currentUser = req.session.currentUser;
   const { birthday } = req.body;
-  
+
   if (!birthday) {
     res.render("auth/signupbirthday.hbs", { msg: "Please enter the field" });
   }
