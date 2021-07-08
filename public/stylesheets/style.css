@@ -1,16 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 html,
 body {
-  height: 100%;
-  background:#ecf0f3;
+  background: #ecf0f3;
+  background-repeat: repeat-x;
+  background-image: url("/images/bottom-img-bg.png");
+  background-position: bottom;
+  background-size: 500px;
 }
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  color:#009688;
+  color: #009688;
 }
 
 li.active {
@@ -89,7 +92,6 @@ input[type="number"] {
   transform: translateY(-2px);
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
-
 
 .button-small {
   font-size: 0.8em;
@@ -216,7 +218,7 @@ input[type="number"] {
   display: flex;
 }
 
-
-.error, .msg{
+.error,
+.msg {
   color: red;
 }
