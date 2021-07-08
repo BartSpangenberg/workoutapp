@@ -24,6 +24,16 @@
   margin-bottom: 10px;
 }
 
-.new-exercise {
+.wo-info-single-ex-container {
   display: flex;
+}
+
+.ex-info-inside-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ex-details-container {
+  display: flex;
+  justify-content: space-between;
 }

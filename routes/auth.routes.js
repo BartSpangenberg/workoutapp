@@ -45,11 +45,13 @@ router.post("/signup", (req, res, next) => {
   const hash = bcrypt.hashSync(password, salt);
 
   UserModel.create({ username, email, password: hash })
-    .then(() => {
+    .then((user) => {
       // email is the key that identifies the user, it is stored as well inside the localStorage of the user to allows him to go through the signup flow
       req.session.currentUser = { email: email };
       //the currentView of the user is stored in the session
       req.session.currentUser.currentView = "/signup/trainer-name";
+      req.session.userInfo = user;
+      req.session.isUserLoggedIn = true;
       res.redirect("/signup/trainer-name");
     })
     .catch((err) => {
