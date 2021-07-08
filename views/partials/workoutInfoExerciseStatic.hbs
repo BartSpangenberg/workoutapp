@@ -1,37 +1,33 @@
-<article class="new-exercise">
+<article class="wo-info-single-ex-container">
   <img src="{{this.exerciseId.image}}" alt="Exercise image" />
 
-  <h4>{{this.exerciseId.name}}</h4>
-  <span>{{this.exerciseId.description}}</span>
+  <div class="ex-info-inside-container">
 
-  <h6>Equipment</h6>
-  <ul>
-    {{#each this.exerciseId.equipments}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul>
+    <h4>{{this.exerciseId.name}}</h4>
+    <span class="mrg-btm">{{this.exerciseId.description}}</span>
 
-  <h6>Muscles</h6>
-  <ul>
-    {{#each this.exerciseId.muscles}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul>
+    <div class="ex-details-container-row">
 
-  <p>{{this.reps}}</p>
-  <span>{{this.unitType}}</span>
+      <div class="ex-input-container-row">
+        <p>{{this.reps}}</p>
+        <span>{{this.unitType}}</span>
+      </div>
 
-  <p>{{this.sets}}</p>
-  <span>Sets</span>
+      <div class="ex-input-container-row">
+        <p>{{this.restBetweenSets}}</p>
+        <span>Seconds rest between sets</span>
+      </div>
 
-  <span>Rest between sets</span>
-  <p>{{this.restBetweenSets}}</p>
+      <div class="ex-input-container-row">
+        <p>{{this.sets}}</p>
+        <span>Sets</span>
+      </div>
 
-  <span>Seconds</span>
-
-  <span>Rest between exercises</span>
-
-  <p>{{this.restBetweenExercises}}</p>
-  <span>Seconds</span>
+      <div class="ex-input-container-row">
+        <p>{{this.restBetweenExercises}}</p>
+        <span>Seconds rest between exercises</span>
+      </div>
+    </div>
+  </div>
 
 </article>

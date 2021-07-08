@@ -4,66 +4,61 @@
   <div class="ex-info-inside-container">
 
     <h4>{{this.exerciseId.name}}</h4>
-    <span>{{this.exerciseId.description}}</span>
-
-    {{!-- <h6>Equipment</h6>
-  <ul>
-    {{#each this.exerciseId.equipments}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul>
-
-  <h6>Muscles</h6>
-  <ul>
-    {{#each this.exerciseId.muscles}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul> --}}
+    <span class="mrg-btm">{{this.exerciseId.description}}</span>
 
     <div class="ex-details-container">
 
-      <input
-        min="1"
-        max="1000"
-        name="reps"
-        type="number"
-        id="reps"
-        value="{{this.reps}}"
-      />
+      <div class="ex-input-container">
+        <input
+          class="input-txt-medium"
+          min="1"
+          max="1000"
+          name="reps"
+          type="number"
+          id="reps"
+          value="{{this.reps}}"
+        />
+        <span>{{this.unitType}}</span>
+      </div>
 
-      <span>{{this.unitType}}</span>
+      <div class="ex-input-container">
+        <input
+          class="input-txt-medium"
+          min="0"
+          max="1000"
+          name="restBetweenSets"
+          type="number"
+          id="restBetweenSets"
+          value="{{this.restBetweenSets}}"
+        />
+        <span>Seconds rest between sets</span>
+      </div>
 
-      <input
-        min="1"
-        max="1000"
-        name="sets"
-        type="number"
-        id="sets"
-        value="{{this.sets}}"
-      />
-      <span>Sets</span>
+      <div class="ex-input-container">
+        <input
+          class="input-txt-medium"
+          min="1"
+          max="1000"
+          name="sets"
+          type="number"
+          id="sets"
+          value="{{this.sets}}"
+        />
+        <span>Sets</span>
+      </div>
 
-      <span>Rest between sets</span>
-      <input
-        min="0"
-        max="1000"
-        name="restBetweenSets"
-        type="number"
-        id="restBetweenSets"
-        value="{{this.restBetweenSets}}"
-      />
-      <span>Seconds</span>
-
-      <span>Rest between exercises</span>
-      <input
-        min="0"
-        max="1000"
-        name="restBetweenExercises"
-        type="number"
-        id="restBetweenExercises"
-        value="{{this.restBetweenExercises}}"
-      />
-      <span>Seconds</span>
+      <div class="ex-input-container">
+        <input
+          class="input-txt-medium"
+          min="0"
+          max="1000"
+          name="restBetweenExercises"
+          type="number"
+          id="restBetweenExercises"
+          value="{{this.restBetweenExercises}}"
+        />
+        <span>Seconds rest between exercises</span>
+      </div>
     </div>
   </div>
 

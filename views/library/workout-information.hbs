@@ -3,10 +3,10 @@
 <section class="swap-animation-two section-center">
   
 
-<h1>{{workoutData.name}}</h1>
-<h6>{{workoutData.description}}</h6>
+<h3>{{workoutData.name}}</h3>
+<h6 class="mrg-btm">{{workoutData.description}}</h6>
 
-    <div class="wo-info-tag-container">
+    <div class="wo-info-tag-container mrg-btm">
         {{#each tags}}
         <span class="tag">{{this}}</span>
         {{/each}}
@@ -18,7 +18,9 @@
           {{> workoutInfoExercise this}}     
       {{/each}}
 
-      <button>Add to your workouts</button>
+      <div class="position-middle">
+        <button class="button button-big mrg-btm">Add to My Workouts</button>
+      </div>
     </form>
 
   </div>

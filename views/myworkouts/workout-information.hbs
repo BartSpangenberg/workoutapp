@@ -1,24 +1,22 @@
 {{>navbar navBarClasses.myWorkouts}}
-
-    <button id="go-back" class="go-back-button button button-small icon-center"><i class="bi bi-arrow-left"></i> back</button>
+<button id="go-back" class="go-back-button button button-small icon-center"><i class="bi bi-arrow-left"></i></button>
 <section class="swap-animation-two section-center">
-  
 
-    <h1>{{workoutData.name}}</h1>
-    <h6>{{workoutData.description}}</h6>
+<h3>{{workoutData.name}}</h3>
+<h6 class="mrg-btm">{{workoutData.description}}</h6>
 
-    <div class="wo-info-tag-container">
-        {{#each tags}}
-        <span class="tag">{{this}}</span>
-        {{/each}}
-    </div>
+<div class="wo-info-tag-container mrg-btm">
+    {{#each tags}}
+    <span class="tag">{{this}}</span>
+    {{/each}}
+</div>
 
-    <div class="wo-info-ex-container">
-        {{#each workoutData.exercises}}
-            {{> workoutInfoExerciseStatic this}}     
-        {{/each}}
-    </div>
+<div class="wo-info-ex-container">
+    {{#each workoutData.exercises}}
+        {{> workoutInfoExerciseStatic this}}     
+    {{/each}}
+</div>
 
-    <script src="/js/library/workout-information.js"></script>
-    
+<script src="/js/library/workout-information.js"></script>
+
 </section>
