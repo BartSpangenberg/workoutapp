@@ -3,6 +3,7 @@
 <section id="intro-flow-section">
   <div class="intro-flow-box">
     <h4>Edit your username</h4>
+
 <form method="POST" action="/profile/edit/username">
 <div class="mb-3">
     <label class="form-label" for="username"></label>
@@ -12,20 +13,7 @@
       type="text"
       name="username"
       value ={{currentUser.username}}
-    />
-
-    <form method="POST" action="/profile/{{ currentUser._id }}/edit/username">
-    <div class="mb-3">
-        <label class="form-label" for="username"></label>
-        <input
-          placeholder={{currentUser.username}}
-          class="form-control"
-          type="text"
-          name="username"
-          value ={{currentUser.username}} 
-        />
-
-        
+    /> 
         <br />
 
     <button class="btn btn-primary" type="submit">Update</button>

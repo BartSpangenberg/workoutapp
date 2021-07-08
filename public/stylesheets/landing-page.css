@@ -1,12 +1,9 @@
-#intro-flow-section {
-  height: 100%;
+.container-ldg-pge {
+          height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.intro-flow-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,4 +15,3 @@
   background: linear-gradient(45deg, #d4d8db, #fdffff);
   box-shadow:  31px -31px 62px #c9cccf,-31px 31px 62px #ffffff;
 }
-

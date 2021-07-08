@@ -3,11 +3,12 @@
   <h4>What are your goals ?</h4>
 
   {{! To improve : button }}
-
+<br>
   <form method="POST" action="/signup/goals">
     {{>goalsScreen this}}
-    <a class="btn btn-primary" href="/signup/birthday">Previous</a>
-    <button class="btn btn-primary" type="submit">Next</button>
+    <br>
+    <a class="btn btn-outline-* btn-lg" href="/signup/birthday"><i class="bi bi-arrow-left-circle"></i></a>
+    <button class="btn btn-outline-* btn-lg" type="submit"><i class="bi bi-arrow-right-circle"></i></button>
   </form>
 
 

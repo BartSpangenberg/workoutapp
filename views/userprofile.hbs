@@ -2,7 +2,14 @@
 
 
 <div class = "profile-card">
-<h3 class="myProfileTitle">My profile </h3>
+
+<div class ="pr-attribute-container">
+<h3 class="myProfileTitle">
+
+<p class = "profileAttrib"></p>{{currentUser.username}}</p>
+</h3><form method="GET" action="/profile/edit/username">
+ <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
+</form></div>
 
 <div class ="img-area"><div class ="inner-area"><img src="{{currentUser.profilePic}}" alt="profile pic"></div></div>
 
@@ -10,65 +17,76 @@
 <div class = "choosePic">
 <form method="POST" action="/upload" enctype="multipart/form-data">
     <input class = "profilePic" type="file" name="imageUrl" accept="image/png, image/jpg">
-    <button type="submit">Submit</button> 
+    <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button> 
 </form> 
 </div>
 
+<div id ="containerProfile">
+<div class ="one">
 
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Email : {{currentUser.email}}</p>
 <form method="GET" action="/profile/edit/email">
-  <div class ="button-small"><button type="submit">Edit</button></div>
-</form>
+<button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
+</form><p class = "profileAttrib"> Email : {{currentUser.email}}</p>
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Password : </p>
 <form method="GET" action="/profile/edit/password">
- <div class ="button-small"> <button type="submit">Edit</button></div>
-</form>
+ <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
+</form><p class = "profileAttrib">Password </p>
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Birthday : {{currentUser.birthday}}</p>
 <form method="GET" action="/profile/edit/birthday">
-  <div class ="button-small"><button type="submit">Edit</button></div>
-</form>
+ <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
+</form><p class = "profileAttrib">Birthday : {{currentUser.birthday}}</p>
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Trainer name : {{currentUser.trainername}}</p>
 <form method="GET" action="/profile/edit/trainername">
-  <div class ="button-small-small"><button type="submit">Edit</button></div>
-</form>
+  <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
+</form><p class = "profileAttrib">Trainer name : {{currentUser.trainername}}</p>
+
+</div>
 </div>
 
+<div class = "two">
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Goals : {{currentUser.goals}}</p>
 <form method="GET" action="/profile/edit/goals">
- <div class ="button-small"> <button type="submit">Edit</button></div>
+ <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
 </form>
+<p class = "profileAttrib">Goals : {{currentUser.goals}}</p>
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Athlete Type : {{currentUser.athleteType}}
 <form method="GET" action="/profile/edit/athletetype">
-<div class ="button-small"> <button type="submit">Edit</button></p></div>
+<button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button></p>
 </form>
+<p class = "profileAttrib">Athlete Type : {{currentUser.athleteType}}
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Height : {{currentUser.height}} cm</p>
 <form method="GET" action="/profile/edit/body">
-  <div class ="button-small"> <button type="submit">Edit</button></div>
+<button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
 </form>
+<p class = "profileAttrib">Height : {{currentUser.height}} cm</p>
+
 </div>
 
 <div class ="pr-attribute-container">
-<p class = "profileAttrib">Weight : {{currentUser.weight}} kg <form method="GET" action="/profile/edit/body">
-<div class ="button-small"> <button type="submit">Edit</button></div></p>
-</form>
+
+<form method="GET" action="/profile/edit/body">
+<button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button></p>
+</form><p class = "profileAttrib">Weight : {{currentUser.weight}} kg 
+</div>
 </div>
 
+
+</div>
 </div>
