@@ -5,7 +5,7 @@
 
 
 <form id="create-exercise-form" method="POST" action="/library/create-exercise">
-  <label class="label-big" for="exercise-name">Exercise name</label>
+  <label class="label-medium" for="exercise-name">Exercise name</label>
   <input class="input-txt-medium cr-wo-name mrg-btm" type="text" id="exercise-name" name="name" />
 
   <label class="label-medium" for="exercise-description">Exercise description</label>
@@ -15,7 +15,7 @@
     <p class="error">{{error}}</p>
   {{/if}}
 
-  <h5>What equipment do you need for this exercise?</h5>
+  <h5>What equipment do you need ?</h5>
   <div class="cr-ex-items-container mrg-btm">
     {{#each equipments}}
       <div>
@@ -25,7 +25,7 @@
     {{/each}}
   </div>
 
-  <h5>Which muscles do you train with this exercise?</h5>
+  <h5>Which muscles do you train ?</h5>
   <div class="cr-ex-items-container mrg-btm">
   {{#each muscles}}
     <div>

@@ -58,20 +58,36 @@
 
 .cr-wo-name {
   margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
 }
 
 .cr-wo-description {
   margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
 }
 
 .add-exercises-header {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .cannot-find-ex {
+  margin-bottom: 30px;
   margin-right: 50px;
+  color : #ff6b35;
+  font-size: 16px;
+  
 }
 
 .search-for-ex-input {
-  margin-right: 50px;
+  margin-right: 40px;
+  border: none;
+  border-radius: 10px;
+}
+
+select, input{
+ border: none;
+ border-radius: 10px;
+
 }

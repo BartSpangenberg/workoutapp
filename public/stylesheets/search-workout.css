@@ -64,7 +64,7 @@
 .srch-result-selected {
   padding: 1px 11px;
   border-radius: 15px;
-  background-color: darkblue;
+  background-color: #00f5d4;
   color: white;
   margin-right: 20px;
   font-size: 0.8em;
@@ -74,7 +74,7 @@
 .srch-result-creator {
   padding: 1px 11px;
   border-radius: 15px;
-  background-color: darkblue;
+  background-color: #ff6b35;
   color: white;
   margin-right: 20px;
   font-size: 0.8em;

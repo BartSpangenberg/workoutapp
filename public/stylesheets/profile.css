@@ -1,9 +1,9 @@
 html{
    height: 100%;
+   
 }
 
-.profile-card, .img-area, .buttons {
-   background:#ecf0f3;
+.img-area, .buttons {
    box-shadow:-3px -3px 7px #ffffff,3px 3px 5px #ceced1
 }
 
@@ -31,26 +31,20 @@ html{
 }
 
 .profile-card{
-   position:relative;
-   width:100%;
-   border-radius:10px;
    display:flex;
    align-items:center;
    justify-content:center;
-   flex-direction:column}
+   flex-direction:column
+}
 
 
 .choosePic{
-margin-top: 30px;
+margin-top: 20px;
 font-size: 14px;
 margin-bottom: 40px;
 
 }
-#container{
-margin-top: 30px;
-  width:600px;
-  padding-top:50px;
-}
+
 
 .one{
   width:500px;
@@ -86,6 +80,6 @@ margin-top: 30px;
 }
 
 input[type="number"] {
-  width: 90px;
+  width: 70px;
   text-align: left;
 }

@@ -2,7 +2,7 @@
 
 html,
 body {
-  background: #ecf0f3;
+  background:  #e0e0e0;;
   background-repeat: repeat-x;
   background-image: url("/images/bottom-img-bg.png");
   background-position: bottom;
@@ -27,8 +27,9 @@ a.active {
 }
 
 a {
-  color: #00b7ff;
+  color: #009688;
 }
+
 
 h1 {
   font-size: 5em;
@@ -52,10 +53,12 @@ h4 {
 
 h5 {
   font-size: 1.6em;
+  margin-top: 30px;
 }
 
 h6 {
   font-size: 1.2em;
+  margin-top: 20px;
 }
 
 p {
@@ -63,7 +66,7 @@ p {
 }
 
 input[type="number"] {
-  width: 60px;
+  width: 10px;
   text-align: left;
 }
 
@@ -80,8 +83,10 @@ input[type="number"] {
 }
 
 .button {
-  background-color: black;
-  color: white;
+  border-radius: 20px;
+  background: #e0e0e0;
+  box-shadow:  29px 29px 57px #bebebe,-29px -29px 57px #ffffff;
+  color: #009688;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
@@ -221,4 +226,23 @@ input[type="number"] {
 .error,
 .msg {
   color: red;
+}
+
+
+
+#err-404{
+ font-weight: 700;
+ font-size: 70px;
+ letter-spacing: 4px;
+}
+
+#err-404-1{
+ margin: 10px 0;
+ font-size :30px;
+}
+
+#button-mainpage{
+font-size: 30px;
+text-decoration: none;
+color: orange;
 }

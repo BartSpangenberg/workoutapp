@@ -4,7 +4,7 @@
 <section id="create-workout-section" class="swap-animation-two">
     
     <form id="create-workout-form" method="POST" action="/library/create-workout">
-    <h3>Workout name</h3>
+    <h5>Workout name</h5>
     <input class="input-txt-medium cr-wo-name" type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>
 
     <h5>Workout description</h5>
@@ -16,49 +16,49 @@
 
     <div class="cr-wo-dropdown-container">
             <span>
-                <label class="label-small" for="type">Type</label>
+                <label class="label-small" for="type"><i class="fas fa-dumbbell fa-lg"></i></label>
                 <select name="type" id="type">
                     {{> options workoutObj.type}}
                 </select>
             </span>
 
             <span>
-                <label class="label-small" for="duration">Duration</label>
+                <label class="label-small" for="duration"><i class="fas fa-hourglass-half fa-lg"></i></label>
                 <input type="number" name="duration" id="duration" value="{{workoutObj.duration}}"  min="0" max="300"/>
             </span>
 
             <span>
-                <label class="label-small" for="level">Level</label>
+                <label class="label-small" for="level"><i class="fas fa-level-up-alt fa-lg"></i></label>
                 <select name="level" id="level">
                     {{> options workoutObj.level}}
                 </select>
             </span>
 
             <span>
-                <label class="label-small" for="goals">Goals</label>
+                <label class="label-small" for="goals"><i class="fas fa-bullseye fa-lg"></i></i></label>
                 <select name="goals" id="goals">
                     {{> options workoutObj.goals}}          
                 </select>
             </span>
 
             <span>
-                <label class="label-small" for="intensity">Intensity</label>
+                <label class="label-small" for="intensity"><i class="fas fa-bolt fa-lg"></i></label>
                 <select name="intensity" id="intensity">
                     {{> options workoutObj.intensity}}                     
                 </select>
             </span>
         </div>
         
-        <h6 class="add-exercises-header">Let's add the exercises!</h4>
+        <h6 class="add-exercises-header">Let's add the exercises!</h6>
 
         <div class="cr-wo-search-ex-container">
             <input class="search-for-ex-input" type="text" name="findExercise"> 
-            <button class="button button-medium search-button" type="submit" name="button" value="search-for-exercise"><i class="bi bi-search icon-center"></i>  Search for exercise</button>
+            <button class="button button-small search-button" type="submit" name="button" value="search-for-exercise"><i class="bi bi-search icon-center"></i>  Search for exercise</button>
         </div>
 
         <div class="cr-wo-cr-ex-container">
-            <h6 class="cannot-find-ex">Cannot find your exercise? Create it yourself!</h6>
-            <button class="button button-medium search-button" type="submit" name="button" value="create-an-exercise"><i class="bi bi-plus-square-fill icon-center"></i>
+            <h6 class="cannot-find-ex">Cannot find your exercise? Create it yourself !</h6>
+            <button class="button button-small search-button" type="submit" name="button" value="create-an-exercise"><i class="bi bi-plus-square-fill icon-center"></i>
 </i>Create an exercise</button>
         </div>
 
@@ -77,6 +77,6 @@
             {{> exercise this}}     
         {{/each}}
 
-        <button class="button button-big cr-wo-btn search-button" type="submit" name="button" value="create-workout" ><i class="bi bi-plus-square-fill icon-center"></i> Create workout</button>
+        <button class="button button-medium cr-wo-btn search-button" type="submit" name="button" value="create-workout" ><i class="bi bi-plus-square-fill icon-center"></i>Create workout</button>
     </form>
 </section>

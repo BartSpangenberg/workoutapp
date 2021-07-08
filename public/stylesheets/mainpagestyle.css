@@ -9,15 +9,14 @@
 }
 
 #main-page-container {
-  margin-top: 20px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-style: solid;
-  background-color: #b5eaea;
   width: 40%;
-  border-color: #b5eaea;
-  border-radius: 5px;
+  border-radius: 20px;
+  background: #e0e0e0;
+  box-shadow:  29px 29px 57px #bebebe,-29px -29px 57px #ffffff;
 }
 
 .stateworkouts {
@@ -48,13 +47,14 @@
 .wo-info-buddy {
   margin-bottom: 0px;
   font-weight: bold;
-  color: black;
+  color: #6c757d;
 }
 
 .wo-info-name {
-  color: black;
+  color: #009688;
   font-size: 1em;
   margin-bottom: 0px;
+  font-weight: 500;
 }
 
 .wo-info-name:hover {
@@ -63,6 +63,6 @@
 
 .wo-info-date {
   font-size: 0.7em;
-  color: black;
+  color: #6c757d;
   margin-bottom: 0px;
 }
