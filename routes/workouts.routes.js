@@ -1,4 +1,3 @@
-//Requires
 const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
 const checkLoggedIn = require("../middlewares/loggedInMiddleware");
