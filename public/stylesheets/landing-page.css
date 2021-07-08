@@ -11,23 +11,54 @@
 
 .container{
  position: relative;
-  height: 50vh;
+  height: 100vh;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+   flex-direction: column;
+   text-align: center;
 }
 
 
 .land-title{
- color: white;
- letter-spacing: 1vh;
+ color: #009688;
+ letter-spacing: 0.5vh;
  line-height: 1.2;
- font-size: 3vw;
+ font-size: 10vw;
  text-align: center;
 }
 
 #btnLanding{
  text-align: center;
+ display: block;
+ box-sizing: border-box;
+  margin: 0 auto;
+  padding: 8px;
+  width: 80%;
+  max-width: 200px;
+  color:  #009688;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+
+#btnLanding:hover,
+#btnLanding:active,
+#btnLanding:focus{
+ text-decoration:none;
+ background: #fff;
+ color:  #009688;
+ transition: all 0.5s ease-in;
+}
+
+.btn-link{
+ color:  #009688;  
+ text-decoration: none;
+ font-size:18px;
+ font-weight: 700;
+ letter-spacing: 1px;
  
 }
