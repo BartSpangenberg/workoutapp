@@ -1,9 +1,12 @@
-.container-ldg-pge {
-          height: 100%;
+#intro-flow-section {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.intro-flow-box {
   display: flex;
   flex-direction: column;
   justify-content: center;

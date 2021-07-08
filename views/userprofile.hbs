@@ -42,8 +42,7 @@
 <div class ="pr-attribute-container">
 <form method="GET" action="/profile/edit/birthday">
  <button class="btn btn-outline*" type="submit"><i class="bi bi-pencil"></i></button>
-</form><p class = "profileAttrib">Birthday : {{currentUser.birthday}}</p>
-
+</form><p class = "profileAttrib">Birthday : {{formatTime currentUser.birthday "DD-MM-YYYY"}}</p>
 </div>
 
 <div class ="pr-attribute-container">

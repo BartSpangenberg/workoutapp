@@ -154,7 +154,7 @@ router.get("/signup/birthday", (req, res, next) => {
 router.post("/signup/birthday", (req, res, next) => {
   let currentUser = req.session.currentUser;
   const { birthday } = req.body;
-
+  
   if (!birthday) {
     res.render("auth/signupbirthday.hbs", { msg: "Please enter the field" });
   }

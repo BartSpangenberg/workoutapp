@@ -58,7 +58,8 @@ const userSchema = new Schema({
     ref: 'UserWorkout' 
   }],
   profilePic: {
-    type: String
+    type: String,
+    default :"/images/avatar.png"
   }
 });
 
