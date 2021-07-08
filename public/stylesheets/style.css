@@ -39,6 +39,8 @@ h3 {
   margin-top: 30px;
   font-size: 3em;
   margin-bottom: 30px;
+  font-weight: 600;
+  letter-spacing: 0px;
 }
 
 h4 {
@@ -212,4 +214,9 @@ input[type="number"] {
 
 .flex-row {
   display: flex;
+}
+
+
+.error, .msg{
+  color: red;
 }

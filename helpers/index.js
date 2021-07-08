@@ -19,7 +19,7 @@ hbs.registerHelper("ifin", function (elem, list, options) {
   return options.inverse(this);
 });
 
-
+// helpers to have a format date without GMT hour
 hbs.registerHelper('formatTime', function (date, format) {
           var mmnt = moment(date);
           return mmnt.format(format);
