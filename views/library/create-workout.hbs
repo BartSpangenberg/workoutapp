@@ -4,10 +4,10 @@
 <section id="create-workout-section" class="swap-animation-two">
     
     <form id="create-workout-form" method="POST" action="/library/create-workout">
-    <label class="label-big" for="name">Workout name</label>
+    <h3>Workout name</h3>
     <input class="input-txt-medium cr-wo-name" type="text" id="name" name="name" value="{{workoutObj.name}}" placeholder="Workout name"/>
 
-    <label class="label-medium" for="description">Workout description</label>
+    <h5>Workout description</h5>
     <input class="input-txt-big cr-wo-description" type="text" id="description" name="description" value="{{workoutObj.description}}" placeholder="Workout description" />
 
     {{#if error}}
@@ -53,12 +53,13 @@
 
         <div class="cr-wo-search-ex-container">
             <input class="search-for-ex-input" type="text" name="findExercise"> 
-            <button class="button button-medium" type="submit" name="button" value="search-for-exercise">Search for exercise</button>
+            <button class="button button-medium search-button" type="submit" name="button" value="search-for-exercise"><i class="bi bi-search icon-center"></i>  Search for exercise</button>
         </div>
 
         <div class="cr-wo-cr-ex-container">
             <h6 class="cannot-find-ex">Cannot find your exercise? Create it yourself!</h6>
-            <button class="button button-medium" type="submit" name="button" value="create-an-exercise">Create an exercise</button>
+            <button class="button button-medium search-button" type="submit" name="button" value="create-an-exercise"><i class="bi bi-plus-square-fill icon-center"></i>
+</i>Create an exercise</button>
         </div>
 
         <div class="cr-wo-ex-container">
@@ -76,6 +77,6 @@
             {{> exercise this}}     
         {{/each}}
 
-        <button class="button button-big cr-wo-btn" type="submit" name="button" value="create-workout" >Create workout</button>
+        <button class="button button-big cr-wo-btn search-button" type="submit" name="button" value="create-workout" ><i class="bi bi-plus-square-fill icon-center"></i> Create workout</button>
     </form>
 </section>

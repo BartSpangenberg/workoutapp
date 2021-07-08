@@ -43,6 +43,7 @@
 .ex-info-inside-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .ex-details-container {

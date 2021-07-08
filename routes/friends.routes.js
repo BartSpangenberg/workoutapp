@@ -19,8 +19,6 @@ router.get('/friends', checkLoggedIn, (req, res, next) => {
 
 router.post('/friends', checkLoggedIn, (req, res, next) => {
     const { friendRequest } = req.body;
-    // username uniquee
-    // search database on username
     UserModel.find({ username: friendRequest })
         .then((friendUser) => {
             if(!friendUser.length) {

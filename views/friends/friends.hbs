@@ -1,12 +1,12 @@
 {{> navbar navBarClasses.myFriends }}
 
 <section class="swap-animation-two section-center">
-    <h4>My friends</h4>
+    <h3 class="friends-header">My friends</h3>
     <form method="POST" action="/friends">
         <label for="friends-request">Send friend request</label>
-        <div>
-            <input type="text" id="friend-request" name="friendRequest" placeholder="type name"/>
-            <button>Send friend request</button>
+        <div class="row">
+            <input class="input-txt-medium margin-right" type="text" id="friend-request" name="friendRequest" placeholder="type name"/>
+            <button class="button button-small search-button"><i class="bi bi-envelope-fill icon-center"></i>  Send friend request</button>
         </div>    
     </form>
 
@@ -18,8 +18,13 @@
     <div class="error">{{error.msg}}</div>
   {{/if}}
 
-  {{#each friends}}
-    <h4>{{this.username}}</h4>
-  {{/each}}
+  <div class="friends-container">
+    {{#each friends}}
+    <div class="friend-container">
+      <div class ="img-area profile-image"><div class ="inner-area"><img src="{{this.profilePic}}" alt="profile pic"></div></div>
+      <h3>{{this.username}}</h3>
+    </div>
+    {{/each}}
+  </div>
 
 </section>

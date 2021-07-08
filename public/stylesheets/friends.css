@@ -1,0 +1,16 @@
+.friends-header {
+  margin-top: 30px;
+}
+.friends-container {
+  margin-top: 30px;
+}
+
+.friend-container {
+  display: flex;
+  margin: 20px 0px;
+  align-items: center;
+}
+
+.profile-image {
+  margin-right: 30px;
+}

@@ -1,15 +1,13 @@
 {{> navbar navBarClasses.createWorkout }}
-
+<button id="go-back" class="go-back-button button button-small icon-center"><i class="bi bi-arrow-left"></i></button>
 <section class="swap-animation-two section-center">
 
-<h1>Select your exercise</h1>
+<h3>Select your exercise</h3>
 
 {{#each exerciseData}}
-  <div class="srch-ex-container">
-      <div class="srch-img-container">
+  <div class="wo-info-single-ex-container">
         <img src="{{this.image}}" alt="{{this.name}} image" />
 
-      </div>
       <div class="srch-ex-info">
 
         <h4>{{this.name}}</h4>
@@ -42,3 +40,5 @@
   </div>
       {{/each}}
 </section>
+
+<script src="/js/library/workout-information.js"></script>

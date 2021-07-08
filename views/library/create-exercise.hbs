@@ -1,8 +1,8 @@
 {{> navbar navBarClasses.createWorkout }}
+<button id="go-back" class="go-back-button button button-small icon-center"><i class="bi bi-arrow-left"></i></button>
 
 <section id="create-exercise-page" class="swap-animation-two section-center">
 
-<a href="/library/create-workout">Go back to workout</a>
 
 <form id="create-exercise-form" method="POST" action="/library/create-exercise">
   <label class="label-big" for="exercise-name">Exercise name</label>
@@ -37,3 +37,5 @@
   <button class="button button-big cr-ex-button">Create exercise</button>
 </form>
 </section>
+
+<script src="/js/library/workout-information.js"></script>

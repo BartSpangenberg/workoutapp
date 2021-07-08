@@ -18,7 +18,11 @@
 
 .srch-ex-container {
   display: flex;
+  background-color: white;
   margin-bottom: 40px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 2px rgba(0, 150, 136, 0.2);
+  padding: 20px;
 }
 
 .srch-img-container {
@@ -31,8 +35,10 @@
 }
 
 .srch-img-container img {
-  width: 15vw;
-  height: auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 50px;
 }
 
 .srch-ex-info {
