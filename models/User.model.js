@@ -19,7 +19,7 @@ const userSchema = new Schema({
   },
   athleteType: {
     type: String,
-    enum: ["Lannister / Targaryan", "Beginner", "Intermediate", "Pro", "Stark"],
+    enum: ["Lannister / Targaryen", "Beginner", "Intermediate", "Pro", "Stark"],
   },
   height: {
     type: Number,

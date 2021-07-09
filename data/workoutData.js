@@ -1,6 +1,6 @@
 
 let types = ["Bodyweight", "Gym", "Outdoor", "Athlete", "Mobility", "Endurance"]; 
-let levels = ["Lannister / Targaryan", "Beginner", "Advanced", "Pro", "Stark"];
+let levels = ["Lannister / Targaryen", "Beginner", "Advanced", "Pro", "Stark"];
 let goalsArr = ["Get summer fit", "Run a marathon", "Become more athletic", "Improve endurance", "Lose weight", "Build muscle"];
 let intensities = ["Low", "Medium", "High"];
 let unitTypes = ["Reps", "Minutes", "Meter", "Km"];
