@@ -2,7 +2,7 @@
 const router = require("express").Router();
 const UserModel = require("../models/User.model");
 const UserWorkoutModel = require("../models/UserWorkout.model");
-const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const { checkLoggedIn } = require("../middlewares/loggedInMiddleware");
 const bcrypt = require("bcryptjs");
 const navBarClasses = require('../data/navbarClasses');
 const uploader = require('../middlewares/cloudinary.js')

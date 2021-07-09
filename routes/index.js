@@ -1,7 +1,9 @@
 const router = require("express").Router();
+const { mainPageLoginCheck } = require("../middlewares/loggedInMiddleware");
+
 
 /* GET home page */
-router.get("/", (req, res, next) => {
+router.get("/", mainPageLoginCheck, (req, res, next) => {
   let currentUser = req.session.currentUser; // currentUser is the user, and contains the view where the user left
   let isUserLoggedIn = req.app.locals.isUserLoggedIn;
 

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const { checkLoggedIn } = require("../middlewares/loggedInMiddleware");
 const UserModel = require("../models/User.model");
 const navBarClasses = require('../data/navbarClasses');
 const User = require('../models/User.model');
@@ -10,22 +10,24 @@ router.get('/friends', checkLoggedIn, (req, res, next) => {
         .populate('friends')
         .then((loggedInUser) => {
             const { friends } = loggedInUser;
+            req.session.usersFriends = friends;
             res.render("friends/friends.hbs", { navBarClasses, friends })
             
         }).catch((err) => {
-            
+            res.render("friends/friends.hbs", { navBarClasses, friends })
         });
 })
 
 router.post('/friends', checkLoggedIn, (req, res, next) => {
     const { friendRequest } = req.body;
+    const friends = req.session.usersFriends;
     UserModel.find({ username: friendRequest })
         .then((friendUser) => {
             if(!friendUser.length) {
                 let error = {
                     msg: "Username was not found."
                 }
-                res.render("friends/friends.hbs", { navBarClasses, error })
+                res.render("friends/friends.hbs", { navBarClasses, error, friends })
                 return
             }
 
@@ -33,7 +35,7 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
                 let error = {
                     msg: "You cannot send friend requests to yourself."
                 }
-                res.render("friends/friends.hbs", { navBarClasses, error })
+                res.render("friends/friends.hbs", { navBarClasses, error, friends })
                 return
             }
             
@@ -41,7 +43,7 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
                 let error = {
                     msg: "Friend request has already been send."
                 }
-                res.render("friends/friends.hbs", { navBarClasses, error })
+                res.render("friends/friends.hbs", { navBarClasses, error, friends })
                 return
             }
             
@@ -55,7 +57,7 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
                 let error = {
                     msg: "You are already friends with this user."
                 }
-                res.render("friends/friends.hbs", { navBarClasses, error })
+                res.render("friends/friends.hbs", { navBarClasses, error, friends })
                 return
             }
 
@@ -67,13 +69,12 @@ router.post('/friends', checkLoggedIn, (req, res, next) => {
             let suc = {
                 msg: "Friend request has been sent."
             }
-
-            res.render("friends/friends.hbs", { navBarClasses, suc })
+            res.render("friends/friends.hbs", { navBarClasses, suc, friends })
         }).catch((err) => {
             let error = {
                 msg: "Something went wrong, please try again."
             }
-            res.render("friends/friends.hbs", { navBarClasses, error })
+            res.render("friends/friends.hbs", { navBarClasses, error, friends })
         });
 })
 

@@ -2,12 +2,13 @@
 
 html,
 body {
-  background:  #e0e0e0;;
+  background: #e0e0e0;
   background-repeat: repeat-x;
   background-image: url("/images/bottom-img-bg.png");
   background-position: bottom;
   background-size: 500px;
 }
+
 * {
   padding: 0px;
   margin: 0px;
@@ -29,7 +30,6 @@ a.active {
 a {
   color: #009688;
 }
-
 
 h1 {
   font-size: 5em;
@@ -85,7 +85,7 @@ input[type="number"] {
 .button {
   border-radius: 20px;
   background: #e0e0e0;
-  box-shadow:  29px 29px 57px #bebebe,-29px -29px 57px #ffffff;
+  box-shadow: 29px 29px 57px #bebebe, -29px -29px 57px #ffffff;
   color: #009688;
   border: none;
   border-radius: 5px;
@@ -205,7 +205,7 @@ input[type="number"] {
 }
 
 .navbar-nav li .active {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #009688;
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -228,21 +228,23 @@ input[type="number"] {
   color: red;
 }
 
-
-
-#err-404{
- font-weight: 700;
- font-size: 70px;
- letter-spacing: 4px;
+#err-404 {
+  font-weight: 700;
+  font-size: 70px;
+  letter-spacing: 4px;
 }
 
-#err-404-1{
- margin: 10px 0;
- font-size :30px;
+#err-404-1 {
+  margin: 10px 0;
+  font-size: 30px;
 }
 
-#button-mainpage{
-font-size: 30px;
-text-decoration: none;
-color: orange;
+#button-mainpage {
+  font-size: 30px;
+  text-decoration: none;
+  color: orange;
+}
+
+.logo-navbar {
+  height: 50px;
 }

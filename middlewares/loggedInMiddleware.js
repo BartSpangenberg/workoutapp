@@ -8,4 +8,15 @@ const checkLoggedIn = (req, res, next) => {
   }
 };
 
-module.exports = checkLoggedIn;
+const mainPageLoginCheck = (req, res, next) => {
+  if (req.session.isUserLoggedIn) {
+    res.redirect("/myworkouts")
+  } else {
+    next();
+  }
+};
+
+module.exports = {
+  checkLoggedIn,
+  mainPageLoginCheck
+}

@@ -15,7 +15,7 @@ const {
   createUserWorkoutObject,
   copyUserWorkoutDocumentSwapFriendAndOwner
 } = require("./library.helper");
-const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const { checkLoggedIn } = require("../middlewares/loggedInMiddleware");
 const navBarClasses = require('../data/navbarClasses');
 const { checkIfUserHasFriends } = require("../middlewares/friendMiddleware");
 

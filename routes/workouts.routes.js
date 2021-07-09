@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserWorkoutModel = require("../models/UserWorkout.model");
-const checkLoggedIn = require("../middlewares/loggedInMiddleware");
+const { checkLoggedIn } = require("../middlewares/loggedInMiddleware");
 const { checkFriendRequests, checkWorkoutRequests } = require("../middlewares/friendMiddleware");
 const navBarClasses = require('../data/navbarClasses');
 
