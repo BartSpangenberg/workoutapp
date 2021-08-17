@@ -1,11 +1,11 @@
 # Project Name
 
-WorkoutApp
+WorkoutY
 
 ## Description
 
-As a user, I would like to improve my health by doing workouts. You can select, create an track workouts and see valuable statistics.
-motivation & new stuff, third test
+As a user, I would like to improve my health by doing workouts. With WorkoutY I can select workouts from a large library or I can create mine with customised exercises. To stay motivated, I can add some friends and schedule workouts with them. Let's give it a try, [here](https://workouty.herokuapp.com/) !
+
 
 ## User Stories
 
@@ -60,15 +60,28 @@ motivation & new stuff, third test
 
 ## Backlog
 
-**Achievements & Statistics**
-
-- User can earn achievements for reaching certain milestones
-- User can see statistics on workout progresssions
 
 **Workout Library**
 
 - User can manually edit the amount of sets and reps for each exercise
 - The search results are paginated
+
+**Schedule workouts**
+
+- User can schedule workouts for specific dates
+
+**Social interactions**
+
+- User can add some friends
+- User can schedule workouts with friends and send invitations
+
+
+**=> If time :**
+
+**Achievements & Statistics**
+
+- User can earn achievements for reaching certain milestones
+- User can see statistics on workout progresssions
 
 **My Workouts**
 
@@ -89,144 +102,311 @@ motivation & new stuff, third test
 - Static content is translatable from admin
 - Dynamic content is auto-translated
 
-**Schedule workouts**
 
-- User can schedule workouts for specific dates
 
 ## ROUTES:
 
-GET /
+### Authentification Routes : 
 
-- renders the landingpage
-  GET /signup
-- redirects to / if user logged in
-- renders the signup form (with flash msg)
-  POST /auth/signup
-- redirects to / if user logged in
-- body: - username - email
-  GET /login
-- redirects to / if user logged in
-- renders the login form (with flash msg)
-  POST /login
-- redirects to / if user logged in
-- body: - username - password
-  POST /auth/logout
-- body: (empty)
+- GET /signup 
+- POST /signup
+- GET /signup/trainer-name
+- POST /signup/trainer-name
+- GET /signup/athlete
+- POST /signup/athlete
+- GET /signup/body
+- POST /signup/body
+- GET /signup/birthday
+- POST /signup/birthday
+- GET /signup/goals
+- POST /signup/goals
+- GET /login
+- POST /login
+- GET /logout
 
-POST : /signup/athlete
+### To main Page Routes : 
 
-- Redirect and store data temporary & redirect to next page --> same for all pages in signup flow
-  POST : /signup/body
-  POST : /signup/birthday
-  POST : /signup/goals
-  POST : /signup/journey
-  POST : /signup/profile-created
-- Create signup in the databse
+- GET /
 
-GET: /myworkouts/:user
+### Create workouts Routes : 
 
-- Renders myworkouts page for specific user
+- GET /library/create-workout 
+- POST /library/create-workout
+- GET /library/create-exercise
+- POST /library/create-exercise
+- GET /library/create-workout/exercise-pop-up
+- POST /library/create-workout/exercise-pop-up
+- GET /library/create-workout/friends
+- POST /library/create-workout/friends
+- GET /library/create-workout/date
+- POST /library/create-workout/date
+- GET /library/create-workout/workout-request
+- POST /library/create-workout/workout-request
 
-GET: /myworkouts/workout-information/:workout
+### Friends Routes : 
 
-GET: /library/search
+- GET /friends
+- POST /friends
+- GET /friends/friend-request
+- POST /friends/friend-request
 
-GET: /library/search
-POST: /library/search
+### Profile Routes : 
 
-- Display search results
+- GET /profile
+- POST /upload
+- GET /profile/edit/username
+- POST /profile/edit/username
+- GET /profile/edit/email
+- POST /profile/edit/email
+- GET /profile/edit/password
+- POST /profile/edit/password
+- GET /profile/edit/birthday
+- POST /profile/edit/birthday
+- GET /profile/edit/trainername
+- POST /profile/edit/trainername
+- GET /profile/edit/goals
+- POST /profile/edit/goals
+- GET /profile/edit/athletetype
+- POST /profile/edit/athletetype
+- GET /profile/edit/body
+- POST /profile/edit/body
 
-GET: /library/workout-information/:workout
-POST: /library/workout-information/:workout
+### Profile Routes : 
 
-- Modify reps and sets & store database in user object
+- GET /library/search
+- GET /library/search/advanced
+- GET /library/workout-information/:id
+- POST /library/workout-information/:id
 
-GET: /library/search/advanced
-POST: /library/search/advanced
+### Profile Routes : 
 
-- Display search results
+- GET /myworkouts
+- GET /myworkouts/:id/done
+- GET /myworkouts/:id/scheduled
+- GET /myworkouts/workout-information/:id
 
-GET: /library/create-workout
-POST: /library/create-workout
-
-GET: /library/create-exercise
-POST: /library/create-exercise
-
-GET: /profile/:user
-
-GET: /achievements/:user
-
-GET: /profile/:user/edit-username
-POST: /profile/:user/edit-username
-GET: /profile/:user/edit-goals
-POST: /profile/:user/edit-goals
-GET: /profile/:user/edit-athlete
-POST: /profile/:user/edit-athlete
-GET: /profile/:user/edit-body
-POST: /profile/:user/edit-body
-GET: /profile/:user/edit-birthdate
-POST: /profile/:user/edit-birthdate
-GET: /profile/:user/edit-password
-POST: /profile/:user/edit-password
 
 ## Models
 
 ```
 User model (mvp version)
-username: String
-password: String
-email: String
-athleteLevel: String
-height: Number
-weight: Number
-goals: Array of strings
-birthday: Timestamp
-isFirstTimeLogin: Boolean
-workouts: Array of objects
+
+email: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  trainername: {
+    type: String,
+  },
+  athleteType: {
+    type: String,
+    enum: ["Lannister / Targaryen", "Beginner", "Intermediate", "Pro", "Stark"],
+  },
+  height: {
+    type: Number,
+  },
+  weight: {
+    type: Number,
+  },
+  birthday: {
+    type: Date,
+  },
+  goals: {
+    type: [String],
+    enum: [
+      "Get Summer fit",
+      "More Athletic",
+      "Lose Weight",
+      "Run a Marathon",
+      "Improve endurance",
+      "Build muscle",
+    ],
+  },
+  userWorkouts: {
+    type: Schema.Types.ObjectId,
+    ref: "Workout",
+  },
+  friends: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  friendRequests: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  workoutRequests: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'UserWorkout' 
+  }],
+  profilePic: {
+    type: String,
+    default :"/images/avatar.png"
+  }
 ```
 
 ```
 Workout model (mvp version)
-name: String
-description: String
-goals: Array of strings
-type: String
-athleteLevel: String
-duration: Number
-intensity: String
-amountOfTimesSelected: Number
-createdBy: ObjectId<User>
-exercises: Array of ofbjects (ObjectId<Exercise>, repUnit, reps, sets)
+
+name: {
+    type: String,
+    required: true,
+  },
+  createdBy: {
+    type: String,
+    default: "Super Trainer"
+  },
+  timesSelected: {
+    type: Number,
+    default: 1
+  },
+  description: String,
+  type: {
+    type: String,
+    enum: ['Bodyweight', 'Gym', 'Outdoor', 'Athlete', 'Mobility', 'Endurance']
+  },
+  duration: {
+      type: Number,
+      min: 1,
+      max: 600
+  },
+  athleteLevel: {
+      type: String,
+      enum: ['Lannister / Targaryen', 'Beginner', 'Advanced', 'Pro', 'Stark']
+  },
+  goals: String,
+  intensity: {
+      type: String,
+      enum: ['Low', 'Medium', 'High']
+  },
+  exercises: [nestedExerciseSchema]
+```
+
+```
+NestedExerciseSchema
+
+exerciseId: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'Exercise' 
+    },
+    unitType: {
+        type: String,
+        enum: ['Minutes', 'Reps', 'Meter', 'Km']
+    },
+    reps: Number,
+    sets: Number,
+    restBetweenSets: Number,
+    restBetweenExercises: Number
+
 ```
 
 ```
 Exercise model
-name: String
-description: String
-Equipment: String
-image_url: String
+
+name: {
+    type: String,
+    required: true,
+    unique: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        default: "https://i.pinimg.com/originals/9d/60/72/9d6072c41e19a5cb61b020b51691ff5a.jpg"
+    },
+    equipments: {
+        type: Array,
+        default: ["None (bodyweight exercise)"]
+    },
+    muscles: {
+        type: Array,
+        default: ["I haven't the faintest idea"]
+    },
+    popularity: {
+        type: Number
+    }
 ```
+
+```
+User workout model : 
+
+userId: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
+    }, 
+    scheduled: {
+        type: Boolean,
+        default: true
+    },
+    dateSchedule: {
+        type: Date
+    },
+    timesCompleted: {
+        type: Number,
+        default: 0
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    description: String,
+    type: {
+        type: String,
+        enum: ['Bodyweight', 'Gym', 'Outdoor', 'Athlete', 'Mobility', 'Endurance']
+    },
+    duration: {
+        type: Number,
+        min: 1,
+        max: 600
+    },
+    athleteLevel: {
+        type: String,
+        enum: ['Lannister / Targaryen', 'Beginner', 'Advanced', 'Pro', 'Stark']
+    },
+    goals: Array,
+    intensity: {
+        type: String,
+        enum: ['Low', 'Medium', 'High']
+    },
+    exercises: [nestedExerciseSchema],
+    friend: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
+    }, 
+    date: {
+        type: String
+    }
+
+```
+
 
 ## Links
 
-### Trello
+### Kanban in Notion
 
-[Link to our trello board](https://trello.com) or picture of your physical board
+[Big steps](https://enchanting-tennis-ac6.notion.site/e04ae61640004d9998dbf765d58acdc5?v=090d55a63aa74b129028e994848ef6fe)
+
+[Small steps](https://enchanting-tennis-ac6.notion.site/e3c07ffd848f4cc3a542e814ab03fb21?v=f31691c141d440ebb9a4cfb43250c066)
 
 ### Whimsical
 
-[Link to our whimsical board](https://whimsical.com/the-beginning-PCCQ9CAQYFGFhAWkGd7na7)
+[Whimsical board](https://whimsical.com/the-beginning-PCCQ9CAQYFGFhAWkGd7na7)
 
 ### Git
 
-The url to your repository and to your deployed project
+[Repository Link](https://github.com/BartSpangenberg/workoutapp)
 
-[Repository Link](http://github.com)
-
-[Deploy Link](http://heroku.com)
+[Deploy Link](https://workouty.herokuapp.com/)
 
 ### Slides
 
-The url to your presentation slides
-
-[Slides Link](http://slides.com)
+[Presentation Slides Link](https://docs.google.com/presentation/d/16unQHb8jNxSHZ85tRwVt5M7LbarVno86yMXp5KZ-c4Q/edit?usp=sharing)
